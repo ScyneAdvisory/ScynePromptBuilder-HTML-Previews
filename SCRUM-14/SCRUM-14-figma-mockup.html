@@ -4,628 +4,745 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interim Benefit Offer Response</title>
+    
+    <!-- Inline CSS -->
     <style>
-        /* --- DESIGN SYSTEM & VARIABLES --- */
+        /* CSS Custom Properties (Variables) based on Design System */
         :root {
-            /* Colors from Legal Aid Colour Palette */
-            --brand-primary-red: #C10E02;
-            --brand-primary-red-dark: #A10C02;
-            --brand-trusted-blue: #004A80;
-            --brand-blue-background: #E5EDF2;
-            --brand-calming-green: #21A179;
+            --brand-red: #C10E02;
+            --brand-blue: #004A80;
+            --brand-blue-light: #E5EDF2;
+            --brand-green: #21A179;
             --brand-text-dark: #1D1D1D;
-            --brand-text-secondary: #545454;
-            --brand-border-color: #C8C8C8;
+            --brand-text-mid: #545454;
+            --brand-text-light: #737373;
+            --brand-text-white: #FFFFFF;
+            --brand-border-light: #C8C8C8;
+            --brand-border-focus: #C10E02;
             --brand-background-light: #F4F5F6;
+            --brand-background-white: #FFFFFF;
             --brand-background-disabled: #E6E6E6;
-            --brand-white: #FFFFFF;
-            --brand-focus-shadow: 0 0 0 2px rgba(193, 14, 2, 0.4);
-
-            /* Typography */
-            --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            
-            /* Spacing (based on 8px grid) */
-            --space-x-small: 4px;
-            --space-small: 8px;
-            --space-medium: 16px;
-            --space-large: 24px;
-            --space-x-large: 32px;
-
-            /* Borders & Shadows */
+            --font-family-sans-serif: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            --spacing-small: 8px;
+            --spacing-medium: 16px;
+            --spacing-large: 24px;
+            --spacing-xlarge: 32px;
             --border-radius: 4px;
-            --shadow-card: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+            --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.05), 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
-        /* --- BASE & RESET --- */
+        /* Base & Reset Styles */
         *, *::before, *::after {
             box-sizing: border-box;
         }
-
+        
         html {
             font-size: 16px;
         }
 
         body {
-            margin: 0;
             font-family: var(--font-family-sans-serif);
             background-color: var(--brand-background-light);
             color: var(--brand-text-dark);
+            margin: 0;
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
+        
+        /* Typography based on Design System specs */
+        .heading-1 { font-size: 2rem; font-weight: 700; }
+        .heading-3 { font-size: 1.5rem; font-weight: 600; }
+        .heading-4 { font-size: 1.25rem; font-weight: 600; }
+        .body-large-strong { font-size: 1rem; font-weight: 700; }
+        .body-paragraph { font-size: 1rem; font-weight: 400; }
+        .body-paragraph-strong { font-size: 1rem; font-weight: 700; }
+        .body-small { font-size: 0.875rem; color: var(--brand-text-mid); }
 
-        /* --- TYPOGRAPHY --- */
-        h1, h2, h3 {
-            margin: 0 0 var(--space-medium) 0;
-            font-weight: 600;
-        }
-        h1 {
-            font-size: 2rem; /* Heading 3 in Figma */
-            line-height: 1.2;
-        }
-        h2 {
-            font-size: 1.5rem; /* Heading 4 in Figma */
-            color: var(--brand-text-dark);
-            padding-bottom: var(--space-small);
-            border-bottom: 1px solid var(--brand-border-color);
-            margin-bottom: var(--space-large);
-        }
-        h3 {
-            font-size: 1.125rem; /* Heading 5 in Figma */
-            font-weight: 700;
-            margin-bottom: var(--space-small);
-        }
-        p {
-            margin: 0 0 var(--space-medium) 0;
-        }
-        label, .label-strong {
-            font-weight: 600;
-            display: block;
-            margin-bottom: var(--space-small);
-            font-size: 0.875rem;
-        }
-        .text-small {
-            font-size: 0.875rem;
-            color: var(--brand-text-secondary);
-        }
-
-        /* --- LAYOUT & CARD --- */
+        /* Layout & Container */
         .page-container {
             max-width: 800px;
-            margin: var(--space-large) auto;
-            padding: var(--space-medium);
-        }
-        .page-header {
-            text-align: center;
-            margin-bottom: var(--space-x-large);
-        }
-        .logo {
-            color: var(--brand-primary-red);
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: var(--space-small);
-            /* Simple text logo as placeholder */
-        }
-        .card {
-            background-color: var(--brand-white);
-            border: 1px solid var(--brand-border-color);
-            border-radius: var(--border-radius);
-            padding: var(--space-large);
-            margin-bottom: var(--space-large);
-            box-shadow: var(--shadow-card);
-            transition: all 0.2s ease-in-out;
-        }
-        .form-section {
-            padding: var(--space-medium) 0;
-        }
-        .form-section:not(:last-child) {
-            border-bottom: 1px solid var(--brand-background-light);
+            margin: var(--spacing-large) auto;
+            padding: var(--spacing-large);
         }
 
-        /* --- FORM COMPONENTS --- */
-        .form-group {
-            margin-bottom: var(--space-large);
-        }
-        .read-only-field {
+        .page-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: var(--space-medium) 0;
+            justify-content: flex-start;
+            margin-bottom: var(--spacing-xlarge);
+            padding-bottom: var(--spacing-medium);
+            border-bottom: 1px solid var(--brand-border-light);
         }
-        .read-only-field .label {
-            color: var(--brand-text-secondary);
+
+        .logo {
+            font-weight: 700;
+            color: var(--brand-red);
+            font-size: 1.5rem;
+            margin-right: var(--spacing-medium);
         }
-        .read-only-field .value {
-            font-weight: 600;
+
+        /* Card Component */
+        .card {
+            background-color: var(--brand-background-white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--brand-border-light);
+            margin-bottom: var(--spacing-large);
+            padding: var(--spacing-large);
+            transition: all 0.3s ease-in-out;
         }
         
-        /* Radio and Checkbox Styling (CRITICAL per spec) */
-        .form-control {
-            position: relative;
-            display: flex;
-            align-items: center;
-            margin-bottom: var(--space-medium);
-            cursor: pointer;
+        .card-header {
+            margin-bottom: var(--spacing-medium);
+            padding-bottom: var(--spacing-medium);
+            border-bottom: 1px solid var(--brand-background-light);
         }
-        .form-control input[type="radio"],
-        .form-control input[type="checkbox"] {
-            position: absolute;
-            opacity: 0;
-            width: 1px;
-            height: 1px;
-        }
-        .form-control .control-indicator {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            margin-right: var(--space-medium);
-            background-color: var(--brand-white);
-            border: 2px solid var(--brand-border-color);
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-        }
-        .form-control input[type="radio"] + .control-indicator {
-            border-radius: 50%;
-        }
-        .form-control input[type="checkbox"] + .control-indicator {
-            border-radius: var(--border-radius);
-        }
-        .form-control:hover input:not(:disabled) + .control-indicator {
-            border-color: var(--brand-primary-red);
-        }
-        .form-control input:focus-visible + .control-indicator {
-            box-shadow: var(--brand-focus-shadow);
-        }
-        .form-control input:checked + .control-indicator {
-            background-color: var(--brand-white);
-            border-color: var(--brand-primary-red);
-        }
-        .form-control .control-indicator::after {
-            content: '';
-            display: block;
-            position: relative;
-            opacity: 0;
-            transition: all 0.2s ease;
-        }
-        /* Radio inner dot - MUST BE RED */
-        .form-control input[type="radio"]:checked + .control-indicator::after {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: var(--brand-primary-red);
-            top: 3px;
-            left: 3px;
-            opacity: 1;
-        }
-        /* Checkbox checkmark - MUST BE RED */
-        .form-control input[type="checkbox"]:checked + .control-indicator::after {
-            left: 6px;
-            top: 2px;
-            width: 5px;
-            height: 10px;
-            border: solid var(--brand-primary-red);
-            border-width: 0 3px 3px 0;
-            transform: rotate(45deg);
-            opacity: 1;
-        }
-        .form-control-label {
-            line-height: 1.3;
-        }
-
-        /* Text Input */
-        .input-text {
-            width: 100%;
-            padding: var(--space-medium);
-            border: 1px solid var(--brand-border-color);
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-        }
-        .input-text:focus {
-            outline: none;
-            border-color: var(--brand-primary-red);
-            box-shadow: var(--brand-focus-shadow);
-        }
-
-        /* File Upload */
-        .file-upload-wrapper {
-            position: relative;
-            border: 2px dashed var(--brand-border-color);
-            border-radius: var(--border-radius);
-            padding: var(--space-large);
-            text-align: center;
-            transition: border-color 0.2s ease;
-        }
-        .file-upload-wrapper:hover {
-            border-color: var(--brand-primary-red);
-        }
-        .file-upload-wrapper input[type="file"] {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            cursor: pointer;
-        }
-        .file-upload-label {
-            font-weight: 600;
-            color: var(--brand-trusted-blue);
-            cursor: pointer;
-        }
-        #fileName {
-            display: block;
-            margin-top: var(--space-small);
-            font-style: italic;
-            color: var(--brand-text-secondary);
-        }
-
-        /* --- BUTTONS --- */
-        .btn {
-            display: inline-block;
-            font-size: 1rem;
-            font-weight: 600;
-            text-align: center;
-            padding: var(--space-medium) var(--space-large);
-            border: 1px solid transparent;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            text-decoration: none;
-            transition: background-color 0.2s ease, transform 0.1s ease;
-        }
-        .btn:focus-visible {
-            outline: none;
-            box-shadow: var(--brand-focus-shadow);
-        }
-        .btn:active {
-            transform: scale(0.98);
-        }
-        .btn-primary {
-            background-color: var(--brand-primary-red);
-            color: var(--brand-white);
-        }
-        .btn-primary:hover {
-            background-color: var(--brand-primary-red-dark);
-        }
-        .btn-primary:disabled {
-            background-color: var(--brand-border-color);
-            cursor: not-allowed;
-            transform: none;
-        }
-        .btn-block {
-            width: 100%;
-            display: block;
-        }
-
-        /* --- UTILITIES & HELPERS --- */
+        
         .hidden {
             display: none !important;
         }
-        .conditional-section {
-            overflow: hidden;
-            transition: max-height 0.4s ease-out, opacity 0.3s ease-in-out, margin-top 0.4s ease-out, padding-top 0.4s ease-out;
-            max-height: 0;
-            opacity: 0;
-        }
-        .conditional-section.visible {
-            max-height: 1000px; /* Large enough for content */
-            opacity: 1;
-            margin-top: var(--space-large);
-            padding-top: var(--space-large);
-            border-top: 2px solid var(--brand-background-light);
-        }
-        .info-box {
-            background-color: var(--brand-blue-background);
-            border-left: 4px solid var(--brand-trusted-blue);
-            padding: var(--space-medium);
-            margin-bottom: var(--space-large);
-            border-radius: 0 var(--border-radius) var(--border-radius) 0;
-        }
-        .declaration-box {
-            background-color: #fffbe6; /* Light Yellow */
-            border-left: 4px solid #ffbf00; /* Amber */
-            padding: var(--space-medium);
-        }
-        .button-container {
-            margin-top: var(--space-x-large);
-            text-align: center;
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
         }
         
-        /* --- SUCCESS/EXPIRED STATE --- */
-        .success-state {
-            text-align: center;
-            padding: var(--space-x-large);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .success-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto var(--space-large);
-            border-radius: 50%;
-            background: var(--brand-calming-green);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .success-icon svg {
-            color: var(--brand-white);
-            width: 40px;
-            height: 40px;
+        
+        /* Form & Input Components */
+        .form-group {
+            margin-bottom: var(--spacing-medium);
         }
 
-        /* --- RESPONSIVE STYLES --- */
-        @media (max-width: 768px) {
-            h1 { font-size: 1.75rem; }
-            h2 { font-size: 1.25rem; }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: var(--spacing-small);
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--brand-border-light);
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--brand-blue);
+            box-shadow: 0 0 0 2px rgba(0, 74, 128, 0.2);
+        }
+        .form-input[readonly] {
+            background-color: var(--brand-background-disabled);
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-medium);
+        }
+
+        /* Key-Value Pair Styling */
+        .key-value-pair {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: var(--spacing-medium);
+        }
+        .key-value-pair .key {
+            font-size: 0.875rem;
+            color: var(--brand-text-light);
+            margin-bottom: 2px;
+        }
+        .key-value-pair .value {
+            font-size: 1rem;
+            font-weight: 600;
+            background-color: var(--brand-background-light);
+            padding: 8px 12px;
+            border-radius: var(--border-radius);
+        }
+
+        /* Radio Button Styling (CRITICAL) */
+        .radio-group {
+            display: flex;
+            gap: var(--spacing-medium);
+        }
+        .radio-control {
+            position: relative;
+        }
+        .radio-control input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .radio-label {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 20px;
+            border: 2px solid var(--brand-border-light);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            width: 150px;
+            justify-content: center;
+        }
+        .radio-label:before { /* The outer circle */
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--brand-border-light);
+            margin-right: var(--spacing-medium);
+            background-color: white;
+            transition: border-color 0.2s;
+        }
+        .radio-label:after { /* The inner dot */
+            content: '';
+            position: absolute;
+            left: 27px;
+            top: 20px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--brand-red);
+            transform: scale(0);
+            transition: transform 0.2s ease;
+        }
+        .radio-control input[type="radio"]:focus-visible + .radio-label {
+            box-shadow: 0 0 0 2px var(--brand-blue);
+        }
+        .radio-control input[type="radio"]:checked + .radio-label {
+            border-color: var(--brand-red);
+            background-color: #fff8f7;
+        }
+        .radio-control input[type="radio"]:checked + .radio-label:before {
+            border-color: var(--brand-red);
+        }
+        .radio-control input[type="radio"]:checked + .radio-label:after {
+            transform: scale(1);
+        }
+
+        /* Checkbox Styling (CRITICAL) */
+        .checkbox-control {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            cursor: pointer;
+            font-size: 1rem;
+            user-select: none;
+        }
+        .checkbox-control input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        .checkbox-faux {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 24px;
+            width: 24px;
+            background-color: white;
+            border: 2px solid var(--brand-border-light);
+            border-radius: var(--border-radius);
+            transition: all 0.2s;
+        }
+        .checkbox-control:hover input ~ .checkbox-faux {
+            border-color: var(--brand-text-mid);
+        }
+        .checkbox-control input:checked ~ .checkbox-faux {
+            background-color: var(--brand-red);
+            border-color: var(--brand-red);
+        }
+        .checkbox-faux:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 7px;
+            top: 3px;
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+        .checkbox-control input:checked ~ .checkbox-faux:after {
+            display: block;
+        }
+        .checkbox-control input:focus-visible ~ .checkbox-faux {
+            box-shadow: 0 0 0 2px var(--brand-blue);
+        }
+        
+        /* File Uploader */
+        .file-uploader .file-input {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+        .file-uploader .file-label {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--brand-border-light);
+            border-radius: var(--border-radius);
+            transition: background-color 0.2s;
+        }
+        .file-uploader .file-label:hover {
+            background-color: var(--brand-background-light);
+        }
+        .file-uploader .file-label svg {
+            margin-right: var(--spacing-small);
+        }
+        #file-name {
+            margin-top: var(--spacing-small);
+            font-style: italic;
+            color: var(--brand-text-mid);
+        }
+
+        /* Button Component */
+        .btn {
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+        .btn-primary {
+            background-color: var(--brand-red);
+            color: var(--brand-text-white);
+        }
+        .btn-primary:hover {
+            background-color: #a10c02;
+        }
+        .btn-primary:disabled {
+            background-color: var(--brand-border-light);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .submit-container {
+            margin-top: var(--spacing-large);
+            text-align: right;
+        }
+
+        /* Alert/Notification Component */
+        .alert {
+            padding: var(--spacing-medium);
+            margin: var(--spacing-large) 0;
+            border: 1px solid transparent;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+        }
+        .alert-icon {
+             margin-right: var(--spacing-medium);
+        }
+        .alert-success {
+            background-color: #e8f5f1;
+            border-color: #d3ece4;
+            color: #1b644b;
+        }
+        .alert-info {
+             background-color: var(--brand-blue-light);
+             border-color: #ccdbE6;
+             color: var(--brand-blue);
+        }
+
+        /* Spinner for Loading State */
+        .spinner {
+            border: 4px solid var(--brand-background-light);
+            border-top: 4px solid var(--brand-red);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
             .page-container {
-                margin: 0;
-                padding: var(--space-medium);
+                margin: var(--spacing-medium) auto;
+                padding: var(--spacing-medium);
             }
-            .card {
-                padding: var(--space-medium);
-            }
+            .heading-1 { font-size: 1.75rem; }
+            .heading-3 { font-size: 1.25rem; }
+            .radio-group { flex-direction: column; }
+            .radio-label { width: 100%; }
+            .radio-label:after { left: 27px; top: 19px; }
+            .submit-container { text-align: center; }
+            .btn { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <main id="pageContainer" class="page-container">
+    <div class="page-container">
         <header class="page-header">
             <div class="logo">Legal Aid</div>
-            <h1>Interim Benefit Offer Response</h1>
-            <p class="text-small">Please review the offer below and submit your response.</p>
+            <h1 class="heading-1">Interim Benefit Offer</h1>
         </header>
 
-        <form id="interimBenefitForm">
-            <div id="formContent">
+        <main id="response-form-container">
+            <form id="interim-benefit-form" novalidate>
+                
+                <!-- Claim Details Section -->
                 <section class="card">
-                    <h2>Claim Details</h2>
-                    <div class="read-only-field">
-                        <span class="label">Injured Worker Name</span>
-                        <span class="value">Jane Doe</span>
+                    <div class="card-header">
+                        <h2 class="heading-4">Claim Details</h2>
                     </div>
-                    <div class="read-only-field">
-                        <span class="label">Claim Number</span>
-                        <span class="value">C-2024-84321</span>
+                    <div class="form-grid">
+                        <div class="key-value-pair">
+                            <span class="key">Injured Worker Name</span>
+                            <span id="claimant-name" class="value"></span>
+                        </div>
+                        <div class="key-value-pair">
+                            <span class="key">Claim Number</span>
+                            <span id="claim-number" class="value"></span>
+                        </div>
                     </div>
                 </section>
-    
+
+                <!-- Offers Section -->
                 <section class="card">
-                    <h2>Your Offer</h2>
-    
-                    <!-- Medical Expenses Section -->
-                    <div id="medicalOfferSection" class="form-section">
-                        <h3>Medical Expenses</h3>
-                        <p>We can pay for reasonably necessary medical expenses while your claim is being assessed.</p>
-                        <div class="form-group">
-                            <label class="label-strong" for="intendToClaimMedical">Do you intend to claim medical expenses?</label>
-                            <label class="form-control" for="intendToClaimMedical">
-                                <input type="checkbox" id="intendToClaimMedical" name="intendToClaimMedical" aria-describedby="medicalHelpText">
-                                <span class="control-indicator"></span>
-                                <span class="form-control-label">Yes, I intend to claim medical expenses.</span>
-                            </label>
-                            <p class="text-small" id="medicalHelpText">This helps us prepare for any upcoming invoices from your medical providers.</p>
-                        </div>
+                    <div class="card-header">
+                         <h2 class="heading-4">Your Offer</h2>
+                         <p class="body-small">Please review the offer details below and provide your response.</p>
                     </div>
-    
-                    <!-- Income Support Section -->
-                    <div id="incomeOfferSection" class="form-section">
-                        <h3>Income Support</h3>
-                        <p>We are offering weekly payments to support you while you are unable to work.</p>
-                        <div class="read-only-field">
-                            <span class="label">Weekly Benefit Amount</span>
-                            <span class="value">$875.50</span>
-                        </div>
-                        <div class="read-only-field">
-                            <span class="label">First Payment Date</span>
-                            <span class="value">28 July 2024</span>
-                        </div>
-                        <div class="form-group" style="margin-top: var(--space-large);">
-                            <label class="label-strong" for="acceptIncomeSupport">Do you accept this income support offer?</label>
-                            <label class="form-control" for="acceptIncomeSupportYes">
-                                <input type="radio" id="acceptIncomeSupportYes" name="acceptIncomeSupport" value="accept" required>
-                                <span class="control-indicator"></span>
-                                <span class="form-control-label">Accept</span>
-                            </label>
-                            <label class="form-control" for="acceptIncomeSupportNo">
-                                <input type="radio" id="acceptIncomeSupportNo" name="acceptIncomeSupport" value="not-accept" required>
-                                <span class="control-indicator"></span>
-                                <span class="form-control-label">Do Not Accept</span>
-                            </label>
-                        </div>
-                    </div>
-    
-                    <!-- Conditional EFT Details Section -->
-                    <div id="eftDetailsSection" class="conditional-section">
-                        <h3>Payment Details</h3>
-                        <p>Please provide your bank account details for payments. Payments are made via Electronic Funds Transfer (EFT).</p>
-                        <div class="form-group">
-                            <label for="bankAccountName" class="label-strong">Account Name</label>
-                            <input type="text" id="bankAccountName" name="bankAccountName" class="input-text" placeholder="e.g., J Doe" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="bsb" class="label-strong">BSB</label>
-                            <input type="text" id="bsb" name="bsb" class="input-text" placeholder="e.g., 000-000" pattern="[0-9]{3}-?[0-9]{3}" maxlength="7" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="accountNumber" class="label-strong">Account Number</label>
-                            <input type="text" id="accountNumber" name="accountNumber" class="input-text" placeholder="e.g., 123456789" pattern="[0-9]{5,9}" maxlength="9" required>
-                        </div>
-                    </div>
-    
-                    <!-- Conditional TFN Upload Section -->
-                    <div id="tfnUploadSection" class="conditional-section">
-                        <h3>Tax File Number (TFN) Declaration</h3>
-                        <div class="info-box">
-                            <p class="text-small">To ensure you are taxed correctly on your weekly payments, you must provide a completed TFN Declaration form. You can download a blank form from the ATO website.</p>
-                        </div>
-                        <div class="form-group">
-                            <div class="file-upload-wrapper">
-                                <input type="file" id="tfnFile" name="tfnFile" accept=".pdf,.jpg,.jpeg,.png" aria-label="Upload TFN Declaration Form">
-                                <label for="tfnFile" class="file-upload-label">Click to upload or drag and drop</label>
-                                <span id="fileName" class="text-small">PDF, JPG, or PNG. Max file size 5MB.</span>
+
+                    <!-- Medical Expenses Offer -->
+                    <div id="medical-offer-section" class="form-group hidden">
+                        <label class="body-paragraph-strong">Medical Expenses</label>
+                        <p class="body-paragraph">Are you intending to claim medical expenses while your claim is being assessed?</p>
+                        <div class="radio-group" role="radiogroup" aria-labelledby="medical-expenses-label">
+                            <div class="radio-control">
+                                <input type="radio" id="medical-yes" name="medical-response" value="yes" required>
+                                <label class="radio-label" for="medical-yes">Yes</label>
+                            </div>
+                            <div class="radio-control">
+                                <input type="radio" id="medical-no" name="medical-response" value="no" required>
+                                <label class="radio-label" for="medical-no">No</label>
                             </div>
                         </div>
                     </div>
-    
-                    <!-- Conditional Declaration Section -->
-                    <div id="declarationSection" class="conditional-section">
-                        <div class="declaration-box">
-                            <h3>Declaration</h3>
-                            <p>You have chosen not to accept parts of the interim benefit offer. Please confirm you understand the implications.</p>
-                            <div class="form-group">
-                                <label class="form-control" for="checkDeclaration">
-                                    <input type="checkbox" id="checkDeclaration" name="checkDeclaration">
-                                    <span class="control-indicator"></span>
-                                    <span class="form-control-label"><strong>I acknowledge that by not accepting the offer(s), I may not receive payments for medical expenses or income support during the claim assessment period.</strong></span>
-                                </label>
+
+                    <!-- Income Support Offer -->
+                    <div id="income-offer-section" class="form-group hidden">
+                        <label class="body-paragraph-strong">Income Support</label>
+                        <p class="body-paragraph">We are offering the following weekly income support while your claim is being assessed.</p>
+                        <div class="form-grid">
+                            <div class="key-value-pair">
+                                <span class="key">Weekly Benefit Amount</span>
+                                <span id="income-amount" class="value"></span>
+                            </div>
+                            <div class="key-value-pair">
+                                <span class="key">Payment Start Date</span>
+                                <span id="income-start-date" class="value"></span>
+                            </div>
+                        </div>
+                        <p class="body-paragraph" style="margin-top: var(--spacing-medium);">Do you accept this weekly benefit amount?</p>
+                        <div class="radio-group" role="radiogroup">
+                            <div class="radio-control">
+                                <input type="radio" id="income-accept" name="income-response" value="accept" required>
+                                <label class="radio-label" for="income-accept">Accept</label>
+                            </div>
+                            <div class="radio-control">
+                                <input type="radio" id="income-not-accept" name="income-response" value="not-accept" required>
+                                <label class="radio-label" for="income-not-accept">Not Accept</label>
                             </div>
                         </div>
                     </div>
-    
+                </section>
+                
+                <!-- EFT Details Section (Conditional) -->
+                <section id="eft-section" class="card hidden">
+                    <div class="card-header">
+                        <h2 class="heading-4">Your Bank Details</h2>
+                        <p class="body-small">Please provide your bank details for payment processing. These details will be stored securely.</p>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="eft-bsb">BSB</label>
+                            <input type="text" id="eft-bsb" name="eft-bsb" class="form-input" placeholder="e.g., 000-000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eft-account-number">Account Number</label>
+                            <input type="text" id="eft-account-number" name="eft-account-number" class="form-input" placeholder="e.g., 12345678" required>
+                        </div>
+                    </div>
+                     <div class="form-group" style="grid-column: 1 / -1;">
+                        <label for="eft-account-name">Account Name</label>
+                        <input type="text" id="eft-account-name" name="eft-account-name" class="form-input" placeholder="e.g., J Doe" required>
+                    </div>
+                </section>
+                
+                <!-- TFN Declaration Section (Conditional) -->
+                <section id="tfn-section" class="card hidden">
+                    <div class="card-header">
+                        <h2 class="heading-4">Tax File Number (TFN) Declaration</h2>
+                        <p class="body-small">To ensure you are taxed correctly, please upload a completed TFN Declaration form.</p>
+                    </div>
+                    <div class="file-uploader">
+                        <input type="file" id="tfn-upload" name="tfn-upload" class="file-input" accept=".pdf,.jpg,.png" required>
+                        <label for="tfn-upload" class="file-label">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                           <span>Choose File...</span>
+                        </label>
+                        <p id="file-name" class="body-small">No file selected.</p>
+                    </div>
                 </section>
 
-                <div class="button-container">
-                    <button type="submit" id="submitButton" class="btn btn-primary btn-block" disabled>Submit Response</button>
+                <!-- Declaration & Submission Section -->
+                <section class="card">
+                    <div id="declaration-section" class="form-group hidden">
+                        <label class="checkbox-control body-paragraph-strong">
+                            I acknowledge that by not accepting the offer(s), there may be a delay in receiving payments.
+                            <input type="checkbox" id="declaration-checkbox" name="declaration" required>
+                            <span class="checkbox-faux"></span>
+                        </label>
+                    </div>
+                    <div class="submit-container">
+                        <button type="submit" id="submit-button" class="btn btn-primary" disabled>
+                            Submit Response
+                        </button>
+                    </div>
+                </section>
+                
+            </form>
+        </main>
+        
+        <!-- Success/Expired Message (Conditional) -->
+        <div id="success-message-container" class="hidden">
+            <div class="card alert alert-success">
+                <div class="alert-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                </div>
+                <div>
+                    <h2 class="heading-4">Thank You!</h2>
+                    <p class="body-paragraph">Your response has been submitted successfully on <strong id="submission-timestamp"></strong>. This link has now expired and can no longer be used. If you have any questions, please contact your case manager.</p>
                 </div>
             </div>
+        </div>
 
-            <!-- Success/Expired State (Initially hidden) -->
-            <div id="successState" class="card success-state hidden">
-                <div class="success-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                    </svg>
-                </div>
-                <h2>Response Submitted</h2>
-                <p>Thank you, Jane. We have received your response on <span id="submissionTimestamp"></span>.</p>
-                <p class="text-small">Your case manager will be in touch if further information is required. This link has now expired and cannot be used again.</p>
-            </div>
-        </form>
+    </div>
 
-    </main>
-
+    <!-- Inline JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- DOM ELEMENT REFERENCES ---
-            const form = document.getElementById('interimBenefitForm');
-            const formContent = document.getElementById('formContent');
-            const successState = document.getElementById('successState');
-            
-            // Offer inputs
-            const intendToClaimMedical = document.getElementById('intendToClaimMedical');
-            const acceptIncomeRadio = document.querySelector('input[name="acceptIncomeSupport"][value="accept"]');
-            const notAcceptIncomeRadio = document.querySelector('input[name="acceptIncomeSupport"][value="not-accept"]');
-            
-            // Conditional sections
-            const eftDetailsSection = document.getElementById('eftDetailsSection');
-            const tfnUploadSection = document.getElementById('tfnUploadSection');
-            const declarationSection = document.getElementById('declarationSection');
 
-            // Conditional inputs
-            const checkDeclaration = document.getElementById('checkDeclaration');
-            const bankAccountName = document.getElementById('bankAccountName');
-            const bsb = document.getElementById('bsb');
-            const accountNumber = document.getElementById('accountNumber');
-
-            // File upload UI
-            const tfnFileInput = document.getElementById('tfnFile');
-            const fileNameDisplay = document.getElementById('fileName');
-
-            // Action button
-            const submitButton = document.getElementById('submitButton');
-
-            // --- STATE CHECKERS ---
-            const isMedicalAccepted = () => intendToClaimMedical.checked;
-            const isIncomeAccepted = () => acceptIncomeRadio.checked;
-            const isIncomeRejected = () => notAcceptIncomeRadio.checked;
-            const isIncomeDecisionMade = () => isIncomeAccepted() || isIncomeRejected();
-
-            // --- UI UPDATE LOGIC ---
-            function updateFormState() {
-                // 1. EFT Details Visibility
-                const showEft = isMedicalAccepted() || isIncomeAccepted();
-                eftDetailsSection.classList.toggle('visible', showEft);
-                bankAccountName.required = showEft;
-                bsb.required = showEft;
-                accountNumber.required = showEft;
-
-                // 2. TFN Upload Visibility
-                const showTfn = isIncomeAccepted();
-                tfnUploadSection.classList.toggle('visible', showTfn);
-                // TFN form is not mandatory to submit, so no .required change
-
-                // 3. Declaration Visibility (If any part of an offer is rejected)
-                // In this design, only income support can be rejected via radio button.
-                // The medical checkbox is an "intent", not an "acceptance".
-                // Therefore, the declaration appears if income is not accepted.
-                const showDeclaration = isIncomeRejected();
-                declarationSection.classList.toggle('visible', showDeclaration);
-                checkDeclaration.required = showDeclaration;
-                if (!showDeclaration) {
-                    checkDeclaration.checked = false; // Reset if hidden
-                }
-                
-                updateSubmitButtonState();
-            }
-
-            function updateSubmitButtonState() {
-                let isFormValid = false;
-                
-                // Income decision is mandatory
-                if (!isIncomeDecisionMade()) {
-                    isFormValid = false;
-                } else {
-                    // If declaration is required, it must be checked
-                    if (declarationSection.classList.contains('visible')) {
-                        isFormValid = checkDeclaration.checked;
-                    } else {
-                        // If no declaration required, form is valid if income decision is made
-                        isFormValid = true;
+            // --- 1. SAMPLE DATA & CONFIG ---
+            const offerData = {
+                claimantName: 'Jane Doe',
+                claimNumber: 'C-2024-12345',
+                offers: {
+                    medicalExpenses: true,
+                    incomeSupport: {
+                        isOffered: true,
+                        weeklyAmount: 550.75,
+                        startDate: '2024-08-01'
                     }
                 }
+            };
+
+            // --- 2. DOM ELEMENT REFERENCES ---
+            const form = document.getElementById('interim-benefit-form');
+            const formContainer = document.getElementById('response-form-container');
+            const successContainer = document.getElementById('success-message-container');
+            
+            // Sections
+            const medicalOfferSection = document.getElementById('medical-offer-section');
+            const incomeOfferSection = document.getElementById('income-offer-section');
+            const eftSection = document.getElementById('eft-section');
+            const tfnSection = document.getElementById('tfn-section');
+            const declarationSection = document.getElementById('declaration-section');
+            
+            // Inputs
+            const medicalResponseRadios = document.querySelectorAll('input[name="medical-response"]');
+            const incomeResponseRadios = document.querySelectorAll('input[name="income-response"]');
+            const declarationCheckbox = document.getElementById('declaration-checkbox');
+            const tfnUploadInput = document.getElementById('tfn-upload');
+            
+            // Buttons & Display
+            const submitButton = document.getElementById('submit-button');
+            const submissionTimestamp = document.getElementById('submission-timestamp');
+            const fileNameDisplay = document.getElementById('file-name');
+
+            // --- 3. STATE MANAGEMENT ---
+            const state = {
+                medicalResponse: null,
+                incomeResponse: null,
+                isDeclarationChecked: false
+            };
+            
+            // --- 4. INITIALIZATION ---
+            function initializeForm() {
+                // Populate claim details
+                document.getElementById('claimant-name').textContent = offerData.claimantName;
+                document.getElementById('claim-number').textContent = offerData.claimNumber;
+
+                // Conditionally show offer sections based on data
+                if (offerData.offers.medicalExpenses) {
+                    medicalOfferSection.classList.remove('hidden');
+                }
+                if (offerData.offers.incomeSupport.isOffered) {
+                    document.getElementById('income-amount').textContent = `$${offerData.offers.incomeSupport.weeklyAmount.toFixed(2)}`;
+                    const date = new Date(offerData.offers.incomeSupport.startDate);
+                    document.getElementById('income-start-date').textContent = date.toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
+                    incomeOfferSection.classList.remove('hidden');
+                }
                 
-                submitButton.disabled = !isFormValid;
+                addEventListeners();
             }
 
-            // --- EVENT LISTENERS ---
-            form.addEventListener('change', updateFormState);
-
-            tfnFileInput.addEventListener('change', () => {
-                if (tfnFileInput.files.length > 0) {
-                    fileNameDisplay.textContent = tfnFileInput.files[0].name;
-                } else {
-                    fileNameDisplay.textContent = 'PDF, JPG, or PNG. Max file size 5MB.';
+            // --- 5. EVENT LISTENERS ---
+            function addEventListeners() {
+                form.addEventListener('change', handleFormChange);
+                form.addEventListener('submit', handleSubmit);
+                tfnUploadInput.addEventListener('change', handleFileSelect);
+            }
+            
+            function handleFormChange(event) {
+                // Update state based on user input
+                if (event.target.name === 'medical-response') {
+                    state.medicalResponse = event.target.value;
                 }
-            });
-
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
+                if (event.target.name === 'income-response') {
+                    state.incomeResponse = event.target.value;
+                }
+                if (event.target.name === 'declaration') {
+                    state.isDeclarationChecked = event.target.checked;
+                }
                 
-                // Simulate submission
-                submitButton.textContent = 'Submitting...';
+                updateUI();
+            }
+
+            function handleFileSelect(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    fileNameDisplay.textContent = file.name;
+                } else {
+                    fileNameDisplay.textContent = 'No file selected.';
+                }
+                validateForm();
+            }
+
+            function handleSubmit(event) {
+                event.preventDefault();
+                if (!validateForm()) return;
+
+                // Show loading state
                 submitButton.disabled = true;
+                submitButton.innerHTML = 'Submitting... <span class="spinner"></span>';
 
+                // Simulate API call
                 setTimeout(() => {
-                    // Record timestamp
-                    const now = new Date();
-                    const formattedTimestamp = now.toLocaleDateString('en-AU', {
-                        day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
-                    });
-                    document.getElementById('submissionTimestamp').textContent = formattedTimestamp;
+                    const submissionDate = new Date();
+                    submissionTimestamp.textContent = submissionDate.toLocaleString('en-AU');
                     
-                    // Hide form and show success state
-                    formContent.classList.add('hidden');
-                    successState.classList.remove('hidden');
+                    // Log submitted data
+                    const formData = new FormData(form);
+                    const submittedData = Object.fromEntries(formData.entries());
+                    submittedData.submissionDate = submissionDate.toISOString();
+                    console.log('Form Submitted:', submittedData);
 
-                    // Scroll to top to see message
+                    // Show success message and hide form
+                    formContainer.classList.add('hidden');
+                    successContainer.classList.remove('hidden');
+                    successContainer.classList.add('fade-in');
                     window.scrollTo(0, 0);
+                }, 1500);
+            }
 
-                }, 1500); // Simulate network delay
-            });
+            // --- 6. UI & VALIDATION LOGIC ---
+            function updateUI() {
+                // Show/hide EFT section
+                const needsEft = (state.medicalResponse === 'yes') || (state.incomeResponse === 'accept');
+                toggleSection(eftSection, needsEft);
+                
+                // Show/hide TFN section
+                const needsTfn = state.incomeResponse === 'accept';
+                toggleSection(tfnSection, needsTfn);
 
-            // --- INITIALIZATION ---
-            updateFormState();
+                // Show/hide Declaration section
+                const needsDeclaration = (state.medicalResponse === 'no') || (state.incomeResponse === 'not-accept');
+                toggleSection(declarationSection, needsDeclaration);
+                
+                validateForm();
+            }
+            
+            function toggleSection(sectionElement, shouldShow) {
+                const isHidden = sectionElement.classList.contains('hidden');
+                if (shouldShow && isHidden) {
+                    sectionElement.classList.remove('hidden');
+                    sectionElement.classList.add('fade-in');
+                    // Set inputs as required
+                    sectionElement.querySelectorAll('input, select').forEach(input => input.required = true);
+                } else if (!shouldShow && !isHidden) {
+                    sectionElement.classList.add('hidden');
+                    sectionElement.classList.remove('fade-in');
+                    // Unset inputs as required
+                    sectionElement.querySelectorAll('input, select').forEach(input => input.required = false);
+                }
+            }
+
+            function validateForm() {
+                let isValid = true;
+                
+                // Check if all visible required fields are filled
+                const requiredInputs = form.querySelectorAll('[required]');
+                requiredInputs.forEach(input => {
+                    if (input.type === 'radio') {
+                        const radioGroup = document.querySelectorAll(`input[name="${input.name}"]`);
+                        if (![...radioGroup].some(r => r.checked)) {
+                           isValid = false;
+                        }
+                    } else if (input.type === 'checkbox') {
+                        if (!input.checked) isValid = false;
+                    } else if (input.type === 'file') {
+                        if (input.files.length === 0) isValid = false;
+                    } else {
+                        if (input.value.trim() === '') isValid = false;
+                    }
+                });
+
+                submitButton.disabled = !isValid;
+                return isValid;
+            }
+
+            // --- 7. START THE APPLICATION ---
+            initializeForm();
         });
     </script>
 </body>
