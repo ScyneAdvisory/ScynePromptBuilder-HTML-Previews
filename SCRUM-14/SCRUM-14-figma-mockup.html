@@ -5,184 +5,197 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interim Benefit Offer Response</title>
     <style>
-        /* --- DESIGN SYSTEM: COLORS, TYPOGRAPHY, SPACING --- */
+        /* --- DESIGN SYSTEM & SLDS PATTERNS --- */
         :root {
             /* Legal Aid Colour Palette */
-            --brand-primary-red: #C10E02; /* Empower Red */
-            --brand-primary-red-dark: #A10C02;
-            --brand-blue: #004A80; /* Trusted Blue */
-            --brand-green: #21A179; /* Calming Green */
-            --brand-text-dark: #1D1D1D;
-            --brand-text-mid: #545454;
-            --brand-border-light: #C8C8C8;
-            --brand-border-focus: #C10E02;
-            --brand-background-light: #F4F5F6;
-            --brand-background-disabled: #E6E6E6;
+            --brand-primary-red: #C10E02;
+            --brand-trusted-blue: #004A80;
+            --brand-calming-green: #21A179;
+            --brand-dark-grey: #1D1D1D;
+            --brand-mid-grey: #545454;
+            --brand-light-grey: #919191;
+            --brand-border-grey: #E6E6E6;
+            --brand-background-grey: #F4F5F6;
             --brand-white: #FFFFFF;
+            --brand-error-red: #C23934;
+            --brand-focus-shadow: 0 0 3px 1px #51A2E8;
 
             /* Spacing Tokens (8px grid) */
-            --spacing-xs: 4px;
-            --spacing-sm: 8px;
-            --spacing-md: 16px;
-            --spacing-lg: 24px;
-            --spacing-xl: 32px;
-            --spacing-xxl: 48px;
+            --spacing-x-small: 4px;
+            --spacing-small: 8px;
+            --spacing-medium: 16px;
+            --spacing-large: 24px;
+            --spacing-x-large: 32px;
 
-            /* Fonts */
-            --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            /* Typography */
+            --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+
+            /* Border Radius */
+            --border-radius-medium: 4px;
         }
 
-        /* --- GLOBAL & RESET STYLES --- */
+        /* --- BASE STYLES & RESET --- */
         *, *::before, *::after {
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
             margin: 0;
+            padding: 0;
+            height: 100%;
             font-family: var(--font-family-sans);
-            background-color: var(--brand-background-light);
-            color: var(--brand-text-dark);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            padding: var(--spacing-lg);
+            background-color: var(--brand-background-grey);
+            color: var(--brand-dark-grey);
+            font-size: 16px;
         }
 
-        /* --- TYPOGRAPHY STYLES (From Design System) --- */
-        .heading-1 { /* Heading 1 */
-            font-size: 2rem; /* 32px */
+        /* --- TYPOGRAPHY --- */
+        .heading-1 { /* H1 */
+            font-size: 2rem;
             font-weight: 700;
             line-height: 1.2;
-            margin: 0 0 var(--spacing-md) 0;
-            color: var(--brand-text-dark);
+            color: var(--brand-dark-grey);
+            margin: 0 0 var(--spacing-medium) 0;
         }
-
-        .heading-3 { /* Heading 3 */
-            font-size: 1.25rem; /* 20px */
+        .heading-3 { /* H3 */
+            font-size: 1.25rem;
             font-weight: 600;
             line-height: 1.3;
-            margin: 0 0 var(--spacing-sm) 0;
-            color: var(--brand-text-dark);
+            color: var(--brand-dark-grey);
+            margin: 0 0 var(--spacing-small) 0;
         }
-
-        .body-large-strong { /* Body 1 - Large Strong */
-            font-size: 1rem; /* 16px */
-            font-weight: 700;
-        }
-
-        .body-paragraph { /* Body 2 - Paragraph */
-            font-size: 0.875rem; /* 14px */
+        .body-large { /* Body 1 */
+            font-size: 1rem;
             line-height: 1.5;
-            color: var(--brand-text-mid);
         }
-        
-        .body-small { /* Body 3 - Small */
-            font-size: 0.75rem; /* 12px */
-            color: var(--brand-text-mid);
+        .body-paragraph { /* Body 2 */
+            font-size: 0.875rem;
+            line-height: 1.5;
+            color: var(--brand-mid-grey);
         }
-
-        /* --- LAYOUT COMPONENTS (SLDS Inspired) --- */
-        .container {
-            width: 100%;
-            max-width: 800px;
+        .body-small-strong {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--brand-mid-grey);
         }
-
-        .slds-card {
-            background-color: var(--brand-white);
-            border: 1px solid var(--brand-border-light);
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            transition: opacity 0.3s ease-in-out;
+        .footnote {
+            font-size: 0.75rem;
+            color: var(--brand-light-grey);
         }
 
-        .slds-card__header {
-            padding: var(--spacing-lg);
-            border-bottom: 1px solid var(--brand-border-light);
-        }
-        
-        .slds-card__body {
-            padding: var(--spacing-lg);
-        }
-        
-        .slds-card__footer {
-            padding: var(--spacing-md) var(--spacing-lg);
-            border-top: 1px solid var(--brand-border-light);
-            background-color: var(--brand-background-light);
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
+        /* --- LAYOUT & CONTAINER --- */
+        .page-container {
             display: flex;
-            justify-content: flex-end;
-            gap: var(--spacing-sm);
+            flex-direction: column;
+            align-items: center;
+            padding: var(--spacing-large);
+            min-height: 100vh;
+        }
+
+        .form-card {
+            background-color: var(--brand-white);
+            border-radius: var(--border-radius-medium);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.07);
+            width: 100%;
+            max-width: 720px;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .card-header {
+            padding: var(--spacing-large);
+            border-bottom: 1px solid var(--brand-border-grey);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
         
-        .slds-section {
-            padding: var(--spacing-lg) 0;
-            border-bottom: 1px solid #E6E6E6;
+        .logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: var(--spacing-medium);
         }
-        .slds-section:last-of-type {
+
+        .card-body {
+            padding: var(--spacing-large);
+        }
+
+        .card-footer {
+            padding: var(--spacing-medium) var(--spacing-large);
+            background-color: var(--brand-background-grey);
+            border-top: 1px solid var(--brand-border-grey);
+            border-bottom-left-radius: var(--border-radius-medium);
+            border-bottom-right-radius: var(--border-radius-medium);
+            text-align: right;
+        }
+
+        .form-section {
+            padding: var(--spacing-large) 0;
+            border-bottom: 1px solid var(--brand-border-grey);
+        }
+        .form-section:last-of-type {
             border-bottom: none;
             padding-bottom: 0;
         }
-
-        /* --- FORM ELEMENTS (SLDS Inspired) --- */
-        .slds-form-element {
-            margin-bottom: var(--spacing-lg);
-        }
         
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-medium);
+            margin-bottom: var(--spacing-large);
+        }
+
+        @media (min-width: 600px) {
+            .info-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* --- SLDS FORM ELEMENT PATTERNS --- */
+        .slds-form-element {
+            margin-bottom: var(--spacing-medium);
+        }
         .slds-form-element__label {
             display: block;
-            font-size: 0.875rem; /* 14px */
+            margin-bottom: var(--spacing-small);
             font-weight: 600;
-            margin-bottom: var(--spacing-sm);
-            color: var(--brand-text-dark);
+            font-size: 0.875rem;
         }
-        
-        .slds-input {
-            width: 100%;
-            padding: var(--spacing-sm) var(--spacing-md);
-            border: 1px solid var(--brand-border-light);
-            border-radius: 4px;
-            font-size: 1rem;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-
-        .slds-input[readonly] {
-            background-color: var(--brand-background-disabled);
-            cursor: not-allowed;
-            border-color: transparent;
-        }
-
-        .slds-input:focus {
-            outline: none;
-            border-color: var(--brand-blue);
-            box-shadow: 0 0 0 2px rgba(0, 74, 128, 0.2);
-        }
-
-        .slds-form-element.slds-has-error .slds-input {
-            border-color: var(--brand-primary-red);
-            box-shadow: 0 0 0 2px rgba(193, 14, 2, 0.2);
-        }
-
-        .slds-form-element__help {
-            font-size: 0.75rem;
-            color: var(--brand-primary-red);
-            margin-top: var(--spacing-xs);
-        }
-
-        /* --- CUSTOM RADIO & CHECKBOX (CRITICAL REQUIREMENT) --- */
-        .slds-radio, .slds-checkbox {
+        .slds-form-element__control {
             position: relative;
+        }
+        .slds-input, .slds-select {
+            width: 100%;
+            padding: var(--spacing-small) var(--spacing-medium);
+            border: 1px solid var(--brand-light-grey);
+            border-radius: var(--border-radius-medium);
+            background-color: var(--brand-white);
+            font-size: 1rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .slds-input:focus, .slds-select:focus {
+            outline: none;
+            border-color: var(--brand-trusted-blue);
+            box-shadow: var(--brand-focus-shadow);
+        }
+        .slds-input[readonly] {
+            background-color: var(--brand-background-grey);
+            border-color: var(--brand-border-grey);
+            cursor: not-allowed;
+        }
+
+        /* Custom Radio & Checkbox (CRITICAL: Red selected state) */
+        .slds-radio, .slds-checkbox {
+            margin-bottom: var(--spacing-medium);
+        }
+        .slds-radio label, .slds-checkbox label {
             display: flex;
             align-items: center;
             cursor: pointer;
             font-size: 1rem;
-            user-select: none;
-            margin-bottom: var(--spacing-sm);
         }
-
         .slds-radio input, .slds-checkbox input {
             position: absolute;
             opacity: 0;
@@ -190,607 +203,534 @@
             height: 0;
             width: 0;
         }
-        
-        .slds-radio .slds-radio__label, .slds-checkbox .slds-checkbox__label {
-            padding-left: 28px;
-            line-height: 1.5;
-        }
-        
-        .slds-radio .checkmark, .slds-checkbox .checkmark {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            left: 0;
-            height: 20px;
+        .control-indicator {
+            display: inline-block;
             width: 20px;
-            background-color: var(--brand-white);
-            border: 2px solid var(--brand-border-light);
+            height: 20px;
+            margin-right: var(--spacing-medium);
+            background: var(--brand-white);
+            border: 2px solid var(--brand-light-grey);
             transition: all 0.2s ease;
+            position: relative;
         }
-
-        .slds-radio .checkmark {
+        .slds-radio .control-indicator {
             border-radius: 50%;
         }
-
-        .slds-checkbox .checkmark {
-            border-radius: 4px;
+        .slds-checkbox .control-indicator {
+            border-radius: var(--border-radius-medium);
         }
-
-        .slds-radio:hover input ~ .checkmark, .slds-checkbox:hover input ~ .checkmark {
-            border-color: var(--brand-text-mid);
-        }
-
-        .slds-radio input:focus ~ .checkmark, .slds-checkbox input:focus ~ .checkmark {
-            border-color: var(--brand-blue);
-            box-shadow: 0 0 0 2px rgba(0, 74, 128, 0.2);
-        }
-
-        /* Checked States */
-        .slds-radio input:checked ~ .checkmark, .slds-checkbox input:checked ~ .checkmark {
+        .slds-radio input:checked ~ .control-indicator {
             border-color: var(--brand-primary-red);
         }
-        
-        .slds-radio .checkmark:after, .slds-checkbox .checkmark:after {
-            content: "";
+        /* INNER DOT: MUST BE RED */
+        .slds-radio input:checked ~ .control-indicator::after {
+            content: '';
             position: absolute;
-            display: none;
-        }
-        
-        .slds-radio input:checked ~ .checkmark:after, .slds-checkbox input:checked ~ .checkmark:after {
-            display: block;
-        }
-        
-        /* ⚠️ CRITICAL: Radio dot is Empower Red */
-        .slds-radio .checkmark:after {
-            top: 4px;
-            left: 4px;
-            width: 8px;
-            height: 8px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background: var(--brand-primary-red);
         }
-        
-        /* ⚠️ CRITICAL: Checkbox checkmark is Empower Red */
-        .slds-checkbox .checkmark:after {
+        .slds-checkbox input:checked ~ .control-indicator {
+            background-color: var(--brand-white);
+            border-color: var(--brand-primary-red);
+        }
+        /* CHECKMARK: MUST BE RED */
+        .slds-checkbox input:checked ~ .control-indicator::after {
+            content: '';
+            position: absolute;
             left: 6px;
             top: 2px;
             width: 5px;
             height: 10px;
-            border-style: solid;
-            border-color: var(--brand-primary-red);
-            border-width: 0 2px 2px 0;
+            border: solid var(--brand-primary-red);
+            border-width: 0 3px 3px 0;
             transform: rotate(45deg);
         }
-
-        /* --- FILE UPLOAD (SLDS Inspired) --- */
-        .slds-file-selector {
-            border: 1px dashed var(--brand-border-light);
-            border-radius: 4px;
-            padding: var(--spacing-lg);
-            text-align: center;
-            cursor: pointer;
-            transition: border-color 0.2s, background-color 0.2s;
+        .slds-radio:hover .control-indicator, .slds-checkbox:hover .control-indicator {
+            border-color: var(--brand-mid-grey);
         }
-        .slds-file-selector:hover {
-            border-color: var(--brand-blue);
-            background-color: #E5EDF2;
+        .slds-radio input:focus-visible ~ .control-indicator, .slds-checkbox input:focus-visible ~ .control-indicator {
+            box-shadow: var(--brand-focus-shadow);
+        }
+
+        /* File Upload */
+        .slds-file-selector {
+            position: relative;
+            display: flex;
+            align-items: stretch;
+        }
+        .slds-file-selector__label {
+            display: inline-block;
+            padding: var(--spacing-small) var(--spacing-medium);
+            border: 1px solid var(--brand-light-grey);
+            border-right: none;
+            background-color: var(--brand-background-grey);
+            white-space: nowrap;
+            border-top-left-radius: var(--border-radius-medium);
+            border-bottom-left-radius: var(--border-radius-medium);
+        }
+        .slds-file-selector__input {
+            opacity: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            top: 0;
+            left: 0;
         }
         .slds-file-selector__text {
-            color: var(--brand-blue);
-            font-weight: 600;
+            flex-grow: 1;
+            padding: var(--spacing-small) var(--spacing-medium);
+            border: 1px solid var(--brand-light-grey);
+            border-top-right-radius: var(--border-radius-medium);
+            border-bottom-right-radius: var(--border-radius-medium);
+            background-color: var(--brand-white);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
-        .slds-file-selector__subtext {
-            color: var(--brand-text-mid);
-            font-size: 0.875rem;
-            margin-top: var(--spacing-xs);
-        }
-        #tfn-file-name {
-            margin-top: var(--spacing-sm);
-            font-style: italic;
-        }
-        #tfn-file-upload-input {
-            display: none;
+        #tfn-upload-input:focus-visible + .slds-file-selector .slds-file-selector__text {
+            box-shadow: var(--brand-focus-shadow);
+            border-color: var(--brand-trusted-blue);
         }
 
-        /* --- BUTTONS (SLDS Inspired) --- */
+        /* --- BUTTONS --- */
         .slds-button {
-            border: 1px solid transparent;
-            border-radius: 4px;
-            padding: var(--spacing-sm) var(--spacing-lg);
             font-size: 1rem;
             font-weight: 600;
+            padding: var(--spacing-small) var(--spacing-large);
+            border-radius: var(--border-radius-medium);
+            border: 1px solid transparent;
             cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
         }
-        .slds-button:focus {
-            outline: none;
-            box-shadow: 0 0 0 2px var(--brand-white), 0 0 0 4px var(--brand-blue);
-        }
-
-        .slds-button--brand {
+        .slds-button--primary {
             background-color: var(--brand-primary-red);
             color: var(--brand-white);
+            border-color: var(--brand-primary-red);
         }
-        .slds-button--brand:hover {
-            background-color: var(--brand-primary-red-dark);
+        .slds-button--primary:hover {
+            background-color: #a10c02; /* Darker red */
         }
-        .slds-button--brand:disabled {
-            background-color: var(--brand-background-disabled);
-            color: var(--brand-text-mid);
+        .slds-button:disabled {
+            background-color: var(--brand-border-grey);
+            color: var(--brand-light-grey);
+            border-color: var(--brand-border-grey);
             cursor: not-allowed;
         }
-
-        .slds-button--neutral {
-            background-color: var(--brand-white);
-            color: var(--brand-text-dark);
-            border-color: var(--brand-border-light);
-        }
-        .slds-button--neutral:hover {
-            background-color: var(--brand-background-light);
+        .slds-button:focus-visible {
+            outline: none;
+            box-shadow: var(--brand-focus-shadow);
         }
 
-        /* --- UTILITY & HELPER CLASSES --- */
-        .slds-hide {
-            display: none !important;
-        }
-        .slds-grid {
-            display: flex;
-            gap: var(--spacing-lg);
-        }
-        .slds-col {
-            flex: 1;
-        }
-        .info-badge {
-            display: inline-block;
-            background-color: #E5EDF2;
-            color: var(--brand-blue);
-            padding: var(--spacing-xs) var(--spacing-sm);
-            border-radius: 1rem;
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
-        .dynamic-section {
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, margin 0.5s ease-in-out;
+        /* --- CONDITIONAL SECTIONS & TRANSITIONS --- */
+        .conditional-section {
             max-height: 0;
             opacity: 0;
-            margin-top: 0;
-            padding-top: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, padding 0.5s ease-in-out;
+            padding: 0;
+            border-bottom: 1px solid var(--brand-border-grey);
         }
-        .dynamic-section.visible {
-            max-height: 500px; /* Adjust as needed */
+        .conditional-section.visible {
+            max-height: 1000px; /* Large enough to not clip content */
             opacity: 1;
-            margin-top: var(--spacing-lg);
-            padding-top: var(--spacing-lg);
+            padding: var(--spacing-large) 0;
         }
 
-        /* --- STATES: LOADING, SUCCESS --- */
-        .loading-overlay {
+        /* --- UTILITIES & HELPERS --- */
+        .is-required .slds-form-element__label::after {
+            content: '*';
+            color: var(--brand-primary-red);
+            margin-left: var(--spacing-x-small);
+        }
+        .error-message {
+            color: var(--brand-error-red);
+            font-size: 0.875rem;
+            margin-top: var(--spacing-small);
+            display: none;
+        }
+        .slds-form-element.has-error .error-message {
+            display: block;
+        }
+
+        /* --- PAGE STATES (LOADING, SUCCESS, EXPIRED) --- */
+        .state-overlay {
             position: fixed;
-            inset: 0;
-            background: rgba(255, 255, 255, 0.8);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
             display: flex;
             justify-content: center;
             align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
             z-index: 1000;
-            transition: opacity 0.3s ease-out;
+        }
+        .state-overlay.is-active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .state-content {
+            background: var(--brand-white);
+            padding: var(--spacing-x-large);
+            border-radius: var(--border-radius-medium);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            text-align: center;
+            max-width: 400px;
         }
         .spinner {
-            border: 4px solid var(--brand-background-light);
-            border-top: 4px solid var(--brand-blue);
+            border: 4px solid var(--brand-background-grey);
+            border-top: 4px solid var(--brand-primary-red);
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             animation: spin 1s linear infinite;
+            margin: 0 auto var(--spacing-medium) auto;
         }
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        .success-state {
-            text-align: center;
-            padding: var(--spacing-xxl) var(--spacing-lg);
-        }
-        .success-icon {
-            width: 64px;
-            height: 64px;
-            color: var(--brand-green);
-            margin-bottom: var(--spacing-lg);
+        .icon-success, .icon-expired {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto var(--spacing-medium) auto;
         }
 
-        /* --- RESPONSIVE DESIGN --- */
-        @media (max-width: 600px) {
-            body {
-                padding: var(--spacing-sm);
-            }
-            .heading-1 {
-                font-size: 1.5rem; /* 24px */
-            }
-            .slds-grid {
-                flex-direction: column;
-                gap: 0;
-            }
-            .slds-card__body, .slds-card__header, .slds-card__footer {
-                padding: var(--spacing-md);
-            }
-            .slds-card__footer {
-                flex-direction: column-reverse;
-                gap: var(--spacing-sm);
-            }
-            .slds-button {
-                width: 100%;
-            }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <main class="container" role="main">
-        <!-- Initial Loading State -->
-        <div id="loading-overlay" class="loading-overlay">
-            <div class="spinner"></div>
-        </div>
-
-        <!-- Form Container -->
-        <div id="form-container" class="slds-card slds-hide">
-            <header class="slds-card__header">
+    <main class="page-container">
+        <div class="form-card" id="form-card">
+            <header class="card-header">
+                <svg class="logo" viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Company Logo">
+                   <text x="10" y="30" font-family="var(--font-family-sans)" font-size="28" font-weight="bold" fill="#C10E02">LEGAL AID</text>
+                   <text x="125" y="30" font-family="var(--font-family-sans)" font-size="28" fill="#1D1D1D">NSW</text>
+                </svg>
                 <h1 class="heading-1">Interim Benefit Offer</h1>
-                <div class="slds-grid">
-                    <div class="slds-col">
-                        <span class="body-paragraph">Injured Worker</span><br>
-                        <span id="worker-name" class="body-large-strong"></span>
-                    </div>
-                    <div class="slds-col">
-                        <span class="body-paragraph">Claim Number</span><br>
-                        <span id="claim-number" class="body-large-strong"></span>
-                    </div>
-                </div>
+                <p class="body-paragraph">Please review your offer and respond below.</p>
             </header>
 
-            <form id="benefit-form" novalidate>
-                <div class="slds-card__body">
-                    
-                    <!-- Medical Expenses Offer -->
-                    <section id="medical-offer-section" class="slds-section">
-                        <h2 class="heading-3">Medical Expenses</h2>
+            <form id="interim-benefit-form" class="card-body" novalidate>
+                <section class="form-section">
+                    <h2 class="heading-3">Your Details</h2>
+                    <div class="info-grid">
                         <div class="slds-form-element">
-                            <label class="slds-form-element__label" id="medical-question-label">
-                                Are you intending to claim medical expenses while your claim is being assessed?
-                            </label>
-                            <div role="radiogroup" aria-labelledby="medical-question-label">
-                                <label class="slds-radio">
-                                    <input type="radio" name="medicalResponse" value="yes" required>
-                                    <span class="checkmark"></span>
-                                    <span class="slds-radio__label">Yes</span>
-                                </label>
-                                <label class="slds-radio">
-                                    <input type="radio" name="medicalResponse" value="no" required>
-                                    <span class="checkmark"></span>
-                                    <span class="slds-radio__label">No</span>
-                                </label>
-                            </div>
-                            <div id="medicalResponse-error" class="slds-form-element__help" role="alert"></div>
-                        </div>
-                    </section>
-
-                    <!-- Income Support Offer -->
-                    <section id="income-offer-section" class="slds-section">
-                        <h2 class="heading-3">Income Support</h2>
-                        <div class="slds-grid">
-                             <div class="slds-col">
-                                <div class="slds-form-element">
-                                    <label class="slds-form-element__label">Weekly Benefit Amount</label>
-                                    <span id="weekly-benefit" class="info-badge"></span>
-                                </div>
-                            </div>
-                            <div class="slds-col">
-                                <div class="slds-form-element">
-                                    <label class="slds-form-element__label">Start Date</label>
-                                    <span id="start-date" class="info-badge"></span>
-                                </div>
-                            </div>
+                            <label class="body-small-strong" for="worker-name">Injured Worker Name</label>
+                            <input type="text" id="worker-name" class="slds-input" value="Jessica Pearson" readonly>
                         </div>
                         <div class="slds-form-element">
-                            <label class="slds-form-element__label" id="income-question-label">
-                                Do you accept this offer?
-                            </label>
-                            <div role="radiogroup" aria-labelledby="income-question-label">
-                                <label class="slds-radio">
-                                    <input type="radio" name="incomeSupportResponse" value="accept" required>
-                                    <span class="checkmark"></span>
-                                    <span class="slds-radio__label">Accept</span>
-                                </label>
-                                <label class="slds-radio">
-                                    <input type="radio" name="incomeSupportResponse" value="not-accept" required>
-                                    <span class="checkmark"></span>
-                                    <span class="slds-radio__label">Not Accept</span>
-                                </label>
-                            </div>
-                            <div id="incomeSupportResponse-error" class="slds-form-element__help" role="alert"></div>
+                            <label class="body-small-strong" for="claim-number">Claim Number</label>
+                            <input type="text" id="claim-number" class="slds-input" value="CLM-00012345" readonly>
                         </div>
-                    </section>
+                    </div>
+                </section>
+                
+                <!-- Medical Expenses Offer -->
+                <section class="form-section">
+                    <h2 class="heading-3">Medical Expenses</h2>
+                    <p class="body-paragraph">Are you intending to claim medical expenses while your claim is being assessed?</p>
+                    <div class="slds-form-element" style="margin-top: 16px;">
+                        <div class="slds-radio">
+                            <label>
+                                <input type="radio" name="medical-expenses" value="yes" required>
+                                <span class="control-indicator"></span>
+                                <span class="control-text">Yes</span>
+                            </label>
+                        </div>
+                        <div class="slds-radio">
+                            <label>
+                                <input type="radio" name="medical-expenses" value="no">
+                                <span class="control-indicator"></span>
+                                <span class="control-text">No</span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
 
-                    <!-- EFT Details Section (Conditional) -->
-                    <section id="eft-section" class="slds-section dynamic-section">
-                        <h2 class="heading-3">Electronic Funds Transfer (EFT) Details</h2>
-                        <p class="body-paragraph">Please provide your bank details for payment.</p>
+                <!-- Income Support Offer -->
+                <section class="form-section">
+                    <h2 class="heading-3">Income Support</h2>
+                     <div class="info-grid">
                         <div class="slds-form-element">
-                            <label class="slds-form-element__label" for="bank-account-name">Bank Account Name</label>
-                            <input type="text" id="bank-account-name" class="slds-input" placeholder="e.g., J Doe">
-                            <div id="bank-account-name-error" class="slds-form-element__help" role="alert"></div>
+                            <label class="body-small-strong" for="weekly-benefit">Weekly Benefit Amount</label>
+                            <input type="text" id="weekly-benefit" class="slds-input" value="$850.00" readonly>
                         </div>
-                        <div class="slds-grid">
-                            <div class="slds-col">
-                                <div class="slds-form-element">
-                                    <label class="slds-form-element__label" for="bsb">BSB</label>
-                                    <input type="text" id="bsb" class="slds-input" placeholder="e.g., 000-000" maxlength="7">
-                                    <div id="bsb-error" class="slds-form-element__help" role="alert"></div>
-                                </div>
-                            </div>
-                            <div class="slds-col">
-                                <div class="slds-form-element">
-                                    <label class="slds-form-element__label" for="account-number">Account Number</label>
-                                    <input type="text" id="account-number" class="slds-input" placeholder="e.g., 123456789">
-                                    <div id="account-number-error" class="slds-form-element__help" role="alert"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- TFN Upload Section (Conditional) -->
-                    <section id="tfn-section" class="slds-section dynamic-section">
-                        <h2 class="heading-3">TFN Declaration Form</h2>
-                        <p class="body-paragraph">To ensure you are taxed correctly, please upload a completed Tax File Number declaration form.</p>
                         <div class="slds-form-element">
-                            <label class="slds-file-selector" for="tfn-file-upload-input" id="tfn-drop-zone">
-                                <span class="slds-file-selector__text">Upload File</span>
-                                <span class="slds-file-selector__subtext">PDF, PNG, JPG accepted</span>
-                            </label>
-                             <input type="file" id="tfn-file-upload-input" accept=".pdf,.png,.jpg,.jpeg">
-                            <div id="tfn-file-name" class="body-small"></div>
-                            <div id="tfn-file-upload-input-error" class="slds-form-element__help" role="alert"></div>
+                            <label class="body-small-strong" for="start-date">Start Date</label>
+                            <input type="text" id="start-date" class="slds-input" value="25 July 2024" readonly>
                         </div>
-                    </section>
-                    
-                    <!-- Declaration Checkbox -->
-                    <section id="declaration-section" class="slds-section">
-                         <div class="slds-form-element">
-                            <label class="slds-checkbox">
-                                <input type="checkbox" id="declaration" name="declaration">
-                                <span class="checkmark"></span>
-                                <span id="declaration-label" class="slds-checkbox__label">I understand that by not accepting an offer, my interim benefits may be affected.</span>
+                    </div>
+                    <p class="body-paragraph">Do you accept this weekly benefit amount?</p>
+                     <div class="slds-form-element" style="margin-top: 16px;">
+                        <div class="slds-radio">
+                            <label>
+                                <input type="radio" name="income-support" value="yes" required>
+                                <span class="control-indicator"></span>
+                                <span class="control-text">Accept</span>
                             </label>
-                            <div id="declaration-error" class="slds-form-element__help" role="alert"></div>
                         </div>
-                    </section>
+                        <div class="slds-radio">
+                            <label>
+                                <input type="radio" name="income-support" value="no">
+                                <span class="control-indicator"></span>
+                                <span class="control-text">Not Accept</span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Conditional: EFT Details -->
+                <section id="eft-section" class="conditional-section">
+                    <h2 class="heading-3">Bank Account Details (EFT)</h2>
+                    <p class="body-paragraph">Please provide your bank details for payments.</p>
+                    <div class="slds-form-element is-required" style="margin-top: 16px;">
+                        <label class="slds-form-element__label" for="account-name">Account Name</label>
+                        <input type="text" id="account-name" class="slds-input" placeholder="e.g., J Pearson">
+                    </div>
+                    <div class="slds-form-element is-required">
+                        <label class="slds-form-element__label" for="bsb">BSB</label>
+                        <input type="text" id="bsb" class="slds-input" placeholder="e.g., 000-000" pattern="\d{3}-?\d{3}">
+                    </div>
+                    <div class="slds-form-element is-required">
+                        <label class="slds-form-element__label" for="account-number">Account Number</label>
+                        <input type="text" id="account-number" class="slds-input" placeholder="e.g., 123456789" pattern="\d{6,9}">
+                    </div>
+                </section>
 
-                </div>
+                <!-- Conditional: TFN Upload -->
+                <section id="tfn-section" class="conditional-section">
+                     <h2 class="heading-3">Tax File Number (TFN) Declaration</h2>
+                     <p class="body-paragraph">To ensure your payments are taxed correctly, please upload a completed TFN Declaration form.</p>
+                     <div class="slds-form-element is-required" style="margin-top: 16px;">
+                        <label class="slds-form-element__label" for="tfn-upload-input">Upload TFN Declaration Form</label>
+                        <div class="slds-form-element__control">
+                            <input type="file" id="tfn-upload-input" class="slds-file-selector__input" accept=".pdf,.doc,.docx,.jpg,.png">
+                            <div class="slds-file-selector" aria-hidden="true">
+                                <label for="tfn-upload-input" class="slds-file-selector__label">Upload File</label>
+                                <span id="tfn-filename" class="slds-file-selector__text">No file selected...</span>
+                            </div>
+                        </div>
+                     </div>
+                </section>
 
-                <footer class="slds-card__footer">
-                    <button type="button" id="draft-button" class="slds-button slds-button--neutral">Save as Draft</button>
-                    <button type="submit" id="submit-button" class="slds-button slds-button--brand">Submit Response</button>
-                </footer>
+                <!-- Conditional: Declaration -->
+                <section id="declaration-section" class="form-section">
+                    <div class="slds-form-element" id="declaration-wrapper">
+                        <div class="slds-checkbox">
+                            <label>
+                                <input type="checkbox" id="declaration-checkbox" name="declaration">
+                                <span class="control-indicator"></span>
+                                <span class="control-text">I understand that by not accepting an offer, there may be a delay in receiving support.</span>
+                            </label>
+                        </div>
+                        <div id="declaration-error" class="error-message">This declaration is required if you do not accept an offer.</div>
+                    </div>
+                </section>
+
             </form>
+            <footer class="card-footer">
+                <button type="submit" id="submit-button" form="interim-benefit-form" class="slds-button slds-button--primary" disabled>Submit Response</button>
+            </footer>
         </div>
 
-        <!-- Success/Expired State Container -->
-        <div id="success-container" class="slds-card slds-hide">
-            <div class="success-state">
-                <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" fill="currentColor">
-                    <path d="M26,0A26,26,0,1,0,52,26,26,26,0,0,0,26,0Zm0,50A24,24,0,1,1,50,26,24,24,0,0,1,26,50Z"/>
-                    <path d="M38.2,16.4a2,2,0,0,0-2.8,0l-13,13-5.6-5.6a2,2,0,0,0-2.8,2.8l7,7a2,2,0,0,0,2.8,0l14.4-14.4A2,2,0,0,0,38.2,16.4Z"/>
-                </svg>
-                <h2 class="heading-3">Thank You For Your Response</h2>
-                <p class="body-paragraph">Your response was submitted on <strong id="submission-timestamp"></strong>.</p>
-                <p class="body-paragraph">This link has now expired. Please contact us if you have any questions.</p>
+        <!-- Loading State Overlay -->
+        <div id="loading-overlay" class="state-overlay">
+            <div class="state-content">
+                <div class="spinner"></div>
+                <h2 class="heading-3">Submitting Response...</h2>
+                <p class="body-paragraph">Please wait a moment.</p>
             </div>
         </div>
+
+        <!-- Success State Overlay -->
+        <div id="success-overlay" class="state-overlay">
+            <div class="state-content">
+                <svg class="icon-success" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="#21A179"/></svg>
+                <h2 class="heading-3">Response Submitted Successfully</h2>
+                <p class="body-paragraph">Thank you. Your response has been recorded. This page will now close.</p>
+            </div>
+        </div>
+        
+        <!-- Expired Link State -->
+        <div id="expired-card" class="form-card hidden" style="text-align: center;">
+             <div class="card-body" style="padding: 48px 32px;">
+                 <svg class="icon-expired" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="#C10E02"/></svg>
+                <h2 class="heading-3">Link Expired</h2>
+                <p class="body-paragraph">This link has already been used to submit a response and is no longer active. If you have any questions, please contact your case manager.</p>
+            </div>
+        </div>
+
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- DOM Element References ---
+        const form = document.getElementById('interim-benefit-form');
+        const medicalRadios = form.querySelectorAll('input[name="medical-expenses"]');
+        const incomeRadios = form.querySelectorAll('input[name="income-support"]');
+        
+        const eftSection = document.getElementById('eft-section');
+        const tfnSection = document.getElementById('tfn-section');
+        const declarationSection = document.getElementById('declaration-section');
+        
+        const eftInputs = eftSection.querySelectorAll('input');
+        const tfnInput = document.getElementById('tfn-upload-input');
+        const declarationCheckbox = document.getElementById('declaration-checkbox');
+        const declarationWrapper = document.getElementById('declaration-wrapper');
+        const declarationError = document.getElementById('declaration-error');
+        
+        const submitButton = document.getElementById('submit-button');
+        const tfnFilename = document.getElementById('tfn-filename');
 
-            // --- MOCK DATA ---
-            const mockData = {
-                workerName: 'Jane Doe',
-                claimNumber: 'CLM-2024-00123',
-                weeklyBenefit: '$745.50',
-                startDate: '25 July 2024',
-                offers: {
-                    medical: true,
-                    incomeSupport: true,
-                }
-            };
+        // --- State Management ---
+        let state = {
+            medicalResponse: null, // 'yes' or 'no'
+            incomeResponse: null,  // 'yes' or 'no'
+        };
 
-            // --- DOM ELEMENT SELECTORS ---
-            const formContainer = document.getElementById('form-container');
+        // --- Event Listeners ---
+        form.addEventListener('change', handleFormChange);
+        form.addEventListener('submit', handleFormSubmit);
+        tfnInput.addEventListener('change', updateTfnFilename);
+        
+        // --- Core Logic Functions ---
+        function handleFormChange(event) {
+            const { name, value, type } = event.target;
+
+            if (name === 'medical-expenses') {
+                state.medicalResponse = value;
+            } else if (name === 'income-support') {
+                state.incomeResponse = value;
+            }
+            
+            updateConditionalSections();
+            updateFormValidity();
+        }
+
+        function updateConditionalSections() {
+            const isMedicalAccepted = state.medicalResponse === 'yes';
+            const isIncomeAccepted = state.incomeResponse === 'yes';
+
+            // Show EFT if ANY offer is accepted
+            const showEft = isMedicalAccepted || isIncomeAccepted;
+            toggleSection(eftSection, showEft, eftInputs);
+
+            // Show TFN only if INCOME is accepted
+            const showTfn = isIncomeAccepted;
+            toggleSection(tfnSection, showTfn, [tfnInput]);
+
+            // Make declaration mandatory if ANY offer is NOT accepted
+            const isAnyOfferRejected = state.medicalResponse === 'no' || state.incomeResponse === 'no';
+            const isResponseComplete = state.medicalResponse && state.incomeResponse;
+
+            if (isResponseComplete && isAnyOfferRejected) {
+                declarationSection.style.display = 'block';
+                declarationCheckbox.required = true;
+                declarationWrapper.classList.add('is-required');
+            } else {
+                declarationSection.style.display = 'none';
+                declarationCheckbox.required = false;
+                declarationCheckbox.checked = false; // Reset if it becomes hidden
+                declarationWrapper.classList.remove('is-required');
+                declarationWrapper.classList.remove('has-error');
+            }
+        }
+
+        function toggleSection(sectionElement, show, inputs) {
+            if (show) {
+                sectionElement.classList.add('visible');
+                inputs.forEach(input => input.required = true);
+            } else {
+                sectionElement.classList.remove('visible');
+                inputs.forEach(input => {
+                    input.required = false;
+                    input.value = ''; // Clear value if hidden
+                    if (input.type === 'file') {
+                        updateTfnFilename();
+                    }
+                });
+            }
+        }
+
+        function updateFormValidity() {
+            // A simple check if all required fields are filled.
+            // The browser's `checkValidity()` handles the logic for us based on the `required` attribute.
+            const isFormValid = form.checkValidity();
+            submitButton.disabled = !isFormValid;
+
+            // Custom validation message for declaration
+            if (declarationCheckbox.required && !declarationCheckbox.checked) {
+                declarationWrapper.classList.add('has-error');
+            } else {
+                declarationWrapper.classList.remove('has-error');
+            }
+        }
+
+        function updateTfnFilename() {
+            if (tfnInput.files && tfnInput.files.length > 0) {
+                tfnFilename.textContent = tfnInput.files[0].name;
+            } else {
+                tfnFilename.textContent = 'No file selected...';
+            }
+        }
+
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            if (!form.checkValidity()) {
+                // This will trigger native browser validation UI
+                form.reportValidity();
+                updateFormValidity(); // Re-run to show custom messages
+                return;
+            }
+
+            // --- Show Loading State ---
             const loadingOverlay = document.getElementById('loading-overlay');
-            const successContainer = document.getElementById('success-container');
-            const benefitForm = document.getElementById('benefit-form');
-            const submitButton = document.getElementById('submit-button');
+            loadingOverlay.classList.add('is-active');
 
-            const medicalOfferSection = document.getElementById('medical-offer-section');
-            const incomeOfferSection = document.getElementById('income-offer-section');
-            const eftSection = document.getElementById('eft-section');
-            const tfnSection = document.getElementById('tfn-section');
-            const declarationSection = document.getElementById('declaration-section');
-            const declarationCheckbox = document.getElementById('declaration');
+            // --- Simulate API call ---
+            await new Promise(resolve => setTimeout(resolve, 2000));
 
-            const medicalRadios = document.querySelectorAll('input[name="medicalResponse"]');
-            const incomeRadios = document.querySelectorAll('input[name="incomeSupportResponse"]');
+            // --- Show Success State ---
+            loadingOverlay.classList.remove('is-active');
+            const successOverlay = document.getElementById('success-overlay');
+            successOverlay.classList.add('is-active');
             
-            // --- INITIALIZATION ---
-            function initializePage() {
-                // Simulate fetching data
-                setTimeout(() => {
-                    populateData(mockData);
-                    addEventListeners();
-                    updateUIState();
-                    
-                    loadingOverlay.style.opacity = '0';
-                    setTimeout(() => loadingOverlay.classList.add('slds-hide'), 300);
-                    formContainer.classList.remove('slds-hide');
-                }, 1000);
-            }
+            // --- Simulate URL expiration ---
+            await new Promise(resolve => setTimeout(resolve, 3000));
 
-            function populateData(data) {
-                document.getElementById('worker-name').textContent = data.workerName;
-                document.getElementById('claim-number').textContent = data.claimNumber;
+            const formCard = document.getElementById('form-card');
+            const expiredCard = document.getElementById('expired-card');
 
-                if (!data.offers.medical) medicalOfferSection.classList.add('slds-hide');
-                if (data.offers.incomeSupport) {
-                    document.getElementById('weekly-benefit').textContent = data.weeklyBenefit;
-                    document.getElementById('start-date').textContent = data.startDate;
-                } else {
-                    incomeOfferSection.classList.add('slds-hide');
-                }
-            }
+            formCard.style.opacity = '0';
+            formCard.style.transform = 'scale(0.95)';
+            successOverlay.classList.remove('is-active');
 
-            // --- EVENT LISTENERS ---
-            function addEventListeners() {
-                medicalRadios.forEach(radio => radio.addEventListener('change', updateUIState));
-                incomeRadios.forEach(radio => radio.addEventListener('change', updateUIState));
-                benefitForm.addEventListener('submit', handleFormSubmit);
-
-                const tfnUploadInput = document.getElementById('tfn-file-upload-input');
-                const tfnDropZone = document.getElementById('tfn-drop-zone');
-                tfnUploadInput.addEventListener('change', () => {
-                    const fileNameDisplay = document.getElementById('tfn-file-name');
-                    if(tfnUploadInput.files.length > 0) {
-                        fileNameDisplay.textContent = `Selected file: ${tfnUploadInput.files[0].name}`;
-                    } else {
-                        fileNameDisplay.textContent = '';
-                    }
-                });
-            }
-
-            // --- UI LOGIC ---
-            function updateUIState() {
-                const medicalResponse = getSelectedRadioValue('medicalResponse');
-                const incomeResponse = getSelectedRadioValue('incomeSupportResponse');
-
-                // EFT section visibility
-                const showEFT = medicalResponse === 'yes' || incomeResponse === 'accept';
-                toggleSectionVisibility(eftSection, showEFT);
-
-                // TFN section visibility
-                const showTFN = incomeResponse === 'accept';
-                toggleSectionVisibility(tfnSection, showTFN);
-                
-                // Set required attributes for EFT/TFN fields
-                setRequiredForGroup(['bank-account-name', 'bsb', 'account-number'], showEFT);
-                setRequiredForGroup(['tfn-file-upload-input'], showTFN);
-
-                // Declaration checkbox requirement
-                const declarationRequired = medicalResponse === 'no' || incomeResponse === 'not-accept';
-                declarationSection.style.display = declarationRequired ? 'block' : 'none';
-                declarationCheckbox.required = declarationRequired;
-            }
-
-            function getSelectedRadioValue(name) {
-                const selectedRadio = document.querySelector(`input[name="${name}"]:checked`);
-                return selectedRadio ? selectedRadio.value : null;
-            }
-
-            function toggleSectionVisibility(section, isVisible) {
-                if (isVisible) {
-                    section.classList.add('visible');
-                } else {
-                    section.classList.remove('visible');
-                }
-            }
-            
-            function setRequiredForGroup(elementIds, isRequired) {
-                elementIds.forEach(id => {
-                    const el = document.getElementById(id);
-                    if (el) el.required = isRequired;
-                });
-            }
-
-            // --- FORM SUBMISSION & VALIDATION ---
-            function handleFormSubmit(event) {
-                event.preventDefault();
-                clearAllErrors();
-                if (validateForm()) {
-                    submitButton.disabled = true;
-                    submitButton.innerHTML = `<span class="spinner" style="width:20px; height:20px; border-width: 2px; border-top-color: var(--brand-white); margin-right: 8px;"></span> Submitting...`;
-
-                    // Simulate API call
-                    setTimeout(() => {
-                        showSuccessState();
-                    }, 2000);
-                }
-            }
-
-            function validateForm() {
-                let isValid = true;
-                const requiredFields = Array.from(benefitForm.querySelectorAll('[required]'));
-
-                requiredFields.forEach(field => {
-                    let fieldValid = true;
-                    const parentFormElement = field.closest('.slds-form-element');
-
-                    if (field.type === 'radio') {
-                        const radioGroup = document.querySelectorAll(`input[name="${field.name}"]`);
-                        if (![...radioGroup].some(r => r.checked)) {
-                           fieldValid = false;
-                           showError(field.name, 'Please select an option.');
-                        }
-                    } else if (field.type === 'checkbox') {
-                         if (!field.checked) {
-                           fieldValid = false;
-                           showError(field.id, 'This declaration is required to proceed.');
-                        }
-                    } else { // Text inputs, file inputs
-                        if (field.value.trim() === '') {
-                           fieldValid = false;
-                           showError(field.id, 'This field is required.');
-                        }
-                    }
-                    
-                    if(!fieldValid) {
-                        isValid = false;
-                        if(parentFormElement) parentFormElement.classList.add('slds-has-error');
-                    }
-                });
-                return isValid;
-            }
-
-            function showError(fieldId, message) {
-                const errorElement = document.getElementById(`${fieldId}-error`);
-                if (errorElement) {
-                    errorElement.textContent = message;
-                }
-            }
-            
-            function clearAllErrors() {
-                document.querySelectorAll('.slds-form-element__help').forEach(el => el.textContent = '');
-                document.querySelectorAll('.slds-has-error').forEach(el => el.classList.remove('slds-has-error'));
-            }
-
-            function showSuccessState() {
-                const now = new Date();
-                const timestamp = now.toLocaleDateString('en-GB', {
-                    day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
-                });
-                document.getElementById('submission-timestamp').textContent = timestamp;
-
-                formContainer.style.opacity = '0';
-                setTimeout(() => {
-                    formContainer.classList.add('slds-hide');
-                    successContainer.classList.remove('slds-hide');
-                    window.scrollTo(0, 0);
-                }, 300);
-            }
-
-            // --- START THE APP ---
-            initializePage();
-        });
+            setTimeout(() => {
+                formCard.classList.add('hidden');
+                expiredCard.classList.remove('hidden');
+            }, 300);
+        }
+        
+        // --- Initial State Setup ---
+        declarationSection.style.display = 'none'; // Hide declaration until a choice is made
+    });
     </script>
+
 </body>
 </html>
