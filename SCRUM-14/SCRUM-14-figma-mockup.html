@@ -4,733 +4,711 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interim Benefit Offer Response</title>
+    
     <style>
-        /* --- DESIGN SYSTEM & SLDS PATTERNS --- */
+        /* CSS RESET & DEFAULTS */
         :root {
             /* Legal Aid Colour Palette */
-            --brand-primary-red: #C10E02;
-            --brand-trusted-blue: #004A80;
-            --brand-calming-green: #21A179;
-            --brand-dark-grey: #1D1D1D;
-            --brand-mid-grey: #545454;
-            --brand-light-grey: #919191;
-            --brand-border-grey: #E6E6E6;
-            --brand-background-grey: #F4F5F6;
+            --brand-red-primary: #C10E02;
+            --brand-red-dark: #A10C02;
+            --brand-blue-dark: #002C4D;
+            --brand-blue-primary: #004A80;
+            --brand-blue-light: #E5EDF2;
+            --brand-green-success: #21A179;
+            --brand-gray-text-primary: #1D1D1D;
+            --brand-gray-text-secondary: #545454;
+            --brand-gray-border: #C8C8C8;
+            --brand-gray-background-light: #F4F5F6;
             --brand-white: #FFFFFF;
-            --brand-error-red: #C23934;
-            --brand-focus-shadow: 0 0 3px 1px #51A2E8;
-
-            /* Spacing Tokens (8px grid) */
-            --spacing-x-small: 4px;
-            --spacing-small: 8px;
-            --spacing-medium: 16px;
-            --spacing-large: 24px;
-            --spacing-x-large: 32px;
 
             /* Typography */
-            --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-
-            /* Border Radius */
+            --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            
+            /* Spacing */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            
+            /* Borders */
             --border-radius-medium: 4px;
         }
 
-        /* --- BASE STYLES & RESET --- */
         *, *::before, *::after {
             box-sizing: border-box;
         }
 
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: var(--font-family-sans);
-            background-color: var(--brand-background-grey);
-            color: var(--brand-dark-grey);
+        html {
             font-size: 16px;
         }
 
-        /* --- TYPOGRAPHY --- */
-        .heading-1 { /* H1 */
-            font-size: 2rem;
-            font-weight: 700;
-            line-height: 1.2;
-            color: var(--brand-dark-grey);
-            margin: 0 0 var(--spacing-medium) 0;
+        body {
+            margin: 0;
+            font-family: var(--font-family-sans);
+            background-color: var(--brand-gray-background-light);
+            color: var(--brand-gray-text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        .heading-3 { /* H3 */
-            font-size: 1.25rem;
+
+        /* TYPOGRAPHY STYLES */
+        .heading-1 {
+            font-size: 2rem; /* 32px */
+            font-weight: 700;
+            line-height: 1.25;
+            margin: 0 0 var(--space-md) 0;
+        }
+        .heading-3 {
+            font-size: 1.25rem; /* 20px */
             font-weight: 600;
             line-height: 1.3;
-            color: var(--brand-dark-grey);
-            margin: 0 0 var(--spacing-small) 0;
+            margin: 0 0 var(--space-sm) 0;
         }
-        .body-large { /* Body 1 */
-            font-size: 1rem;
-            line-height: 1.5;
-        }
-        .body-paragraph { /* Body 2 */
-            font-size: 0.875rem;
-            line-height: 1.5;
-            color: var(--brand-mid-grey);
-        }
-        .body-small-strong {
-            font-size: 0.75rem;
+        .heading-5 {
+            font-size: 1rem; /* 16px */
             font-weight: 700;
+            letter-spacing: 0.025em;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--brand-mid-grey);
+            color: var(--brand-gray-text-secondary);
+            margin-bottom: var(--space-md);
         }
-        .footnote {
-            font-size: 0.75rem;
-            color: var(--brand-light-grey);
+        .body-large {
+            font-size: 1.125rem; /* 18px */
+        }
+        .body-paragraph {
+            font-size: 1rem; /* 16px */
+            margin-bottom: var(--space-md);
+        }
+        .body-small {
+            font-size: 0.875rem; /* 14px */
+            color: var(--brand-gray-text-secondary);
+        }
+        .text-strong {
+            font-weight: 700;
         }
 
-        /* --- LAYOUT & CONTAINER --- */
+        /* LAYOUT & CONTAINER */
         .page-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: var(--spacing-large);
-            min-height: 100vh;
+            max-width: 800px;
+            margin: var(--space-xl) auto;
+            padding: var(--space-lg);
         }
 
-        .form-card {
+        .card {
             background-color: var(--brand-white);
+            border: 1px solid var(--brand-gray-border);
             border-radius: var(--border-radius-medium);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.07);
-            width: 100%;
-            max-width: 720px;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            padding: var(--space-xl);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: opacity 0.3s ease-in-out;
         }
-
-        .card-header {
-            padding: var(--spacing-large);
-            border-bottom: 1px solid var(--brand-border-grey);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        
+        .card + .card {
+            margin-top: var(--space-lg);
+        }
+        
+        .page-header {
             text-align: center;
+            margin-bottom: var(--space-xl);
         }
         
         .logo {
-            width: 150px;
-            height: auto;
-            margin-bottom: var(--spacing-medium);
+            color: var(--brand-red-primary);
+            font-weight: 800;
+            font-size: 1.5rem;
+            margin-bottom: var(--space-md);
         }
-
-        .card-body {
-            padding: var(--spacing-large);
-        }
-
-        .card-footer {
-            padding: var(--spacing-medium) var(--spacing-large);
-            background-color: var(--brand-background-grey);
-            border-top: 1px solid var(--brand-border-grey);
-            border-bottom-left-radius: var(--border-radius-medium);
-            border-bottom-right-radius: var(--border-radius-medium);
-            text-align: right;
-        }
-
+        
+        /* FORM ELEMENTS */
         .form-section {
-            padding: var(--spacing-large) 0;
-            border-bottom: 1px solid var(--brand-border-grey);
+            padding: var(--space-lg) 0;
+            border-bottom: 1px solid var(--brand-gray-background-light);
         }
         .form-section:last-of-type {
             border-bottom: none;
-            padding-bottom: 0;
         }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: var(--spacing-medium);
-            margin-bottom: var(--spacing-large);
+        .form-element {
+            margin-bottom: var(--space-lg);
         }
-
-        @media (min-width: 600px) {
-            .info-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        /* --- SLDS FORM ELEMENT PATTERNS --- */
-        .slds-form-element {
-            margin-bottom: var(--spacing-medium);
-        }
-        .slds-form-element__label {
+        .form-element__label {
             display: block;
-            margin-bottom: var(--spacing-small);
             font-weight: 600;
-            font-size: 0.875rem;
+            margin-bottom: var(--space-sm);
         }
-        .slds-form-element__control {
-            position: relative;
+        .form-element__control {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
         }
-        .slds-input, .slds-select {
+        .input-field, .select-field {
             width: 100%;
-            padding: var(--spacing-small) var(--spacing-medium);
-            border: 1px solid var(--brand-light-grey);
+            padding: 10px 12px;
+            font-size: 1rem;
+            border: 1px solid var(--brand-gray-border);
             border-radius: var(--border-radius-medium);
             background-color: var(--brand-white);
-            font-size: 1rem;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
-        .slds-input:focus, .slds-select:focus {
+        .input-field:focus, .select-field:focus {
             outline: none;
-            border-color: var(--brand-trusted-blue);
-            box-shadow: var(--brand-focus-shadow);
+            border-color: var(--brand-blue-primary);
+            box-shadow: 0 0 0 2px rgba(0, 74, 128, 0.2);
         }
-        .slds-input[readonly] {
-            background-color: var(--brand-background-grey);
-            border-color: var(--brand-border-grey);
+        .input-field[readonly] {
+            background-color: var(--brand-gray-background-light);
             cursor: not-allowed;
+            color: var(--brand-gray-text-secondary);
         }
-
-        /* Custom Radio & Checkbox (CRITICAL: Red selected state) */
-        .slds-radio, .slds-checkbox {
-            margin-bottom: var(--spacing-medium);
-        }
-        .slds-radio label, .slds-checkbox label {
+        
+        /* RADIO & CHECKBOX (CRITICAL STYLING) */
+        .radio-group, .checkbox-group {
+            position: relative;
             display: flex;
             align-items: center;
             cursor: pointer;
-            font-size: 1rem;
+            padding: 12px;
+            border: 1px solid var(--brand-gray-border);
+            border-radius: var(--border-radius-medium);
+            transition: border-color 0.2s, background-color 0.2s;
         }
-        .slds-radio input, .slds-checkbox input {
-            position: absolute;
+        .radio-group:hover, .checkbox-group:hover {
+            border-color: var(--brand-blue-primary);
+        }
+        .radio-group input[type="radio"],
+        .checkbox-group input[type="checkbox"] {
             opacity: 0;
-            cursor: pointer;
-            height: 0;
             width: 0;
+            height: 0;
+            position: absolute;
         }
-        .control-indicator {
-            display: inline-block;
+        .radio-group .control-indicator,
+        .checkbox-group .control-indicator {
+            flex-shrink: 0;
             width: 20px;
             height: 20px;
-            margin-right: var(--spacing-medium);
-            background: var(--brand-white);
-            border: 2px solid var(--brand-light-grey);
-            transition: all 0.2s ease;
+            border: 2px solid var(--brand-gray-border);
+            background-color: var(--brand-white);
+            margin-right: 12px;
+            transition: border-color 0.2s;
             position: relative;
         }
-        .slds-radio .control-indicator {
+        .radio-group .control-indicator {
             border-radius: 50%;
         }
-        .slds-checkbox .control-indicator {
-            border-radius: var(--border-radius-medium);
+        .checkbox-group .control-indicator {
+            border-radius: 3px;
         }
-        .slds-radio input:checked ~ .control-indicator {
-            border-color: var(--brand-primary-red);
+        
+        /* Selected States */
+        .radio-group input[type="radio"]:checked ~ .control-indicator {
+            border-color: var(--brand-red-primary);
         }
-        /* INNER DOT: MUST BE RED */
-        .slds-radio input:checked ~ .control-indicator::after {
+        .radio-group input[type="radio"]:checked ~ .control-indicator::after {
             content: '';
+            display: block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--brand-red-primary); /* CRITICAL: RED INNER DOT */
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--brand-primary-red);
         }
-        .slds-checkbox input:checked ~ .control-indicator {
+
+        .checkbox-group input[type="checkbox"]:checked ~ .control-indicator {
+            border-color: var(--brand-red-primary);
             background-color: var(--brand-white);
-            border-color: var(--brand-primary-red);
         }
-        /* CHECKMARK: MUST BE RED */
-        .slds-checkbox input:checked ~ .control-indicator::after {
+        .checkbox-group input[type="checkbox"]:checked ~ .control-indicator::after {
             content: '';
+            display: block;
+            width: 5px;
+            height: 10px;
+            border: solid var(--brand-red-primary); /* CRITICAL: RED CHECKMARK */
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
             position: absolute;
             left: 6px;
             top: 2px;
-            width: 5px;
-            height: 10px;
-            border: solid var(--brand-primary-red);
-            border-width: 0 3px 3px 0;
-            transform: rotate(45deg);
         }
-        .slds-radio:hover .control-indicator, .slds-checkbox:hover .control-indicator {
-            border-color: var(--brand-mid-grey);
+        
+        /* Focus States */
+        .radio-group input[type="radio"]:focus-visible ~ .control-indicator,
+        .checkbox-group input[type="checkbox"]:focus-visible ~ .control-indicator {
+             box-shadow: 0 0 0 2px rgba(193, 14, 2, 0.3); /* RED FOCUS GLOW */
         }
-        .slds-radio input:focus-visible ~ .control-indicator, .slds-checkbox input:focus-visible ~ .control-indicator {
-            box-shadow: var(--brand-focus-shadow);
-        }
-
-        /* File Upload */
-        .slds-file-selector {
-            position: relative;
-            display: flex;
-            align-items: stretch;
-        }
-        .slds-file-selector__label {
+        
+        /* BUTTONS */
+        .btn {
             display: inline-block;
-            padding: var(--spacing-small) var(--spacing-medium);
-            border: 1px solid var(--brand-light-grey);
-            border-right: none;
-            background-color: var(--brand-background-grey);
-            white-space: nowrap;
-            border-top-left-radius: var(--border-radius-medium);
-            border-bottom-left-radius: var(--border-radius-medium);
-        }
-        .slds-file-selector__input {
-            opacity: 0;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-        }
-        .slds-file-selector__text {
-            flex-grow: 1;
-            padding: var(--spacing-small) var(--spacing-medium);
-            border: 1px solid var(--brand-light-grey);
-            border-top-right-radius: var(--border-radius-medium);
-            border-bottom-right-radius: var(--border-radius-medium);
-            background-color: var(--brand-white);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        #tfn-upload-input:focus-visible + .slds-file-selector .slds-file-selector__text {
-            box-shadow: var(--brand-focus-shadow);
-            border-color: var(--brand-trusted-blue);
-        }
-
-        /* --- BUTTONS --- */
-        .slds-button {
             font-size: 1rem;
             font-weight: 600;
-            padding: var(--spacing-small) var(--spacing-large);
+            padding: 12px 24px;
             border-radius: var(--border-radius-medium);
             border: 1px solid transparent;
             cursor: pointer;
-            transition: background-color 0.2s ease, opacity 0.2s ease;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.2s, color 0.2s, opacity 0.2s;
+            position: relative;
         }
-        .slds-button--primary {
-            background-color: var(--brand-primary-red);
+        .btn-primary {
+            background-color: var(--brand-red-primary);
             color: var(--brand-white);
-            border-color: var(--brand-primary-red);
+            border-color: var(--brand-red-primary);
         }
-        .slds-button--primary:hover {
-            background-color: #a10c02; /* Darker red */
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--brand-red-dark);
+            border-color: var(--brand-red-dark);
         }
-        .slds-button:disabled {
-            background-color: var(--brand-border-grey);
-            color: var(--brand-light-grey);
-            border-color: var(--brand-border-grey);
+        .btn:disabled {
+            opacity: 0.6;
             cursor: not-allowed;
         }
-        .slds-button:focus-visible {
-            outline: none;
-            box-shadow: var(--brand-focus-shadow);
+        .btn-block {
+            display: block;
+            width: 100%;
         }
-
-        /* --- CONDITIONAL SECTIONS & TRANSITIONS --- */
-        .conditional-section {
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, padding 0.5s ease-in-out;
-            padding: 0;
-            border-bottom: 1px solid var(--brand-border-grey);
+        
+        /* FILE UPLOAD */
+        .file-upload-wrapper {
+            border: 2px dashed var(--brand-gray-border);
+            border-radius: var(--border-radius-medium);
+            padding: var(--space-xl);
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s, background-color 0.2s;
         }
-        .conditional-section.visible {
-            max-height: 1000px; /* Large enough to not clip content */
-            opacity: 1;
-            padding: var(--spacing-large) 0;
+        .file-upload-wrapper:hover {
+            border-color: var(--brand-blue-primary);
+            background-color: var(--brand-blue-light);
         }
-
-        /* --- UTILITIES & HELPERS --- */
-        .is-required .slds-form-element__label::after {
-            content: '*';
-            color: var(--brand-primary-red);
-            margin-left: var(--spacing-x-small);
-        }
-        .error-message {
-            color: var(--brand-error-red);
-            font-size: 0.875rem;
-            margin-top: var(--spacing-small);
+        .file-upload-wrapper input[type="file"] {
             display: none;
         }
-        .slds-form-element.has-error .error-message {
-            display: block;
+        .file-upload-icon {
+            font-size: 2.5rem;
+            color: var(--brand-blue-primary);
         }
-
-        /* --- PAGE STATES (LOADING, SUCCESS, EXPIRED) --- */
-        .state-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(5px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .file-upload-text {
+            margin-top: var(--space-md);
+            color: var(--brand-blue-primary);
+            font-weight: 600;
+        }
+        .file-upload-hint, .file-name {
+            margin-top: var(--space-sm);
+            font-size: 0.875rem;
+            color: var(--brand-gray-text-secondary);
+        }
+        
+        /* CONDITIONAL SECTIONS & UTILITIES */
+        .conditional-section {
+            max-height: 0;
+            overflow: hidden;
             opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            z-index: 1000;
+            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, padding 0.5s ease-in-out;
+            padding: 0 var(--space-lg);
+            margin: 0 calc(-1 * var(--space-lg));
         }
-        .state-overlay.is-active {
+        .conditional-section.visible {
+            max-height: 1000px; /* Large enough for content */
             opacity: 1;
-            visibility: visible;
-        }
-        .state-content {
-            background: var(--brand-white);
-            padding: var(--spacing-x-large);
+            padding: var(--space-lg);
+            margin: var(--space-lg) calc(-1 * var(--space-lg)) 0;
+            background: var(--brand-blue-light);
             border-radius: var(--border-radius-medium);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .hidden {
+            display: none;
+        }
+        .error-message {
+            color: var(--brand-red-primary);
+            font-size: 0.875rem;
+            margin-top: var(--space-xs);
+        }
+        .input-field.has-error {
+            border-color: var(--brand-red-primary);
+        }
+        
+        /* INFO BANNER */
+        .info-banner {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: var(--space-md);
+            background-color: var(--brand-blue-light);
+            border-left: 4px solid var(--brand-blue-primary);
+            padding: var(--space-md);
+            border-radius: var(--border-radius-medium);
+            margin-bottom: var(--space-lg);
+        }
+        .info-banner__icon {
+            font-size: 1.5rem;
+            color: var(--brand-blue-primary);
+            align-self: center;
+        }
+        
+        /* SUCCESS STATE */
+        .success-container {
             text-align: center;
-            max-width: 400px;
         }
-        .spinner {
-            border: 4px solid var(--brand-background-grey);
-            border-top: 4px solid var(--brand-primary-red);
+        .success-icon {
+            font-size: 4rem;
+            color: var(--brand-green-success);
+        }
+        
+        /* LOADER */
+        .loader {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--brand-white);
+            border-bottom-color: transparent;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto var(--spacing-medium) auto;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+            position: absolute;
+            left: 24px;
+            top: 50%;
+            margin-top: -9px;
         }
-        @keyframes spin {
+        @keyframes rotation {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        .icon-success, .icon-expired {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto var(--spacing-medium) auto;
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .page-container {
+                margin: var(--space-lg) auto;
+                padding: var(--space-md);
+            }
+            .card {
+                padding: var(--space-lg);
+            }
+            .heading-1 {
+                font-size: 1.75rem;
+            }
         }
-
-        .hidden {
-            display: none;
-        }
+        
     </style>
 </head>
 <body>
 
-    <main class="page-container">
-        <div class="form-card" id="form-card">
-            <header class="card-header">
-                <svg class="logo" viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Company Logo">
-                   <text x="10" y="30" font-family="var(--font-family-sans)" font-size="28" font-weight="bold" fill="#C10E02">LEGAL AID</text>
-                   <text x="125" y="30" font-family="var(--font-family-sans)" font-size="28" fill="#1D1D1D">NSW</text>
-                </svg>
-                <h1 class="heading-1">Interim Benefit Offer</h1>
-                <p class="body-paragraph">Please review your offer and respond below.</p>
-            </header>
+    <main class="page-container" id="main-container">
+        <header class="page-header">
+            <div class="logo">LEGAL AID</div>
+            <h1 class="heading-1">Interim Benefit Offer Response</h1>
+        </header>
 
-            <form id="interim-benefit-form" class="card-body" novalidate>
+        <div class="card" id="response-form-card">
+            <form id="interimBenefitForm" novalidate>
+                <!-- Injured Worker Details -->
                 <section class="form-section">
-                    <h2 class="heading-3">Your Details</h2>
-                    <div class="info-grid">
-                        <div class="slds-form-element">
-                            <label class="body-small-strong" for="worker-name">Injured Worker Name</label>
-                            <input type="text" id="worker-name" class="slds-input" value="Jessica Pearson" readonly>
-                        </div>
-                        <div class="slds-form-element">
-                            <label class="body-small-strong" for="claim-number">Claim Number</label>
-                            <input type="text" id="claim-number" class="slds-input" value="CLM-00012345" readonly>
-                        </div>
+                    <h2 class="heading-5">Offer Details</h2>
+                    <div class="form-element">
+                        <label class="form-element__label" for="injuredWorkerName">Injured Worker Name</label>
+                        <input type="text" id="injuredWorkerName" class="input-field" value="Jane Doe" readonly aria-label="Injured Worker Name">
+                    </div>
+                    <div class="form-element">
+                        <label class="form-element__label" for="claimNumber">Claim Number</label>
+                        <input type="text" id="claimNumber" class="input-field" value="C-12345678" readonly aria-label="Claim Number">
                     </div>
                 </section>
-                
+
                 <!-- Medical Expenses Offer -->
                 <section class="form-section">
-                    <h2 class="heading-3">Medical Expenses</h2>
-                    <p class="body-paragraph">Are you intending to claim medical expenses while your claim is being assessed?</p>
-                    <div class="slds-form-element" style="margin-top: 16px;">
-                        <div class="slds-radio">
-                            <label>
-                                <input type="radio" name="medical-expenses" value="yes" required>
+                    <h3 class="heading-3">Medical Expenses</h3>
+                    <p class="body-paragraph">You have been offered interim support for medical expenses while your claim is being assessed.</p>
+                    <div class="form-element">
+                        <label class="form-element__label" for="claimMedicalExpensesYes">Do you intend to claim medical expenses?</label>
+                        <div id="medical-expenses-group" class="form-element__control" role="radiogroup" aria-labelledby="medical-expenses-label">
+                            <label class="radio-group">
+                                <input type="radio" name="claimMedicalExpenses" id="claimMedicalExpensesYes" value="yes" required>
                                 <span class="control-indicator"></span>
-                                <span class="control-text">Yes</span>
+                                <span>Yes, I intend to claim medical expenses.</span>
+                            </label>
+                            <label class="radio-group">
+                                <input type="radio" name="claimMedicalExpenses" id="claimMedicalExpensesNo" value="no" required>
+                                <span class="control-indicator"></span>
+                                <span>No, I do not intend to claim medical expenses at this time.</span>
                             </label>
                         </div>
-                        <div class="slds-radio">
-                            <label>
-                                <input type="radio" name="medical-expenses" value="no">
-                                <span class="control-indicator"></span>
-                                <span class="control-text">No</span>
-                            </label>
-                        </div>
+                        <div id="medical-expenses-error" class="error-message" role="alert" aria-live="assertive"></div>
                     </div>
                 </section>
 
                 <!-- Income Support Offer -->
                 <section class="form-section">
-                    <h2 class="heading-3">Income Support</h2>
-                     <div class="info-grid">
-                        <div class="slds-form-element">
-                            <label class="body-small-strong" for="weekly-benefit">Weekly Benefit Amount</label>
-                            <input type="text" id="weekly-benefit" class="slds-input" value="$850.00" readonly>
-                        </div>
-                        <div class="slds-form-element">
-                            <label class="body-small-strong" for="start-date">Start Date</label>
-                            <input type="text" id="start-date" class="slds-input" value="25 July 2024" readonly>
+                    <h3 class="heading-3">Income Support</h3>
+                    <p class="body-paragraph">You have been offered interim income support while your claim is being assessed.</p>
+                    <div class="info-banner">
+                        <div class="info-banner__icon" aria-hidden="true">&#x24D8;</div>
+                        <div>
+                            <p class="text-strong">Weekly Benefit Amount: $850.50</p>
+                            <p class="text-strong">Payment Start Date: 28 August 2024</p>
                         </div>
                     </div>
-                    <p class="body-paragraph">Do you accept this weekly benefit amount?</p>
-                     <div class="slds-form-element" style="margin-top: 16px;">
-                        <div class="slds-radio">
-                            <label>
-                                <input type="radio" name="income-support" value="yes" required>
+                    <div class="form-element">
+                        <label class="form-element__label" id="income-support-label">Do you accept the weekly income support offer?</label>
+                        <div id="income-support-group" class="form-element__control" role="radiogroup" aria-labelledby="income-support-label">
+                            <label class="radio-group">
+                                <input type="radio" name="acceptIncomeSupport" id="acceptIncomeSupportYes" value="yes" required>
                                 <span class="control-indicator"></span>
-                                <span class="control-text">Accept</span>
+                                <span>Yes, I accept the offer.</span>
+                            </label>
+                            <label class="radio-group">
+                                <input type="radio" name="acceptIncomeSupport" id="acceptIncomeSupportNo" value="no" required>
+                                <span class="control-indicator"></span>
+                                <span>No, I do not accept the offer.</span>
                             </label>
                         </div>
-                        <div class="slds-radio">
-                            <label>
-                                <input type="radio" name="income-support" value="no">
-                                <span class="control-indicator"></span>
-                                <span class="control-text">Not Accept</span>
-                            </label>
-                        </div>
+                         <div id="income-support-error" class="error-message" role="alert" aria-live="assertive"></div>
                     </div>
                 </section>
                 
                 <!-- Conditional: EFT Details -->
-                <section id="eft-section" class="conditional-section">
-                    <h2 class="heading-3">Bank Account Details (EFT)</h2>
-                    <p class="body-paragraph">Please provide your bank details for payments.</p>
-                    <div class="slds-form-element is-required" style="margin-top: 16px;">
-                        <label class="slds-form-element__label" for="account-name">Account Name</label>
-                        <input type="text" id="account-name" class="slds-input" placeholder="e.g., J Pearson">
-                    </div>
-                    <div class="slds-form-element is-required">
-                        <label class="slds-form-element__label" for="bsb">BSB</label>
-                        <input type="text" id="bsb" class="slds-input" placeholder="e.g., 000-000" pattern="\d{3}-?\d{3}">
-                    </div>
-                    <div class="slds-form-element is-required">
-                        <label class="slds-form-element__label" for="account-number">Account Number</label>
-                        <input type="text" id="account-number" class="slds-input" placeholder="e.g., 123456789" pattern="\d{6,9}">
-                    </div>
-                </section>
-
-                <!-- Conditional: TFN Upload -->
-                <section id="tfn-section" class="conditional-section">
-                     <h2 class="heading-3">Tax File Number (TFN) Declaration</h2>
-                     <p class="body-paragraph">To ensure your payments are taxed correctly, please upload a completed TFN Declaration form.</p>
-                     <div class="slds-form-element is-required" style="margin-top: 16px;">
-                        <label class="slds-form-element__label" for="tfn-upload-input">Upload TFN Declaration Form</label>
-                        <div class="slds-form-element__control">
-                            <input type="file" id="tfn-upload-input" class="slds-file-selector__input" accept=".pdf,.doc,.docx,.jpg,.png">
-                            <div class="slds-file-selector" aria-hidden="true">
-                                <label for="tfn-upload-input" class="slds-file-selector__label">Upload File</label>
-                                <span id="tfn-filename" class="slds-file-selector__text">No file selected...</span>
-                            </div>
-                        </div>
+                <div id="eftDetailsSection" class="conditional-section">
+                     <h3 class="heading-3">Bank Account Details for Payment</h3>
+                     <p class="body-paragraph">Please provide your bank details for payments. Payments are made via Electronic Funds Transfer (EFT).</p>
+                     <div class="form-element">
+                        <label class="form-element__label" for="bsb">BSB</label>
+                        <input type="text" id="bsb" class="input-field" placeholder="e.g., 000-000" maxlength="7" pattern="[0-9]{3}-?[0-9]{3}">
+                        <div id="bsb-error" class="error-message" role="alert" aria-live="assertive"></div>
                      </div>
-                </section>
+                     <div class="form-element">
+                        <label class="form-element__label" for="accountNumber">Account Number</label>
+                        <input type="text" id="accountNumber" class="input-field" placeholder="e.g., 123456789" maxlength="10" pattern="[0-9]{1,10}">
+                        <div id="accountNumber-error" class="error-message" role="alert" aria-live="assertive"></div>
+                     </div>
+                     <div class="form-element">
+                        <label class="form-element__label" for="accountName">Account Name</label>
+                        <input type="text" id="accountName" class="input-field" placeholder="e.g., J Doe">
+                        <div id="accountName-error" class="error-message" role="alert" aria-live="assertive"></div>
+                     </div>
+                </div>
+                
+                <!-- Conditional: TFN Upload -->
+                <div id="tfnUploadSection" class="conditional-section">
+                    <h3 class="heading-3">Tax File Number (TFN) Declaration</h3>
+                    <p class="body-paragraph">To ensure your payments are taxed correctly, please upload a completed TFN Declaration form.</p>
+                    <label for="tfnFile" class="file-upload-wrapper">
+                        <input type="file" id="tfnFile" accept=".pdf,.jpg,.jpeg,.png">
+                        <div class="file-upload-icon" aria-hidden="true">&#x21E1;</div>
+                        <div class="file-upload-text">Click to upload or drag and drop</div>
+                        <div class="file-upload-hint">PDF, JPG, PNG (Max 5MB)</div>
+                    </label>
+                    <div class="file-name" id="fileNameDisplay"></div>
+                    <div id="tfnFile-error" class="error-message" role="alert" aria-live="assertive"></div>
+                </div>
 
-                <!-- Conditional: Declaration -->
-                <section id="declaration-section" class="form-section">
-                    <div class="slds-form-element" id="declaration-wrapper">
-                        <div class="slds-checkbox">
-                            <label>
-                                <input type="checkbox" id="declaration-checkbox" name="declaration">
-                                <span class="control-indicator"></span>
-                                <span class="control-text">I understand that by not accepting an offer, there may be a delay in receiving support.</span>
-                            </label>
-                        </div>
-                        <div id="declaration-error" class="error-message">This declaration is required if you do not accept an offer.</div>
+                <!-- Declaration -->
+                <section class="form-section">
+                    <h3 class="heading-3">Declaration</h3>
+                     <div class="form-element">
+                        <label class="checkbox-group">
+                            <input type="checkbox" id="declarationCheck" name="declarationCheck" required>
+                            <span class="control-indicator"></span>
+                            <span class="body-small">I declare that the information provided is true and correct. I understand that my response is final.</span>
+                        </label>
+                        <div id="declarationCheck-error" class="error-message" role="alert" aria-live="assertive"></div>
                     </div>
                 </section>
 
+                <!-- Form Actions -->
+                <div class="form-actions" style="margin-top: var(--space-xl);">
+                    <button type="submit" id="submitButton" class="btn btn-primary btn-block">
+                        Submit Response
+                    </button>
+                </div>
             </form>
-            <footer class="card-footer">
-                <button type="submit" id="submit-button" form="interim-benefit-form" class="slds-button slds-button--primary" disabled>Submit Response</button>
-            </footer>
-        </div>
-
-        <!-- Loading State Overlay -->
-        <div id="loading-overlay" class="state-overlay">
-            <div class="state-content">
-                <div class="spinner"></div>
-                <h2 class="heading-3">Submitting Response...</h2>
-                <p class="body-paragraph">Please wait a moment.</p>
-            </div>
-        </div>
-
-        <!-- Success State Overlay -->
-        <div id="success-overlay" class="state-overlay">
-            <div class="state-content">
-                <svg class="icon-success" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="#21A179"/></svg>
-                <h2 class="heading-3">Response Submitted Successfully</h2>
-                <p class="body-paragraph">Thank you. Your response has been recorded. This page will now close.</p>
-            </div>
         </div>
         
-        <!-- Expired Link State -->
-        <div id="expired-card" class="form-card hidden" style="text-align: center;">
-             <div class="card-body" style="padding: 48px 32px;">
-                 <svg class="icon-expired" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="#C10E02"/></svg>
-                <h2 class="heading-3">Link Expired</h2>
-                <p class="body-paragraph">This link has already been used to submit a response and is no longer active. If you have any questions, please contact your case manager.</p>
+        <div class="card hidden" id="success-message-card">
+            <div class="success-container">
+                 <div class="success-icon" aria-hidden="true">&#x2713;</div>
+                 <h2 class="heading-3">Thank you, your response has been submitted.</h2>
+                 <p class="body-paragraph">We have received your interim benefit offer response. You will be contacted shortly regarding the next steps.</p>
+                 <p class="body-small">This page is no longer active. You may now close this window.</p>
             </div>
         </div>
-
     </main>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // --- DOM Element References ---
-        const form = document.getElementById('interim-benefit-form');
-        const medicalRadios = form.querySelectorAll('input[name="medical-expenses"]');
-        const incomeRadios = form.querySelectorAll('input[name="income-support"]');
-        
-        const eftSection = document.getElementById('eft-section');
-        const tfnSection = document.getElementById('tfn-section');
-        const declarationSection = document.getElementById('declaration-section');
-        
-        const eftInputs = eftSection.querySelectorAll('input');
-        const tfnInput = document.getElementById('tfn-upload-input');
-        const declarationCheckbox = document.getElementById('declaration-checkbox');
-        const declarationWrapper = document.getElementById('declaration-wrapper');
-        const declarationError = document.getElementById('declaration-error');
-        
-        const submitButton = document.getElementById('submit-button');
-        const tfnFilename = document.getElementById('tfn-filename');
-
-        // --- State Management ---
-        let state = {
-            medicalResponse: null, // 'yes' or 'no'
-            incomeResponse: null,  // 'yes' or 'no'
-        };
-
-        // --- Event Listeners ---
-        form.addEventListener('change', handleFormChange);
-        form.addEventListener('submit', handleFormSubmit);
-        tfnInput.addEventListener('change', updateTfnFilename);
-        
-        // --- Core Logic Functions ---
-        function handleFormChange(event) {
-            const { name, value, type } = event.target;
-
-            if (name === 'medical-expenses') {
-                state.medicalResponse = value;
-            } else if (name === 'income-support') {
-                state.incomeResponse = value;
-            }
+        document.addEventListener('DOMContentLoaded', function() {
+            // FORM ELEMENTS
+            const form = document.getElementById('interimBenefitForm');
+            const submitButton = document.getElementById('submitButton');
+            const formCard = document.getElementById('response-form-card');
+            const successCard = document.getElementById('success-message-card');
             
-            updateConditionalSections();
-            updateFormValidity();
-        }
+            // CONDITIONAL SECTION TRIGGERS
+            const medicalRadios = document.querySelectorAll('input[name="claimMedicalExpenses"]');
+            const incomeRadios = document.querySelectorAll('input[name="acceptIncomeSupport"]');
+            
+            // CONDITIONAL SECTIONS
+            const eftSection = document.getElementById('eftDetailsSection');
+            const tfnSection = document.getElementById('tfnUploadSection');
+            
+            // FILE UPLOAD
+            const fileInput = document.getElementById('tfnFile');
+            const fileNameDisplay = document.getElementById('fileNameDisplay');
+            
+            // VALIDATION FIELDS
+            const bsbInput = document.getElementById('bsb');
+            const accountNumberInput = document.getElementById('accountNumber');
+            const accountNameInput = document.getElementById('accountName');
+            const declarationCheck = document.getElementById('declarationCheck');
 
-        function updateConditionalSections() {
-            const isMedicalAccepted = state.medicalResponse === 'yes';
-            const isIncomeAccepted = state.incomeResponse === 'yes';
+            // --- FUNCTIONS ---
 
-            // Show EFT if ANY offer is accepted
-            const showEft = isMedicalAccepted || isIncomeAccepted;
-            toggleSection(eftSection, showEft, eftInputs);
+            const toggleConditionalSections = () => {
+                const intendToClaimMedical = document.querySelector('input[name="claimMedicalExpenses"]:checked')?.value === 'yes';
+                const acceptIncomeSupport = document.querySelector('input[name="acceptIncomeSupport"]:checked')?.value === 'yes';
+                
+                // Show EFT if EITHER is accepted
+                if (intendToClaimMedical || acceptIncomeSupport) {
+                    eftSection.classList.add('visible');
+                } else {
+                    eftSection.classList.remove('visible');
+                }
+                
+                // Show TFN only if income support is accepted
+                if (acceptIncomeSupport) {
+                    tfnSection.classList.add('visible');
+                } else {
+                    tfnSection.classList.remove('visible');
+                }
+            };
 
-            // Show TFN only if INCOME is accepted
-            const showTfn = isIncomeAccepted;
-            toggleSection(tfnSection, showTfn, [tfnInput]);
+            const handleFileSelect = (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    fileNameDisplay.textContent = `Selected file: ${file.name}`;
+                    clearError(fileInput.id);
+                } else {
+                    fileNameDisplay.textContent = '';
+                }
+            };
+            
+            const clearErrors = () => {
+                document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+                document.querySelectorAll('.has-error').forEach(el => el.classList.remove('has-error'));
+            };
+            
+            const showError = (fieldId, message) => {
+                const errorEl = document.getElementById(`${fieldId}-error`);
+                const fieldEl = document.getElementById(fieldId);
 
-            // Make declaration mandatory if ANY offer is NOT accepted
-            const isAnyOfferRejected = state.medicalResponse === 'no' || state.incomeResponse === 'no';
-            const isResponseComplete = state.medicalResponse && state.incomeResponse;
+                if (errorEl) {
+                    errorEl.textContent = message;
+                }
+                if (fieldEl && fieldEl.classList.contains('input-field')) {
+                    fieldEl.classList.add('has-error');
+                }
+            };
 
-            if (isResponseComplete && isAnyOfferRejected) {
-                declarationSection.style.display = 'block';
-                declarationCheckbox.required = true;
-                declarationWrapper.classList.add('is-required');
-            } else {
-                declarationSection.style.display = 'none';
-                declarationCheckbox.required = false;
-                declarationCheckbox.checked = false; // Reset if it becomes hidden
-                declarationWrapper.classList.remove('is-required');
-                declarationWrapper.classList.remove('has-error');
-            }
-        }
+            const clearError = (fieldId) => {
+                const errorEl = document.getElementById(`${fieldId}-error`);
+                const fieldEl = document.getElementById(fieldId);
 
-        function toggleSection(sectionElement, show, inputs) {
-            if (show) {
-                sectionElement.classList.add('visible');
-                inputs.forEach(input => input.required = true);
-            } else {
-                sectionElement.classList.remove('visible');
-                inputs.forEach(input => {
-                    input.required = false;
-                    input.value = ''; // Clear value if hidden
-                    if (input.type === 'file') {
-                        updateTfnFilename();
+                if (errorEl) errorEl.textContent = '';
+                if (fieldEl) fieldEl.classList.remove('has-error');
+            };
+
+            const validateForm = () => {
+                clearErrors();
+                let isValid = true;
+
+                const medicalResponse = document.querySelector('input[name="claimMedicalExpenses"]:checked');
+                if (!medicalResponse) {
+                    isValid = false;
+                    showError('medical-expenses-group', 'Please select a response for medical expenses.');
+                }
+
+                const incomeResponse = document.querySelector('input[name="acceptIncomeSupport"]:checked');
+                if (!incomeResponse) {
+                    isValid = false;
+                    showError('income-support-group', 'Please select a response for income support.');
+                }
+                
+                if (eftSection.classList.contains('visible')) {
+                    if (!bsbInput.value.trim()) {
+                        isValid = false;
+                        showError('bsb', 'BSB is required.');
                     }
-                });
-            }
-        }
+                    if (!accountNumberInput.value.trim()) {
+                        isValid = false;
+                        showError('accountNumber', 'Account Number is required.');
+                    }
+                    if (!accountNameInput.value.trim()) {
+                        isValid = false;
+                        showError('accountName', 'Account Name is required.');
+                    }
+                }
+                
+                if (!declarationCheck.checked) {
+                    isValid = false;
+                    showError('declarationCheck', 'You must agree to the declaration.');
+                }
 
-        function updateFormValidity() {
-            // A simple check if all required fields are filled.
-            // The browser's `checkValidity()` handles the logic for us based on the `required` attribute.
-            const isFormValid = form.checkValidity();
-            submitButton.disabled = !isFormValid;
+                return isValid;
+            };
 
-            // Custom validation message for declaration
-            if (declarationCheckbox.required && !declarationCheckbox.checked) {
-                declarationWrapper.classList.add('has-error');
-            } else {
-                declarationWrapper.classList.remove('has-error');
-            }
-        }
+            const handleFormSubmit = (event) => {
+                event.preventDefault();
+                
+                if (!validateForm()) {
+                    return;
+                }
 
-        function updateTfnFilename() {
-            if (tfnInput.files && tfnInput.files.length > 0) {
-                tfnFilename.textContent = tfnInput.files[0].name;
-            } else {
-                tfnFilename.textContent = 'No file selected...';
-            }
-        }
+                // Show loading state
+                const originalButtonText = submitButton.textContent;
+                submitButton.disabled = true;
+                submitButton.innerHTML = `<span class="loader"></span>Submitting...`;
+                
+                // Simulate network request
+                setTimeout(() => {
+                    // Collect form data (for console log simulation)
+                    const formData = {
+                        injuredWorkerName: document.getElementById('injuredWorkerName').value,
+                        claimNumber: document.getElementById('claimNumber').value,
+                        claimMedicalExpenses: document.querySelector('input[name="claimMedicalExpenses"]:checked').value,
+                        acceptIncomeSupport: document.querySelector('input[name="acceptIncomeSupport"]:checked').value,
+                        eftDetails: {
+                            bsb: bsbInput.value,
+                            accountNumber: accountNumberInput.value,
+                            accountName: accountNameInput.value,
+                        },
+                        tfnFile: fileInput.files[0] ? fileInput.files[0].name : 'Not provided',
+                        declarationChecked: declarationCheck.checked,
+                        submissionTimestamp: new Date().toISOString()
+                    };
+                    
+                    console.log('--- Form Submission Data ---');
+                    console.log(formData);
+                    
+                    // Show success state and "expire" the form
+                    formCard.style.opacity = '0';
+                    setTimeout(() => {
+                        formCard.classList.add('hidden');
+                        successCard.classList.remove('hidden');
+                    }, 300);
 
-        async function handleFormSubmit(event) {
-            event.preventDefault();
-            
-            if (!form.checkValidity()) {
-                // This will trigger native browser validation UI
-                form.reportValidity();
-                updateFormValidity(); // Re-run to show custom messages
-                return;
-            }
+                }, 1500);
+            };
 
-            // --- Show Loading State ---
-            const loadingOverlay = document.getElementById('loading-overlay');
-            loadingOverlay.classList.add('is-active');
+            // --- EVENT LISTENERS ---
+            medicalRadios.forEach(radio => radio.addEventListener('change', toggleConditionalSections));
+            incomeRadios.forEach(radio => radio.addEventListener('change', toggleConditionalSections));
+            fileInput.addEventListener('change', handleFileSelect);
+            form.addEventListener('submit', handleFormSubmit);
 
-            // --- Simulate API call ---
-            await new Promise(resolve => setTimeout(resolve, 2000));
-
-            // --- Show Success State ---
-            loadingOverlay.classList.remove('is-active');
-            const successOverlay = document.getElementById('success-overlay');
-            successOverlay.classList.add('is-active');
-            
-            // --- Simulate URL expiration ---
-            await new Promise(resolve => setTimeout(resolve, 3000));
-
-            const formCard = document.getElementById('form-card');
-            const expiredCard = document.getElementById('expired-card');
-
-            formCard.style.opacity = '0';
-            formCard.style.transform = 'scale(0.95)';
-            successOverlay.classList.remove('is-active');
-
-            setTimeout(() => {
-                formCard.classList.add('hidden');
-                expiredCard.classList.remove('hidden');
-            }, 300);
-        }
-        
-        // --- Initial State Setup ---
-        declarationSection.style.display = 'none'; // Hide declaration until a choice is made
-    });
+            // --- INITIALIZATION ---
+            toggleConditionalSections(); // Run on page load
+        });
     </script>
-
 </body>
 </html>
