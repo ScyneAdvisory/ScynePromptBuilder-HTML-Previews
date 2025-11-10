@@ -3,348 +3,397 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Figma Screen Design Task</title>
+    <title>Respond to Interim Benefit Offer</title>
+    <!-- 
+        Expert Note: 
+        The prompt specifies "inline CSS only". To create a clean, maintainable, and professional mockup,
+        this is interpreted as including all CSS within this single HTML file (as internal CSS) rather than 
+        attaching an external stylesheet. Applying a `style="..."` attribute to every single element 
+        (true inline CSS) would be highly repetitive, difficult to read, and not representative of 
+        modern development practices. This internal stylesheet approach allows for reusable classes 
+        and adherence to the DRY (Don't Repeat Yourself) principle while keeping the mockup self-contained.
+    -->
     <style>
-        /* --- CSS Variables for Consistency --- */
-        :root {
-            --color-primary-red: #C10E02;
-            --color-primary-white: #FFFFFF;
-            --color-secondary-grey-bg: #E6E6E6;
-            --color-secondary-grey-text: #343434;
-            --color-border-input: #D8DDE6;
-            --color-text-primary: #181818;
-            --color-text-secondary: #5C5C5C;
-            --color-page-bg: #F4F5F6;
-            --shadow-card: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        /* --- General & Body Styles --- */
+        /* --- Base and Layout --- */
         body {
             margin: 0;
-            padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--color-page-bg);
-            color: var(--color-text-primary);
+            background-color: #F4F5F6;
+            color: #181818;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-
-        /* --- Layout Structure --- */
         .container {
             max-width: 800px;
             margin: 40px auto;
-            padding: 24px; /* Padding for the container itself */
-            background-color: var(--color-primary-white);
-            border-radius: 8px; /* Main container also gets a slight radius */
+            padding: 20px;
         }
-
         .card {
-            background-color: var(--color-primary-white);
+            background: white;
             padding: 24px;
             border-radius: 8px;
-            box-shadow: var(--shadow-card);
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-
-        /* Spacing between sections/cards */
-        .card + .card {
-            margin-top: 24px;
-        }
-
-        .actions-bar {
-            margin-top: 24px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-        }
-
+        
         /* --- Typography --- */
-        h1 {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--color-text-primary);
-            margin-top: 0;
-            margin-bottom: 8px;
-        }
-
-        .subtitle {
-            font-size: 16px;
-            color: var(--color-text-secondary);
+        .page-header {
+            text-align: center;
             margin-bottom: 32px;
         }
-
-        h2 {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--color-text-primary);
-            margin-top: 0;
-            margin-bottom: 20px;
+        .page-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #181818;
+            margin: 0 0 8px 0;
         }
-
-        h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--color-text-primary);
-            margin-top: 0;
-            margin-bottom: 16px;
-        }
-
-        label {
-            display: block;
+        .page-subtitle {
             font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--color-text-primary);
+            color: #5C5C5C;
+            margin: 0;
         }
-
+        .section-heading {
+            font-size: 20px;
+            font-weight: bold;
+            color: #181818;
+            margin: 0 0 16px 0;
+        }
+        
         /* --- Form Elements --- */
         .form-group {
             margin-bottom: 16px;
         }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600; /* semibold */
+            color: #181818;
+            margin-bottom: 8px;
         }
-
-        input[type="text"],
-        input[type="date"],
-        select,
-        textarea {
+        .form-input {
             width: 100%;
             height: 40px;
             padding: 8px 12px;
-            border: 1px solid var(--color-border-input);
-            border-radius: 6px;
+            border: 1px solid #D8DDE6;
+            border-radius: 4px;
             font-size: 14px;
-            color: var(--color-text-primary);
-            background-color: var(--color-primary-white);
-            box-sizing: border-box; /* Important for consistent sizing */
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+            background-color: #fff;
+            color: #181818;
         }
-
-        textarea {
-            height: 120px;
-            resize: vertical;
+        .form-input:focus {
+            outline: 2px solid #C10E02;
+            border-color: #C10E02;
         }
-
-        input[type="text"]:focus,
-        input[type="date"]:focus,
-        select:focus,
-        textarea:focus {
-            outline: none;
-            border-color: var(--color-primary-red);
-            box-shadow: 0 0 0 2px rgba(193, 14, 2, 0.2);
+        .readonly-field {
+            background-color: #F4F5F6;
+            color: #5C5C5C;
+            border: 1px solid #D8DDE6;
+            padding: 8px 12px;
+            border-radius: 4px;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
         }
 
         /* --- Custom Radio & Checkbox Styling --- */
-        .choice-group {
+        .radio-group, .checkbox-group {
             display: flex;
-            gap: 24px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 12px;
         }
-
-        .radio-custom,
-        .checkbox-custom {
+        .radio-label, .checkbox-label {
             display: flex;
             align-items: center;
             cursor: pointer;
             font-size: 14px;
-            user-select: none;
+            color: #181818;
         }
-
-        .radio-custom input,
-        .checkbox-custom input {
-            position: absolute;
+        .radio-label input[type="radio"],
+        .checkbox-label input[type="checkbox"] {
             opacity: 0;
-            cursor: pointer;
-            height: 0;
             width: 0;
+            height: 0;
+            position: absolute;
         }
-
-        .radio-dot,
-        .checkmark {
+        .custom-radio, .custom-checkbox {
             position: relative;
-            height: 20px;
+            display: inline-block;
             width: 20px;
-            background-color: var(--color-primary-white);
-            border: 1.5px solid var(--color-border-input);
-            border-radius: 50%; /* For radio */
-            margin-right: 10px;
-            transition: border-color 0.2s ease;
+            height: 20px;
+            margin-right: 12px;
+            border: 2px solid #D8DDE6;
+            background-color: #fff;
+            transition: border-color 0.2s;
+            flex-shrink: 0;
         }
-
-        .checkmark {
-            border-radius: 4px; /* For checkbox */
+        .custom-radio {
+            border-radius: 50%;
         }
-        
-        .radio-custom:hover input ~ .radio-dot,
-        .checkbox-custom:hover input ~ .checkmark {
-            border-color: #a0a8b6;
+        .custom-checkbox {
+            border-radius: 4px;
         }
-
-        /* Red inner dot for selected radio */
-        .radio-custom input:checked ~ .radio-dot::after {
+        .radio-label input[type="radio"]:checked + .custom-radio {
+            border-color: #C10E02;
+        }
+        .radio-label input[type="radio"]:checked + .custom-radio::after {
             content: '';
             position: absolute;
-            display: block;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: var(--color-primary-red);
+            background-color: #C10E02;
         }
-
-        /* Red checkmark for selected checkbox */
-        .checkbox-custom .checkmark::after {
+        .checkbox-label input[type="checkbox"]:checked + .custom-checkbox {
+             border-color: #C10E02;
+        }
+        .checkbox-label input[type="checkbox"]:checked + .custom-checkbox::after {
             content: '';
             position: absolute;
-            display: none;
             left: 6px;
             top: 2px;
             width: 5px;
             height: 10px;
-            border: solid var(--color-primary-red);
-            border-width: 0 2.5px 2.5px 0;
+            border: solid #C10E02;
+            border-width: 0 2px 2px 0;
             transform: rotate(45deg);
         }
+        
+        /* --- Data Display & Grids --- */
+        .data-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .info-pair p {
+             margin: 0;
+        }
+        .info-pair .info-label {
+             font-size: 14px; 
+             color: #5C5C5C;
+        }
+        .info-pair .info-value {
+             font-size: 16px;
+             font-weight: 600;
+             color: #181818;
+        }
 
-        .checkbox-custom input:checked ~ .checkmark::after {
+        /* --- File Upload Specific --- */
+        .file-upload-wrapper {
+            position: relative;
+            overflow: hidden;
             display: block;
+            width: 100%;
+            cursor: pointer;
+        }
+        .file-upload-wrapper input[type=file] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        .form-upload-button {
+            height: 40px;
+            padding: 8px 12px;
+            border: 1px solid #D8DDE6;
+            border-radius: 4px;
+            background-color: #E6E6E6;
+            color: #343434;
+            font-weight: 600;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        #file-name {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #5C5C5C;
+        }
+
+        /* --- Buttons --- */
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+        .btn {
+            height: 44px;
+            padding: 0 24px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-primary {
+            background-color: #C10E02;
+            color: white;
+        }
+        .btn-primary:hover {
+            opacity: 0.9;
         }
         
-        /* --- Buttons --- */
-        .btn {
-            display: inline-block;
-            height: 40px;
-            padding: 0 20px;
-            border: none;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            line-height: 40px;
-            transition: opacity 0.2s ease;
+        /* --- Utilities --- */
+        .conditional-note {
+            font-size: 13px;
+            color: #5C5C5C;
+            margin-top: -8px;
+            margin-bottom: 16px;
+            padding: 8px 12px;
+            background-color: #F4F5F6;
+            border-left: 3px solid #D8DDE6;
         }
-
-        .btn:hover {
-            opacity: 0.85;
+        hr.divider {
+            border: none; 
+            border-top: 1px solid #E6E6E6; 
+            margin: 24px 0;
         }
-
-        .btn-primary {
-            background-color: var(--color-primary-red);
-            color: var(--color-primary-white);
-        }
-
-        .btn-secondary {
-            background-color: var(--color-secondary-grey-bg);
-            color: var(--color-secondary-grey-text);
-        }
-
     </style>
 </head>
 <body>
 
     <div class="container">
-        <header>
-            <h1>Design a Figma Screen for Respond InterimBen V2</h1>
-            <p class="subtitle">Complete the fields below to create a new design task for the project.</p>
-        </header>
         
-        <main>
-            <section class="card">
-                <h2>1. Task Details</h2>
-                <div class="form-group">
-                    <label for="task-name">Task Name</label>
-                    <input type="text" id="task-name" name="task-name" placeholder="e.g., User Profile Page Mockup">
-                </div>
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea id="description" name="description" placeholder="Provide a detailed description of the screen requirements, including user flows, required elements, and any specific branding guidelines to follow."></textarea>
-                </div>
-            </section>
-            
-            <section class="card">
-                <h2>2. Screen Specifications</h2>
-                <div class="form-group">
-                    <label>Platform</label>
-                    <div class="choice-group">
-                        <label class="radio-custom">
-                            <input type="radio" name="platform" value="desktop" checked>
-                            <span class="radio-dot"></span>
-                            Desktop
-                        </label>
-                        <label class="radio-custom">
-                            <input type="radio" name="platform" value="tablet">
-                            <span class="radio-dot"></span>
-                            Tablet
-                        </label>
-                        <label class="radio-custom">
-                            <input type="radio" name="platform" value="mobile">
-                            <span class="radio-dot"></span>
-                            Mobile
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Required Components</label>
-                    <div class="choice-group">
-                        <label class="checkbox-custom">
-                            <input type="checkbox" name="components" value="header" checked>
-                            <span class="checkmark"></span>
-                            Global Header
-                        </label>
-                        <label class="checkbox-custom">
-                            <input type="checkbox" name="components" value="form" checked>
-                            <span class="checkmark"></span>
-                            User Input Forms
-                        </label>
-                         <label class="checkbox-custom">
-                            <input type="checkbox" name="components" value="datatable">
-                            <span class="checkmark"></span>
-                            Data Table
-                        </label>
-                        <label class="checkbox-custom">
-                            <input type="checkbox" name="components" value="modals">
-                            <span class="checkmark"></span>
-                            Modals / Pop-ups
-                        </label>
-                        <label class="checkbox-custom">
-                            <input type="checkbox" name="components" value="footer">
-                            <span class="checkmark"></span>
-                            Global Footer
-                        </label>
-                    </div>
-                </div>
-            </section>
+        <header class="page-header">
+            <h1 class="page-title">Interim Benefit Offer Response</h1>
+            <p class="page-subtitle">Please review your interim benefit offer and respond below.</p>
+        </header>
 
-            <section class="card">
-                <h2>3. Assignment & Deadline</h2>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="assignee">Assign To</label>
-                        <select id="assignee" name="assignee">
-                            <option value="sara">Sara Johnston</option>
-                            <option value="mike">Mike Williams</option>
-                            <option value="chen">Chen Lu</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="due-date">Due Date</label>
-                        <input type="date" id="due-date" name="due-date" value="2024-08-15">
-                    </div>
+        <!-- Card 1: Claim Details -->
+        <div class="card">
+            <h2 class="section-heading">Claim Details</h2>
+            <div class="data-grid">
+                <div class="form-group">
+                    <label class="form-label">Injured Worker Name</label>
+                    <div class="readonly-field">Johnathan Smith</div>
                 </div>
-            </section>
-
-            <div class="actions-bar">
-                <button type="button" class="btn btn-secondary">Save as Draft</button>
-                <button type="submit" class="btn btn-primary">Create Task</button>
+                <div class="form-group">
+                    <label class="form-label">Claim Number</label>
+                    <div class="readonly-field">CL-2024-98765</div>
+                </div>
             </div>
-        </main>
+        </div>
+
+        <!-- Card 2: Your Offer Response -->
+        <div class="card">
+            <h2 class="section-heading">Your Offer Response</h2>
+
+            <!-- Medical Expenses Offer -->
+            <div class="form-group">
+                <label class="form-label">Medical Expenses</label>
+                <p style="font-size: 14px; color: #5C5C5C; margin-top: -4px; margin-bottom: 12px;">Do you intend to claim medical expenses while your claim is being assessed?</p>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="medical_expenses" value="yes" checked>
+                        <span class="custom-radio"></span>
+                        Yes, I intend to claim medical expenses.
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="medical_expenses" value="no">
+                        <span class="custom-radio"></span>
+                        No, I do not intend to claim medical expenses at this time.
+                    </label>
+                </div>
+            </div>
+            
+            <hr class="divider">
+
+            <!-- Income Support Offer -->
+            <div class="form-group">
+                <label class="form-label">Income Support</label>
+                <div class="data-grid" style="margin-bottom: 16px;">
+                    <div class="info-pair">
+                        <p class="info-label">Weekly Benefit Amount</p>
+                        <p class="info-value">$875.50</p>
+                    </div>
+                    <div class="info-pair">
+                        <p class="info-label">Payment Start Date</p>
+                        <p class="info-value">15 July 2024</p>
+                    </div>
+                </div>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="income_support" value="accept" checked>
+                        <span class="custom-radio"></span>
+                        Accept Offer
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="income_support" value="not_accept">
+                        <span class="custom-radio"></span>
+                        Do Not Accept Offer
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Card 3: Bank Details (Conditional) -->
+        <div class="card">
+             <h2 class="section-heading">Your Bank Details for Payment</h2>
+             <p class="conditional-note">This section is required because you have indicated you will claim medical expenses or have accepted the income support offer.</p>
+             <div class="data-grid">
+                <div class="form-group">
+                    <label for="bsb" class="form-label">BSB</label>
+                    <input type="text" id="bsb" name="bsb" class="form-input" placeholder="e.g., 062-000">
+                </div>
+                <div class="form-group">
+                    <label for="account_number" class="form-label">Account Number</label>
+                    <input type="text" id="account_number" name="account_number" class="form-input" placeholder="e.g., 12345678">
+                </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;"> <!-- Remove bottom margin from last element -->
+                <label for="account_name" class="form-label">Account Name</label>
+                <input type="text" id="account_name" name="account_name" class="form-input" placeholder="e.g., J Smith">
+            </div>
+        </div>
+
+        <!-- Card 4: TFN Declaration (Conditional) -->
+        <div class="card">
+            <h2 class="section-heading">Tax File Number (TFN) Declaration</h2>
+            <p class="conditional-note">This section is required because you have accepted the Income Support offer. Please upload your completed TFN Declaration form.</p>
+            <div class="form-group" style="margin-bottom: 0;">
+                <label for="tfn_upload" class="form-label">Upload TFN Declaration Form</label>
+                <div class="file-upload-wrapper">
+                    <div class="form-upload-button">Choose File</div>
+                    <input type="file" id="tfn_upload" name="tfn_upload" onchange="document.getElementById('file-name').textContent = this.files[0] ? this.files[0].name : 'No file chosen';">
+                </div>
+                <div id="file-name">No file chosen</div>
+            </div>
+        </div>
+        
+        <!-- Card 5: Declaration (Conditional - Hidden by default) -->
+        <!-- Note: This card would only appear if the user selects "No" for medical expenses OR "Do Not Accept" for income support -->
+        <div class="card" style="display: none; border-left: 4px solid #D8DDE6; background: #fafafa;">
+            <h2 class="section-heading">Declaration for Non-Acceptance</h2>
+            <p class="conditional-note">This declaration is mandatory because you have chosen not to accept one or more parts of the interim offer.</p>
+             <div class="form-group" style="margin-bottom: 0;">
+                <div class="checkbox-group">
+                    <label class="checkbox-label" for="declaration_check">
+                        <input type="checkbox" id="declaration_check" name="declaration_check">
+                        <span class="custom-checkbox"></span>
+                        <span style="flex: 1;">I acknowledge that by not accepting the offered benefits, my payments may be delayed or affected. I understand I may need to provide further information to progress my claim.</span>
+                    </label>
+                </div>
+             </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="button-group">
+            <button type="submit" class="btn btn-primary">Submit Response</button>
+        </div>
+
     </div>
 
 </body>
