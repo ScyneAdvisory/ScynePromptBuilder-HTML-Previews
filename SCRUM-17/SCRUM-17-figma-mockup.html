@@ -4,136 +4,197 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Respond to Interim Benefit Offer</title>
-</head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; background-color: #F4F5F6;">
+    <style>
+        /* 
+         * NOTE: While most styles are inline, pseudo-elements like ::before and ::after for custom radio/checkboxes
+         * cannot be styled inline. They are included in this <style> block for a complete, single-file mockup.
+         * This approach is standard for achieving custom form controls in a static HTML file.
+        */
+        .custom-radio-group input[type="radio"],
+        .custom-checkbox-group input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
 
-    <div style="max-width: 800px; margin: 40px auto; padding: 20px;">
+        .custom-radio-group .radio-visual {
+            position: relative;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #D8DDE6;
+            border-radius: 50%;
+            background-color: #fff;
+            transition: border-color 0.2s;
+        }
 
-        <!-- PAGE HEADER -->
-        <div style="text-align: center; margin-bottom: 32px;">
-            <h1 style="font-size: 28px; font-weight: bold; color: #181818; margin: 0 0 8px 0;">Respond to your Interim Benefit Offer</h1>
-            <p style="font-size: 14px; color: #5C5C5C; margin: 0;">Please review the offer details below and submit your response.</p>
-        </div>
+        .custom-radio-group input[type="radio"]:checked + .radio-visual {
+            border-color: #C10E02;
+        }
 
-        <!-- CARD: CLAIM DETAILS -->
-        <div style="background-color: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <h2 style="font-size: 20px; font-weight: bold; color: #181818; margin-top: 0; margin-bottom: 24px;">Your Claim Details</h2>
-            <div style="display: flex; justify-content: space-between;">
-                <div style="width: 48%;">
-                    <div style="font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 4px;">Full Name</div>
-                    <div style="font-size: 16px; color: #5C5C5C;">Jane Smith</div>
-                </div>
-                <div style="width: 48%;">
-                    <div style="font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 4px;">Claim Number</div>
-                    <div style="font-size: 16px; color: #5C5C5C;">C-2024-12345</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- CARD: MEDICAL EXPENSES -->
-        <div style="background-color: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <h2 style="font-size: 20px; font-weight: bold; color: #181818; margin-top: 0; margin-bottom: 16px;">Medical Expenses</h2>
-            <p style="font-size: 14px; color: #5C5C5C; margin-top: 0; margin-bottom: 16px;">You have been offered cover for reasonable medical expenses while your claim is being assessed.</p>
-            <div style="font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 12px;">Do you intend to claim medical expenses?</div>
-            <div>
-                <label style="display: flex; align-items: center; cursor: pointer; margin-bottom: 12px; font-size: 16px;">
-                    <input type="radio" name="medical_expenses" value="yes" checked style="display: none;">
-                    <span style="display: inline-block; width: 18px; height: 18px; border: 2px solid #C10E02; border-radius: 50%; position: relative; margin-right: 10px; background-color: white;">
-                        <span style="position: absolute; top: 3px; left: 3px; width: 12px; height: 12px; background-color: #C10E02; border-radius: 50%;"></span>
-                    </span>
-                    Yes
-                </label>
-                <label style="display: flex; align-items: center; cursor: pointer; font-size: 16px;">
-                    <input type="radio" name="medical_expenses" value="no" style="display: none;">
-                    <span style="display: inline-block; width: 18px; height: 18px; border: 2px solid #D8DDE6; border-radius: 50%; position: relative; margin-right: 10px; background-color: white;">
-                    </span>
-                    No
-                </label>
-            </div>
-        </div>
-
-        <!-- CARD: INCOME SUPPORT -->
-        <div style="background-color: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <h2 style="font-size: 20px; font-weight: bold; color: #181818; margin-top: 0; margin-bottom: 16px;">Income Support</h2>
-            <p style="font-size: 14px; color: #5C5C5C; margin-top: 0; margin-bottom: 24px;">You have been offered income support (weekly payments) while your claim is being assessed.</p>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 24px;">
-                <div style="width: 48%;">
-                    <div style="font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 4px;">Weekly Benefit Amount</div>
-                    <div style="font-size: 16px; color: #181818; font-weight: bold;">$850.00</div>
-                </div>
-                <div style="width: 48%;">
-                    <div style="font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 4px;">Payment Start Date</div>
-                    <div style="font-size: 16px; color: #5C5C5C;">15 August 2024</div>
-                </div>
-            </div>
-            <div style="font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 12px;">Do you accept this income support offer?</div>
-            <div>
-                <label style="display: flex; align-items: center; cursor: pointer; margin-bottom: 12px; font-size: 16px;">
-                    <input type="radio" name="income_support" value="accept" checked style="display: none;">
-                    <span style="display: inline-block; width: 18px; height: 18px; border: 2px solid #C10E02; border-radius: 50%; position: relative; margin-right: 10px; background-color: white;">
-                        <span style="position: absolute; top: 3px; left: 3px; width: 12px; height: 12px; background-color: #C10E02; border-radius: 50%;"></span>
-                    </span>
-                    Accept
-                </label>
-                <label style="display: flex; align-items: center; cursor: pointer; font-size: 16px;">
-                    <input type="radio" name="income_support" value="not_accept" style="display: none;">
-                    <span style="display: inline-block; width: 18px; height: 18px; border: 2px solid #D8DDE6; border-radius: 50%; position: relative; margin-right: 10px; background-color: white;">
-                    </span>
-                    Do not accept
-                </label>
-            </div>
-        </div>
-
-        <!-- CARD: PAYMENT DETAILS (Conditional) -->
-        <div style="background-color: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <h2 style="font-size: 20px; font-weight: bold; color: #181818; margin-top: 0; margin-bottom: 8px;">Your Payment Details</h2>
-            <p style="font-size: 12px; color: #5C5C5C; margin-top: 0; margin-bottom: 24px;">Please provide your bank account details for payments.</p>
-            
-            <div style="margin-bottom: 16px;">
-                <label for="bsb" style="display: block; font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 8px;">BSB</label>
-                <input type="text" id="bsb" name="bsb" placeholder="e.g., 000-000" style="width: 100%; box-sizing: border-box; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 16px;">
-            </div>
-
-            <div style="margin-bottom: 16px;">
-                <label for="account_number" style="display: block; font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 8px;">Account Number</label>
-                <input type="text" id="account_number" name="account_number" placeholder="e.g., 123456789" style="width: 100%; box-sizing: border-box; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 16px;">
-            </div>
-
-            <div style="margin-bottom: 24px;">
-                <label for="account_name" style="display: block; font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 8px;">Account Name</label>
-                <input type="text" id="account_name" name="account_name" placeholder="e.g., Jane Smith" style="width: 100%; box-sizing: border-box; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 16px;">
-            </div>
-
-            <h3 style="font-size: 18px; font-weight: bold; color: #181818; margin-top: 24px; margin-bottom: 8px; border-top: 1px solid #E6E6E6; padding-top: 24px;">Tax File Number (TFN) Declaration</h3>
-             <p style="font-size: 12px; color: #5C5C5C; margin-top: 0; margin-bottom: 16px;">Required for income support payments to ensure the correct tax is withheld.</p>
-            <div style="border: 2px dashed #D8DDE6; border-radius: 8px; padding: 24px; text-align: center;">
-                 <input type="file" id="tfn_upload" name="tfn_upload" style="display: none;">
-                 <label for="tfn_upload" style="cursor: pointer; display: inline-block; padding: 10px 20px; background-color: #E6E6E6; color: #343434; border-radius: 4px; font-weight: 600;">
-                     Upload TFN Declaration Form
-                 </label>
-                 <p style="font-size: 12px; color: #5C5C5C; margin-top: 12px; margin-bottom: 0;">PDF, PNG, or JPG files accepted. Max size 5MB.</p>
-            </div>
-        </div>
-
-        <!-- NOTE on Declaration Checkbox: This section is hidden by default. -->
-        <!-- The following 'Declaration' card would only appear if the user selects "No" for Medical Expenses OR "Do not accept" for Income Support.
-        <div style="background-color: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <h2 style="font-size: 20px; font-weight: bold; color: #181818; margin-top: 0; margin-bottom: 16px;">Declaration</h2>
-            <label style="display: flex; align-items: start; cursor: pointer; font-size: 14px; color: #181818; line-height: 1.5;">
-                <input type="checkbox" name="declaration" required style="display: none;">
-                <span style="display: inline-block; flex-shrink: 0; width: 18px; height: 18px; border: 2px solid #D8DDE6; border-radius: 4px; position: relative; margin-right: 12px; margin-top: 2px; background-color: white;">
-                    <span style="color: #C10E02; font-size: 22px; font-weight: bold; position: absolute; top: -5px; left: 2px;">&#10003;</span>
-                </span>
-                I understand that by not accepting the offer(s), payments will not commence. I can contact my case manager if I have any questions.
-            </label>
-        </div>
-        -->
+        .custom-radio-group input[type="radio"]:checked + .radio-visual::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #C10E02;
+        }
         
-        <!-- ACTION BUTTONS -->
-        <div style="text-align: right; margin-top: 32px;">
-            <button type="submit" style="height: 44px; padding: 12px 24px; border-radius: 4px; font-weight: 600; font-size: 16px; border: none; cursor: pointer; background-color: #C10E02; color: white;">Submit Response</button>
+        .custom-checkbox-group .checkbox-visual {
+            position: relative;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #D8DDE6;
+            border-radius: 4px;
+            background-color: #fff;
+            transition: border-color 0.2s;
+        }
+
+        .custom-checkbox-group input[type="checkbox"]:checked + .checkbox-visual {
+            border-color: #C10E02;
+        }
+
+        .custom-checkbox-group input[type="checkbox"]:checked + .checkbox-visual::after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid #C10E02;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; background-color: #F4F5F6; color: #181818;">
+
+    <div style="max-width: 800px; margin: 40px auto; padding: 20px; box-sizing: border-box;">
+        
+        <!-- Page Header -->
+        <header style="text-align: left; margin-bottom: 24px;">
+            <h1 style="font-size: 28px; font-weight: 700; color: #181818; margin: 0 0 8px 0;">Respond to Interim Benefit Offer</h1>
+            <p style="font-size: 14px; color: #5C5C5C; margin: 0;">Please review your interim benefit offer and respond below. This link is valid for a single submission.</p>
+        </header>
+
+        <!-- Claim Details Card -->
+        <div style="background: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h2 style="font-size: 20px; font-weight: 700; color: #181818; margin: 0 0 16px 0;">Claim Details</h2>
+            <div style="display: flex; gap: 32px;">
+                <div style="flex: 1;">
+                    <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Injured Worker Name</label>
+                    <p style="font-size: 16px; color: #5C5C5C; margin: 0;">Samantha Chen</p>
+                </div>
+                <div style="flex: 1;">
+                    <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Claim Number</label>
+                    <p style="font-size: 16px; color: #5C5C5C; margin: 0;">C-2024-0815</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Medical Expenses Card -->
+        <div style="background: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h2 style="font-size: 20px; font-weight: 700; color: #181818; margin: 0 0 16px 0;">Provisional Medical Expenses</h2>
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #181818;">Do you intend to claim medical expenses while your claim is being assessed?</label>
+                <div style="display: flex; gap: 24px;">
+                    <label class="custom-radio-group" style="display: flex; align-items: center; cursor: pointer; font-size: 14px;">
+                        <input type="radio" name="medical_expenses" value="yes" checked>
+                        <span class="radio-visual"></span>
+                        <span style="margin-left: 8px;">Yes, I intend to claim medical expenses</span>
+                    </label>
+                    <label class="custom-radio-group" style="display: flex; align-items: center; cursor: pointer; font-size: 14px;">
+                        <input type="radio" name="medical_expenses" value="no">
+                        <span class="radio-visual"></span>
+                        <span style="margin-left: 8px;">No</span>
+                    </label>
+                </div>
+            </div>
         </div>
 
+        <!-- Income Support Card -->
+        <div style="background: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h2 style="font-size: 20px; font-weight: 700; color: #181818; margin: 0 0 16px 0;">Provisional Income Support</h2>
+            <div style="display: flex; gap: 32px; margin-bottom: 24px;">
+                <div style="flex: 1;">
+                    <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Weekly Benefit Amount</label>
+                    <p style="font-size: 18px; font-weight: 700; color: #181818; margin: 0;">$982.50</p>
+                </div>
+                <div style="flex: 1;">
+                    <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Start Date</label>
+                    <p style="font-size: 16px; color: #5C5C5C; margin: 0;">29 August 2024</p>
+                </div>
+            </div>
+             <div>
+                <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #181818;">Do you accept this income support offer?</label>
+                <div style="display: flex; gap: 24px;">
+                    <label class="custom-radio-group" style="display: flex; align-items: center; cursor: pointer; font-size: 14px;">
+                        <input type="radio" name="income_support" value="accept">
+                        <span class="radio-visual"></span>
+                        <span style="margin-left: 8px;">Accept</span>
+                    </label>
+                    <label class="custom-radio-group" style="display: flex; align-items: center; cursor: pointer; font-size: 14px;">
+                        <input type="radio" name="income_support" value="not_accept">
+                        <span class="radio-visual"></span>
+                        <span style="margin-left: 8px;">Not Accept</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <!-- NOTE: The following section for EFT Details is displayed conditionally if the user accepts EITHER medical or income support. -->
+        <div style="background: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h2 style="font-size: 20px; font-weight: 700; color: #181818; margin: 0 0 16px 0;">Bank Details for Payment (EFT)</h2>
+            <div style="margin-bottom: 16px;">
+                <label for="account-name" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Account Name</label>
+                <input type="text" id="account-name" name="account-name" placeholder="e.g., S Chen" style="width: 100%; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; box-sizing: border-box; font-size: 14px;">
+            </div>
+            <div style="display: flex; gap: 16px;">
+                <div style="flex: 1; margin-bottom: 16px;">
+                    <label for="bsb" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">BSB</label>
+                    <input type="text" id="bsb" name="bsb" placeholder="e.g., 000-000" style="width: 100%; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; box-sizing: border-box; font-size: 14px;">
+                </div>
+                <div style="flex: 2; margin-bottom: 16px;">
+                    <label for="account-number" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Account Number</label>
+                    <input type="text" id="account-number" name="account-number" placeholder="e.g., 123456789" style="width: 100%; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; box-sizing: border-box; font-size: 14px;">
+                </div>
+            </div>
+        </div>
+
+        <!-- NOTE: The following section to upload a TFN form is displayed conditionally if the user ACCEPTS the income support offer. -->
+        <div style="background: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h2 style="font-size: 20px; font-weight: 700; color: #181818; margin: 0 0 16px 0;">Tax File Number (TFN) Declaration</h2>
+            <div style="margin-bottom: 16px;">
+                <label for="tfn-upload" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Upload TFN Declaration Form</label>
+                <p style="font-size: 14px; color: #5C5C5C; margin: 0 0 12px 0;">To ensure you are taxed correctly, please upload a completed TFN Declaration Form. You can download a blank form from the ATO website.</p>
+                <input type="file" id="tfn-upload" name="tfn-upload" style="width: 100%; font-size: 14px; color: #343434; padding: 8px; border: 1px solid #D8DDE6; border-radius: 4px;">
+            </div>
+        </div>
+        
+        <!-- NOTE: The following declaration is mandatory if ANY offer is 'Not Accepted'. -->
+        <div style="background: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h2 style="font-size: 20px; font-weight: 700; color: #181818; margin: 0 0 16px 0;">Declaration</h2>
+            <div class="custom-checkbox-group">
+                 <label for="declaration-check" style="display: flex; align-items: flex-start; cursor: pointer; font-size: 14px; line-height: 1.5;">
+                    <input type="checkbox" id="declaration-check" name="declaration-check">
+                    <span class="checkbox-visual" style="margin-top: 2px; flex-shrink: 0;"></span>
+                    <span style="margin-left: 12px; color: #5C5C5C;">I acknowledge that by not accepting one or more offers, my interim benefits may be affected. I understand I should contact my case manager if I have any questions.</span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div style="display: flex; justify-content: flex-end; align-items: center; gap: 16px; padding-top: 8px;">
+            <button type="button" style="height: 44px; padding: 12px 24px; border-radius: 4px; font-weight: 600; background-color: #E6E6E6; color: #343434; border: none; cursor: pointer; font-size: 14px; transition: background-color 0.2s;">Save as Draft</button>
+            <button type="submit" style="height: 44px; padding: 12px 24px; border-radius: 4px; font-weight: 600; background-color: #C10E02; color: white; border: none; cursor: pointer; font-size: 14px; transition: background-color 0.2s;">Submit Response</button>
+        </div>
     </div>
 
 </body>
