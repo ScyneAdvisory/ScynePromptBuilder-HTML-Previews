@@ -3,194 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interim Benefit Offer Response</title>
+    <title>Figma Screen Design Task</title>
     <style>
-        /* --- DESIGN SYSTEM & SLDS STYLING --- */
-
-        /* 1. CSS Variables based on Design System */
+        /* --- CSS Variables for Consistency --- */
         :root {
-            /* Primary/Action Colors */
-            --brand-primary: #C10E02; /* Empower Red */
-            --brand-primary-dark: #A10C02;
-            --brand-secondary: #004A80; /* Trusted Blue */
-            
-            /* Feedback Colors */
-            --color-success: #21A179; /* Calming Green */
-            --color-success-bg: #E8F5F1;
-            
-            /* Neutral Colors */
-            --color-text: #1D1D1D;
-            --color-text-secondary: #545454;
-            --color-border: #C8C8C8;
-            --color-border-focus: #004A80;
-            --color-background-light: #F4F5F6;
-            --color-background-disabled: #E6E6E6;
-            --color-white: #FFFFFF;
-
-            /* Typography */
-            --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-            
-            /* Spacing (8px grid) */
-            --space-xs: 4px;
-            --space-sm: 8px;
-            --space-md: 16px;
-            --space-lg: 24px;
-            --space-xl: 32px;
-            
-            /* Borders & Shadows */
-            --border-radius: 4px;
-            --shadow-card: 0 2px 4px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.05);
-            --shadow-focus: 0 0 0 2px var(--color-white), 0 0 0 4px var(--brand-secondary);
+            --color-primary-red: #C10E02;
+            --color-primary-white: #FFFFFF;
+            --color-secondary-grey-bg: #E6E6E6;
+            --color-secondary-grey-text: #343434;
+            --color-border-input: #D8DDE6;
+            --color-text-primary: #181818;
+            --color-text-secondary: #5C5C5C;
+            --color-page-bg: #F4F5F6;
+            --shadow-card: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        /* 2. Base & Reset Styles */
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
-
-        html, body {
+        /* --- General & Body Styles --- */
+        body {
             margin: 0;
             padding: 0;
-            font-family: var(--font-family-sans);
-            background-color: var(--color-background-light);
-            color: var(--color-text);
-            line-height: 1.5;
-        }
-        
-        /* 3. Typography Styles */
-        h1 { /* Heading 3 equivalent */
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--color-text);
-            margin: 0 0 var(--space-md) 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--color-page-bg);
+            color: var(--color-text-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        h2 { /* Heading 5 equivalent */
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin: 0 0 var(--space-sm) 0;
-            color: var(--color-secondary);
-            border-bottom: 1px solid var(--color-border);
-            padding-bottom: var(--space-sm);
-            margin-bottom: var(--space-md);
-        }
-
-        p, label { /* Body 2 Paragraph */
-            font-size: 1rem;
-            margin-bottom: var(--space-sm);
-        }
-        
-        .text-small { /* Body 3 Small */
-            font-size: 0.875rem;
-            color: var(--color-text-secondary);
-        }
-        
-        .text-strong {
-            font-weight: 600;
-        }
-
-        /* 4. Layout Components */
-        .page-container {
+        /* --- Layout Structure --- */
+        .container {
             max-width: 800px;
-            margin: var(--space-lg) auto;
-            padding: var(--space-lg);
+            margin: 40px auto;
+            padding: 24px; /* Padding for the container itself */
+            background-color: var(--color-primary-white);
+            border-radius: 8px; /* Main container also gets a slight radius */
         }
 
         .card {
-            background-color: var(--color-white);
-            border-radius: var(--border-radius);
+            background-color: var(--color-primary-white);
+            padding: 24px;
+            border-radius: 8px;
             box-shadow: var(--shadow-card);
-            padding: var(--space-xl);
-            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
         }
 
-        .page-header {
-            text-align: center;
-            margin-bottom: var(--space-xl);
-        }
-        
-        .page-header .logo {
-            height: 40px;
-            width: auto;
-            margin-bottom: var(--space-md);
-            color: var(--brand-primary); /* Using color to style SVG */
+        /* Spacing between sections/cards */
+        .card + .card {
+            margin-top: 24px;
         }
 
-        .section {
-            margin-bottom: var(--space-xl);
+        .actions-bar {
+            margin-top: 24px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
         }
 
-        .grid {
-            display: grid;
-            gap: var(--space-md);
+        /* --- Typography --- */
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-top: 0;
+            margin-bottom: 8px;
         }
 
-        .grid-2-col {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        }
-        
-        /* 5. Form Elements (SLDS-inspired) */
-        .form-element {
-            margin-bottom: var(--space-md);
+        .subtitle {
+            font-size: 16px;
+            color: var(--color-text-secondary);
+            margin-bottom: 32px;
         }
 
-        .form-element__label {
+        h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+
+        label {
             display: block;
+            font-size: 14px;
             font-weight: 600;
-            margin-bottom: var(--space-sm);
-            font-size: 0.875rem;
+            margin-bottom: 8px;
+            color: var(--color-text-primary);
         }
 
-        .input {
+        /* --- Form Elements --- */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select,
+        textarea {
             width: 100%;
-            padding: var(--space-sm) var(--space-md);
-            border: 1px solid var(--color-border);
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            height: 40px;
+            padding: 8px 12px;
+            border: 1px solid var(--color-border-input);
+            border-radius: 6px;
+            font-size: 14px;
+            color: var(--color-text-primary);
+            background-color: var(--color-primary-white);
+            box-sizing: border-box; /* Important for consistent sizing */
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .input:focus {
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        select:focus,
+        textarea:focus {
             outline: none;
-            border-color: var(--color-border-focus);
-            box-shadow: 0 0 0 1px var(--color-border-focus);
-        }
-        
-        .input[readonly] {
-            background-color: var(--color-background-light);
-            cursor: not-allowed;
-            border-color: #dddbda;
+            border-color: var(--color-primary-red);
+            box-shadow: 0 0 0 2px rgba(193, 14, 2, 0.2);
         }
 
-        .form-element--error .input {
-            border-color: var(--brand-primary);
-        }
-
-        .error-message {
-            color: var(--brand-primary);
-            font-size: 0.875rem;
-            margin-top: var(--space-xs);
-            display: none;
-        }
-
-        .form-element--error .error-message {
-            display: block;
-        }
-
-        /* Radio & Checkbox Styling (CRITICAL REQUIREMENT) */
+        /* --- Custom Radio & Checkbox Styling --- */
         .choice-group {
             display: flex;
-            gap: var(--space-lg);
+            gap: 24px;
+            flex-wrap: wrap;
         }
 
-        .radio, .checkbox {
-            position: relative;
+        .radio-custom,
+        .checkbox-custom {
             display: flex;
             align-items: center;
             cursor: pointer;
+            font-size: 14px;
+            user-select: none;
         }
 
-        .radio input[type="radio"], .checkbox input[type="checkbox"] {
+        .radio-custom input,
+        .checkbox-custom input {
             position: absolute;
             opacity: 0;
             cursor: pointer;
@@ -198,56 +162,43 @@
             width: 0;
         }
 
-        .radio .control-indicator {
+        .radio-dot,
+        .checkmark {
+            position: relative;
             height: 20px;
             width: 20px;
-            background-color: var(--color-white);
-            border: 2px solid var(--color-border);
-            border-radius: 50%;
-            margin-right: var(--space-sm);
-            display: inline-block;
-            transition: border-color 0.2s;
+            background-color: var(--color-primary-white);
+            border: 1.5px solid var(--color-border-input);
+            border-radius: 50%; /* For radio */
+            margin-right: 10px;
+            transition: border-color 0.2s ease;
         }
 
-        .radio input[type="radio"]:checked ~ .control-indicator {
-            border-color: var(--brand-primary);
+        .checkmark {
+            border-radius: 4px; /* For checkbox */
+        }
+        
+        .radio-custom:hover input ~ .radio-dot,
+        .checkbox-custom:hover input ~ .checkmark {
+            border-color: #a0a8b6;
         }
 
-        .radio .control-indicator::after {
+        /* Red inner dot for selected radio */
+        .radio-custom input:checked ~ .radio-dot::after {
             content: '';
             position: absolute;
-            display: none;
-            top: 10px; /* Center */
-            left: 10px; /* Center */
+            display: block;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: var(--brand-primary); /* CRITICAL: Inner dot is red */
-            transform: translate(-50%, -50%);
+            background: var(--color-primary-red);
         }
 
-        .radio input[type="radio"]:checked ~ .control-indicator::after {
-            display: block;
-        }
-        
-        .checkbox .control-indicator {
-            height: 20px;
-            width: 20px;
-            background-color: var(--color-white);
-            border: 2px solid var(--color-border);
-            border-radius: var(--border-radius);
-            margin-right: var(--space-sm);
-            display: inline-block;
-            transition: border-color 0.2s;
-            position: relative;
-        }
-        
-        .checkbox input[type="checkbox"]:checked ~ .control-indicator {
-            border-color: var(--brand-primary);
-            background-color: var(--color-white);
-        }
-
-        .checkbox .control-indicator::after {
+        /* Red checkmark for selected checkbox */
+        .checkbox-custom .checkmark::after {
             content: '';
             position: absolute;
             display: none;
@@ -255,519 +206,146 @@
             top: 2px;
             width: 5px;
             height: 10px;
-            border-style: solid;
-            border-color: var(--brand-primary); /* CRITICAL: Checkmark is red */
-            border-width: 0 3px 3px 0;
+            border: solid var(--color-primary-red);
+            border-width: 0 2.5px 2.5px 0;
             transform: rotate(45deg);
         }
 
-        .checkbox input[type="checkbox"]:checked ~ .control-indicator::after {
+        .checkbox-custom input:checked ~ .checkmark::after {
             display: block;
         }
-
-        /* Focus states for accessibility */
-        .radio input[type="radio"]:focus-visible ~ .control-indicator,
-        .checkbox input[type="checkbox"]:focus-visible ~ .control-indicator {
-            box-shadow: var(--shadow-focus);
-        }
         
-        /* 6. Button Component */
+        /* --- Buttons --- */
         .btn {
             display: inline-block;
+            height: 40px;
+            padding: 0 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
             font-weight: 600;
-            padding: var(--space-sm) var(--space-lg);
-            border-radius: var(--border-radius);
-            border: 1px solid transparent;
             cursor: pointer;
             text-align: center;
-            font-size: 1rem;
-            transition: background-color 0.2s, transform 0.1s;
             text-decoration: none;
+            line-height: 40px;
+            transition: opacity 0.2s ease;
         }
 
-        .btn:active {
-            transform: translateY(1px);
+        .btn:hover {
+            opacity: 0.85;
         }
 
         .btn-primary {
-            background-color: var(--brand-primary);
-            color: var(--color-white);
-            border-color: var(--brand-primary);
+            background-color: var(--color-primary-red);
+            color: var(--color-primary-white);
         }
 
-        .btn-primary:hover:not(:disabled) {
-            background-color: var(--brand-primary-dark);
-            border-color: var(--brand-primary-dark);
+        .btn-secondary {
+            background-color: var(--color-secondary-grey-bg);
+            color: var(--color-secondary-grey-text);
         }
 
-        .btn:disabled {
-            background-color: var(--color-background-disabled);
-            color: var(--color-text-secondary);
-            cursor: not-allowed;
-            border-color: var(--color-border);
-        }
-        
-        .btn--full-width {
-            width: 100%;
-        }
-        
-        .btn .spinner {
-            display: none;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            border-top-color: var(--color-white);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-right: var(--space-sm);
-            vertical-align: middle;
-        }
-
-        .btn.loading .spinner {
-            display: inline-block;
-        }
-        .btn.loading .btn-text {
-            vertical-align: middle;
-        }
-
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* 7. File Upload Component */
-        .file-upload-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .file-upload-wrapper input[type=file] {
-            font-size: 100px;
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            cursor: pointer;
-        }
-        
-        .file-upload-btn {
-            border: 1px solid var(--color-border);
-            color: var(--color-text-secondary);
-            background-color: var(--color-white);
-            padding: var(--space-sm) var(--space-md);
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            width: 100%;
-            text-align: left;
-        }
-        
-        .file-upload-btn:hover {
-            background-color: var(--color-background-light);
-        }
-        
-        #file-name {
-            margin-top: var(--space-sm);
-            font-style: italic;
-            color: var(--color-text-secondary);
-        }
-
-        /* 8. Utility & Helper Classes */
-        .hidden {
-            display: none !important;
-        }
-        
-        .visually-hidden {
-            border: 0;
-            clip: rect(0 0 0 0);
-            height: 1px;
-            margin: -1px;
-            overflow: hidden;
-            padding: 0;
-            position: absolute;
-            width: 1px;
-        }
-
-        .conditional-section {
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, margin-top 0.5s ease-in-out;
-            margin-top: 0;
-        }
-
-        .conditional-section.visible {
-            max-height: 1000px; /* Large enough to not clip content */
-            opacity: 1;
-            margin-top: var(--space-xl);
-        }
-
-        /* Success Message */
-        .success-card {
-            text-align: center;
-        }
-        .success-card .icon {
-            color: var(--color-success);
-            width: 64px;
-            height: 64px;
-            margin-bottom: var(--space-md);
-        }
-        .success-card h1 {
-            color: var(--color-success);
-        }
-
-        /* 9. Responsive Design */
-        @media (max-width: 768px) {
-            .page-container {
-                margin: 0;
-                padding: var(--space-md);
-            }
-            .card {
-                padding: var(--space-lg);
-            }
-            h1 {
-                font-size: 1.5rem;
-            }
-            .choice-group {
-                flex-direction: column;
-                gap: var(--space-md);
-            }
-        }
     </style>
 </head>
 <body>
 
-    <div class="page-container" id="page-container">
-        <header class="page-header">
-            <!-- Simple SVG Logo for Legal Aid -->
-            <svg class="logo" viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Company Logo">
-                <text x="0" y="15" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="currentColor">LEGAL AID</text>
-            </svg>
-            <h1>Interim Benefit Offer Response</h1>
+    <div class="container">
+        <header>
+            <h1>Design a Figma Screen for Respond InterimBen V2</h1>
+            <p class="subtitle">Complete the fields below to create a new design task for the project.</p>
         </header>
-
+        
         <main>
-            <!-- Form Container -->
-            <form id="benefit-form" class="card" novalidate>
-                <div class="section">
-                    <h2>Claim Details</h2>
-                    <div class="grid grid-2-col">
-                        <div class="form-element">
-                            <label for="workerName" class="form-element__label">Injured Worker Name</label>
-                            <input type="text" id="workerName" class="input" value="Jane Doe" readonly>
-                        </div>
-                        <div class="form-element">
-                            <label for="claimNumber" class="form-element__label">Claim Number</label>
-                            <input type="text" id="claimNumber" class="input" value="C-9876543" readonly>
-                        </div>
-                    </div>
+            <section class="card">
+                <h2>1. Task Details</h2>
+                <div class="form-group">
+                    <label for="task-name">Task Name</label>
+                    <input type="text" id="task-name" name="task-name" placeholder="e.g., User Profile Page Mockup">
                 </div>
-
-                <!-- Medical Expenses Offer -->
-                <div id="medical-offer-section" class="section">
-                    <h2>Medical Expenses</h2>
-                    <div class="form-element">
-                        <p class="text-strong">Do you intend to claim medical expenses while your claim is being assessed?</p>
-                        <div class="choice-group" role="radiogroup" aria-labelledby="medical-expense-label">
-                           <label class="radio">
-                               <input type="radio" name="medicalExpenses" value="yes" required>
-                               <span class="control-indicator"></span>
-                               <span>Yes</span>
-                           </label>
-                           <label class="radio">
-                               <input type="radio" name="medicalExpenses" value="no" required>
-                               <span class="control-indicator"></span>
-                               <span>No</span>
-                           </label>
-                        </div>
-                        <div id="medicalExpensesError" class="error-message">Please select an option.</div>
-                    </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" placeholder="Provide a detailed description of the screen requirements, including user flows, required elements, and any specific branding guidelines to follow."></textarea>
                 </div>
-
-                <!-- Income Support Offer -->
-                <div id="income-offer-section" class="section">
-                    <h2>Income Support</h2>
-                    <div class="grid grid-2-col">
-                        <div class="form-element">
-                            <label for="weeklyBenefit" class="form-element__label">Weekly Benefit Amount</label>
-                            <input type="text" id="weeklyBenefit" class="input" value="$650.00" readonly>
-                        </div>
-                        <div class="form-element">
-                            <label for="startDate" class="form-element__label">Start Date</label>
-                            <input type="text" id="startDate" class="input" value="25/07/2024" readonly>
-                        </div>
-                    </div>
-                    <div class="form-element">
-                        <p class="text-strong">Do you accept the weekly benefit amount?</p>
-                        <div class="choice-group" role="radiogroup" aria-labelledby="income-support-label">
-                            <label class="radio">
-                                <input type="radio" name="incomeSupport" value="accept" required>
-                                <span class="control-indicator"></span>
-                                <span>Accept</span>
-                            </label>
-                            <label class="radio">
-                                <input type="radio" name="incomeSupport" value="not_accept" required>
-                                <span class="control-indicator"></span>
-                                <span>Not Accept</span>
-                            </label>
-                        </div>
-                         <div id="incomeSupportError" class="error-message">Please select an option.</div>
-                    </div>
-                </div>
-                
-                <!-- Conditional: EFT Details -->
-                <div id="eft-section" class="section conditional-section">
-                    <h2>EFT Details for Payment</h2>
-                    <p class="text-small">Please provide your bank details for payments. These details will be stored securely.</p>
-                    <div class="grid">
-                         <div class="form-element">
-                            <label for="accountName" class="form-element__label">Account Name</label>
-                            <input type="text" id="accountName" class="input" placeholder="e.g., Jane M Doe">
-                             <div class="error-message">Account name is required.</div>
-                        </div>
-                        <div class="grid grid-2-col">
-                            <div class="form-element">
-                                <label for="bsb" class="form-element__label">BSB</label>
-                                <input type="text" id="bsb" class="input" placeholder="e.g., 000-000">
-                                <div class="error-message">A valid BSB is required.</div>
-                            </div>
-                            <div class="form-element">
-                                <label for="accountNumber" class="form-element__label">Account Number</label>
-                                <input type="text" id="accountNumber" class="input" placeholder="e.g., 123456789">
-                                <div class="error-message">A valid account number is required.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Conditional: TFN Upload -->
-                <div id="tfn-section" class="section conditional-section">
-                    <h2>Upload TFN Declaration Form</h2>
-                    <p class="text-small">To ensure your payments are taxed correctly, please upload a completed Tax File Number declaration form.</p>
-                    <div class="form-element">
-                        <label for="tfnUpload" class="form-element__label visually-hidden">TFN Declaration Form</label>
-                         <div class="file-upload-wrapper">
-                            <button type="button" class="btn file-upload-btn">Choose File...</button>
-                            <input type="file" id="tfnUpload" name="tfnUpload" accept=".pdf,.doc,.docx,.jpg,.png">
-                        </div>
-                        <div id="file-name" class="text-small">No file selected.</div>
-                    </div>
-                </div>
-
-                <!-- Declaration -->
-                <div class="section">
-                    <h2>Declaration</h2>
-                    <div class="form-element">
-                        <label class="checkbox">
-                            <input type="checkbox" id="declaration" name="declaration">
-                            <span class="control-indicator"></span>
-                            <span>I declare that the information provided is true and correct.</span>
+            </section>
+            
+            <section class="card">
+                <h2>2. Screen Specifications</h2>
+                <div class="form-group">
+                    <label>Platform</label>
+                    <div class="choice-group">
+                        <label class="radio-custom">
+                            <input type="radio" name="platform" value="desktop" checked>
+                            <span class="radio-dot"></span>
+                            Desktop
                         </label>
-                        <div id="declarationError" class="error-message">You must agree to the declaration to submit your response.</div>
+                        <label class="radio-custom">
+                            <input type="radio" name="platform" value="tablet">
+                            <span class="radio-dot"></span>
+                            Tablet
+                        </label>
+                        <label class="radio-custom">
+                            <input type="radio" name="platform" value="mobile">
+                            <span class="radio-dot"></span>
+                            Mobile
+                        </label>
                     </div>
                 </div>
-                
-                <button type="submit" id="submit-btn" class="btn btn-primary btn--full-width">
-                    <span class="spinner"></span>
-                    <span class="btn-text">Submit Response</span>
-                </button>
-            </form>
+                <div class="form-group">
+                    <label>Required Components</label>
+                    <div class="choice-group">
+                        <label class="checkbox-custom">
+                            <input type="checkbox" name="components" value="header" checked>
+                            <span class="checkmark"></span>
+                            Global Header
+                        </label>
+                        <label class="checkbox-custom">
+                            <input type="checkbox" name="components" value="form" checked>
+                            <span class="checkmark"></span>
+                            User Input Forms
+                        </label>
+                         <label class="checkbox-custom">
+                            <input type="checkbox" name="components" value="datatable">
+                            <span class="checkmark"></span>
+                            Data Table
+                        </label>
+                        <label class="checkbox-custom">
+                            <input type="checkbox" name="components" value="modals">
+                            <span class="checkmark"></span>
+                            Modals / Pop-ups
+                        </label>
+                        <label class="checkbox-custom">
+                            <input type="checkbox" name="components" value="footer">
+                            <span class="checkmark"></span>
+                            Global Footer
+                        </label>
+                    </div>
+                </div>
+            </section>
 
-            <!-- Success/Expired Message Container -->
-            <div id="success-container" class="card success-card hidden">
-                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                    <circle cx="26" cy="26" r="25" fill="none" stroke="currentColor" stroke-width="2"/>
-                    <path fill="none" stroke="currentColor" stroke-width="3" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                </svg>
-                <h1 id="success-title">Thank You!</h1>
-                <p id="success-message">Your response has been submitted successfully.</p>
-                <p class="text-small">This link has now expired. You may now close this window.</p>
+            <section class="card">
+                <h2>3. Assignment & Deadline</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="assignee">Assign To</label>
+                        <select id="assignee" name="assignee">
+                            <option value="sara">Sara Johnston</option>
+                            <option value="mike">Mike Williams</option>
+                            <option value="chen">Chen Lu</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="due-date">Due Date</label>
+                        <input type="date" id="due-date" name="due-date" value="2024-08-15">
+                    </div>
+                </div>
+            </section>
+
+            <div class="actions-bar">
+                <button type="button" class="btn btn-secondary">Save as Draft</button>
+                <button type="submit" class="btn btn-primary">Create Task</button>
             </div>
         </main>
     </div>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-
-        // --- DOM ELEMENT REFERENCES ---
-        const form = document.getElementById('benefit-form');
-        const claimNumber = document.getElementById('claimNumber').value;
-        const storageKey = `formSubmitted_${claimNumber}`;
-
-        // Sections
-        const eftSection = document.getElementById('eft-section');
-        const tfnSection = document.getElementById('tfn-section');
-        const successContainer = document.getElementById('success-container');
-        
-        // Form Controls
-        const medicalRadios = document.querySelectorAll('input[name="medicalExpenses"]');
-        const incomeRadios = document.querySelectorAll('input[name="incomeSupport"]');
-        const declarationCheckbox = document.getElementById('declaration');
-        const submitBtn = document.getElementById('submit-btn');
-        
-        // EFT Inputs
-        const accountNameInput = document.getElementById('accountName');
-        const bsbInput = document.getElementById('bsb');
-        const accountNumberInput = document.getElementById('accountNumber');
-
-        // TFN Upload
-        const tfnUploadInput = document.getElementById('tfnUpload');
-        const fileNameDisplay = document.getElementById('file-name');
-
-        // --- STATE CHECK: SIMULATE URL EXPIRATION ---
-        if (localStorage.getItem(storageKey)) {
-            showExpiredState();
-        }
-
-        function showExpiredState() {
-            form.classList.add('hidden');
-            successContainer.classList.remove('hidden');
-            document.getElementById('success-title').textContent = 'Offer Responded';
-            document.getElementById('success-message').textContent = 'A response for this interim benefit offer has already been submitted.';
-        }
-        
-        // --- EVENT LISTENERS ---
-        medicalRadios.forEach(radio => radio.addEventListener('change', updateFormState));
-        incomeRadios.forEach(radio => radio.addEventListener('change', updateFormState));
-        form.addEventListener('submit', handleSubmit);
-        
-        tfnUploadInput.addEventListener('change', (e) => {
-            if (e.target.files.length > 0) {
-                fileNameDisplay.textContent = e.target.files[0].name;
-            } else {
-                fileNameDisplay.textContent = 'No file selected.';
-            }
-        });
-
-        // --- CORE LOGIC ---
-        function updateFormState() {
-            const medicalChoice = getRadioValue('medicalExpenses');
-            const incomeChoice = getRadioValue('incomeSupport');
-
-            // Show/Hide EFT Section
-            if (medicalChoice === 'yes' || incomeChoice === 'accept') {
-                eftSection.classList.add('visible');
-            } else {
-                eftSection.classList.remove('visible');
-            }
-
-            // Show/Hide TFN Upload Section
-            if (incomeChoice === 'accept') {
-                tfnSection.classList.add('visible');
-            } else {
-                tfnSection.classList.remove('visible');
-            }
-        }
-
-        // --- FORM SUBMISSION & VALIDATION ---
-        async function handleSubmit(event) {
-            event.preventDefault();
-            clearAllErrors();
-
-            if (!validateForm()) {
-                return;
-            }
-            
-            setLoading(true);
-
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            
-            setLoading(false);
-            
-            // On success
-            localStorage.setItem(storageKey, new Date().toISOString());
-            form.style.opacity = '0';
-            form.style.transform = 'translateY(-20px)';
-            
-            setTimeout(() => {
-                form.classList.add('hidden');
-                successContainer.classList.remove('hidden');
-                successContainer.style.opacity = '0';
-                successContainer.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                     successContainer.style.opacity = '1';
-                     successContainer.style.transform = 'translateY(0)';
-                }, 50);
-            }, 300);
-        }
-        
-        function validateForm() {
-            let isValid = true;
-            const medicalChoice = getRadioValue('medicalExpenses');
-            const incomeChoice = getRadioValue('incomeSupport');
-
-            // Validate radio button selections
-            if (!medicalChoice) {
-                isValid = false;
-                showError('medicalExpensesError', 'Please select an option.');
-            }
-            if (!incomeChoice) {
-                isValid = false;
-                showError('incomeSupportError', 'Please select an option.');
-            }
-
-            // Validate declaration if not accepting all offers
-            if ((medicalChoice === 'no' || incomeChoice === 'not_accept') && !declarationCheckbox.checked) {
-                isValid = false;
-                showError('declarationError', 'You must agree to the declaration when not accepting an offer.');
-            }
-            
-            // Validate EFT details if visible
-            if (eftSection.classList.contains('visible')) {
-                if (!accountNameInput.value.trim()) {
-                    isValid = false;
-                    showErrorForInput(accountNameInput, 'Account name is required.');
-                }
-                if (!bsbInput.value.trim()) { // Basic validation
-                    isValid = false;
-                    showErrorForInput(bsbInput, 'A valid BSB is required.');
-                }
-                if (!accountNumberInput.value.trim()) { // Basic validation
-                    isValid = false;
-                    showErrorForInput(accountNumberInput, 'A valid account number is required.');
-                }
-            }
-
-            return isValid;
-        }
-
-        // --- HELPER FUNCTIONS ---
-        function getRadioValue(name) {
-            const selectedRadio = document.querySelector(`input[name="${name}"]:checked`);
-            return selectedRadio ? selectedRadio.value : null;
-        }
-        
-        function setLoading(isLoading) {
-            submitBtn.disabled = isLoading;
-            submitBtn.classList.toggle('loading', isLoading);
-        }
-        
-        function showError(elementId, message) {
-            const errorEl = document.getElementById(elementId);
-            if (errorEl) {
-                errorEl.textContent = message;
-                errorEl.style.display = 'block';
-            }
-        }
-        
-        function showErrorForInput(inputElement, message) {
-            const formElement = inputElement.closest('.form-element');
-            const errorEl = formElement.querySelector('.error-message');
-            formElement.classList.add('form-element--error');
-            errorEl.textContent = message;
-        }
-
-        function clearAllErrors() {
-            document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('.form-element--error').forEach(el => el.classList.remove('form-element--error'));
-        }
-        
-        // --- INITIALIZE ---
-        updateFormState();
-
-    });
-    </script>
 </body>
 </html>
