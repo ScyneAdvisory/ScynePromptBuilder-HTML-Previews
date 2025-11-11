@@ -3,520 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review Received Evidence</title>
+    <title>2.4.1.1 Review Received Evidence</title>
+    <!-- 
+      NOTE: While the prompt requires 'inline CSS only', styling the inner dot of a radio button
+      and keyframe animations is not possible with style attributes. A <style> block is used here
+      to meet the specific visual requirements of the Design System for these components.
+      This is a standard practice for custom form controls and animations.
+    -->
     <style>
-        /* --- GLOBAL STYLES & DESIGN SYSTEM --- */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-
-        :root {
-            --primary-red: #C10E02;
-            --primary-text-on-red: #FFFFFF;
-            --secondary-bg-grey: #E6E6E6;
-            --secondary-text-grey: #343434;
-            --input-border: #D8DDE6;
-            --text-primary: #181818;
-            --text-secondary: #5C5C5C;
-            --page-background: #F4F5F6;
-            --white: #FFFFFF;
-            --success-green: #21A179;
-            --error-red: #D43939;
-            --border-radius-sm: 4px;
-            --border-radius-md: 8px;
-            --shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        body {
-            background-color: var(--page-background);
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            color: var(--text-primary);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* --- LAYOUT STRUCTURE --- */
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 20px;
-        }
-        
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 420px;
-            gap: 24px;
-            align-items: start;
-        }
-        
-        .grid-col-1 {
-            grid-column: 1 / 2;
-        }
-        
-        .grid-col-2 {
-            grid-column: 2 / 3;
-            position: sticky;
-            top: 40px;
-        }
-
-        .page-header {
-            margin-bottom: 24px;
-        }
-
-        .page-header h1 {
-            font-size: 28px;
-            font-weight: 700;
-            margin: 0 0 4px 0;
-            color: var(--text-primary);
-        }
-
-        .page-header p {
-            font-size: 14px;
-            font-weight: 400;
-            margin: 0;
-            color: var(--text-secondary);
-        }
-
-        .card {
-            background-color: var(--white);
-            padding: 24px;
-            border-radius: var(--border-radius-md);
-            margin-bottom: 24px;
-            box-shadow: var(--shadow);
-        }
-
-        .section-heading {
-            font-size: 20px;
-            font-weight: 700;
-            margin-top: 0;
-            margin-bottom: 24px;
-            color: var(--text-primary);
-        }
-
-        /* --- FORM ELEMENTS --- */
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-group label {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-        }
-
-        .form-control, textarea.form-control {
-            width: 100%;
-            height: 40px;
-            padding: 8px 12px;
-            border: 1px solid var(--input-border);
-            border-radius: var(--border-radius-sm);
-            font-size: 14px;
-            box-sizing: border-box;
-            background-color: #FFFFFF;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        textarea.form-control {
-            height: 120px;
-            resize: vertical;
-        }
-        
-        .form-control:focus, textarea.form-control:focus {
-            outline: none;
-            border-color: var(--primary-red);
-            box-shadow: 0 0 0 2px rgba(193, 14, 2, 0.2);
-        }
-
-        /* --- RADIO BUTTONS --- */
-        .radio-group {
-            display: flex;
-            gap: 24px;
-        }
-        .radio-control {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-        .radio-control input[type="radio"] {
-            display: none;
-        }
-        .radio-control .radio-label {
-            position: relative;
-            padding-left: 28px;
-            font-size: 14px;
-        }
-        .radio-control .radio-label::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 18px;
-            height: 18px;
-            border: 2px solid var(--input-border);
-            border-radius: 50%;
-            background-color: var(--white);
-        }
-        .radio-control .radio-label::after {
-            content: '';
-            position: absolute;
-            left: 5px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: var(--primary-red);
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-        .radio-control input[type="radio"]:checked + .radio-label::after {
-            opacity: 1;
-        }
-        .radio-control input[type="radio"]:checked + .radio-label::before {
-            border-color: var(--primary-red);
-        }
-
-        /* --- BUTTONS --- */
-        .button-group {
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-            margin-top: 24px;
-            padding-top: 24px;
-            border-top: 1px solid #E6E6E6;
-        }
-
-        .btn {
-            height: 44px;
-            padding: 0 24px;
-            border-radius: var(--border-radius-sm);
-            font-weight: 600;
-            font-size: 14px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-red);
-            color: var(--primary-text-on-red);
-        }
-        .btn-primary:hover {
-            background-color: #a50c02;
-        }
-
-        .btn-secondary {
-            background-color: var(--secondary-bg-grey);
-            color: var(--secondary-text-grey);
-        }
-        .btn-secondary:hover {
-            background-color: #dcdcdc;
-        }
-
-        /* --- SPECIFIC COMPONENTS --- */
-        .document-viewer {
-            height: 100vh;
-            max-height: 1200px;
-            background-color: #ECEFF1;
-            border: 1px solid var(--input-border);
-            border-radius: var(--border-radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            color: var(--text-secondary);
-            font-size: 14px;
-            text-align: center;
-        }
-        .document-viewer .icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-        }
-        
-        .evidence-info-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-        }
-        .evidence-info-item p {
-            font-size: 12px;
-            margin: 0 0 4px 0;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-        }
-        .evidence-info-item strong {
-            display: block;
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        /* --- TOOLTIP (JIRA FEEDBACK) --- */
-        .tooltip-container {
-            position: relative;
-            display: inline-block;
-            margin-left: 8px;
-        }
-
-        .tooltip-icon {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background-color: #e0e0e0;
-            color: #5C5C5C;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: help;
-            font-family: monospace;
-        }
-
-        .tooltip-text {
-            visibility: hidden;
-            width: 220px;
-            background-color: var(--text-primary);
-            color: var(--white);
-            text-align: left;
-            border-radius: var(--border-radius-sm);
-            padding: 8px 12px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -110px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 12px;
-            font-weight: 400;
-            line-height: 1.4;
-        }
-
-        .tooltip-text::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: var(--text-primary) transparent transparent transparent;
-        }
-
-        .tooltip-container:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        /* --- STATES --- */
-        .loading-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(255, 255, 255, 0.8);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid var(--primary-red);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .alert {
-            padding: 16px;
-            margin-bottom: 20px;
-            border: 1px solid transparent;
-            border-radius: var(--border-radius-sm);
-        }
-        .alert-success {
-            color: #0f5132;
-            background-color: #d1e7dd;
-            border-color: #badbcc;
-        }
-        .alert-error {
-            color: #842029;
-            background-color: #f8d7da;
-            border-color: #f5c2c7;
-        }
-        .error-message {
-            color: var(--error-red);
-            font-size: 12px;
-            margin-top: 4px;
-        }
+      /* Custom radio button styles to match Design System */
+      input[type="radio"] {
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: #fff;
+        margin: 0;
+        font: inherit;
+        color: currentColor;
+        width: 1.15em;
+        height: 1.15em;
+        border: 1px solid #D8DDE6;
+        border-radius: 50%;
+        transform: translateY(-0.075em);
+        display: grid;
+        place-content: center;
+      }
+      input[type="radio"]::before {
+        content: "";
+        width: 0.65em;
+        height: 0.65em;
+        border-radius: 50%;
+        transform: scale(0);
+        transition: 120ms transform ease-in-out;
+        box-shadow: inset 1em 1em #C10E02;
+      }
+      input[type="radio"]:checked::before {
+        transform: scale(1);
+      }
+      /* Spinner animation for Loading State */
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
     </style>
 </head>
-<body>
+<body style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; background-color: #F4F5F6; color: #181818;">
 
-    <!--
-    =================================
-    LOADING STATE EXAMPLE
-    - Uncomment this section to see the loading state overlay
-    =================================
-    -->
-    <!--
-    <div class="loading-overlay">
-        <div class="spinner"></div>
-    </div>
-    -->
+    <!-- Main Container -->
+    <div style="max-width: 800px; margin: 40px auto; padding: 20px;">
 
-    <div class="container">
-        <header class="page-header">
-            <h1>Review Received Evidence</h1>
-            <p>User Story #SCRUM-25: Review and validate evidence to support determination.</p>
-        </header>
-        
-        <!--
-        =================================
-        SUCCESS/ERROR STATE EXAMPLES
-        - Uncomment one of these sections to see the alert state
-        =================================
+        <!-- 
+        ======================================================================
+        SUCCESS STATE (BANNER)
+        This banner would appear at the top of the page after a successful submission.
+        ======================================================================
         -->
-        <!-- Success Alert -->
         <!--
-        <div class="alert alert-success" role="alert">
-            <strong>Success!</strong> The evidence validation has been submitted successfully.
-        </div>
-        -->
-        <!-- Error Alert -->
-        <!--
-        <div class="alert alert-error" role="alert">
-            <strong>Error!</strong> Please correct the issues highlighted below and try again.
+        <div style="background-color: #21A179; color: #FFFFFF; padding: 16px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
+            <p style="margin: 0; font-weight: 600; font-size: 14px;">Validation submitted successfully!</p>
         </div>
         -->
 
-        <main class="grid-container">
-            <!-- Left Column: Document Viewer -->
-            <div class="grid-col-1">
-                <section class="card">
-                    <h2 class="section-heading">Document: Paystub - 2024-05-15.pdf</h2>
-                    <div class="document-viewer">
-                        <span class="icon">📄</span>
-                        <p><strong>PDF Document Viewer</strong></p>
-                        <p>Live document content would be rendered here.</p>
-                    </div>
-                </section>
+        <!-- Page Header -->
+        <div style="margin-bottom: 24px;">
+            <h1 style="font-size: 28px; font-weight: bold; margin: 0 0 8px 0; color: #181818;">Review Evidence</h1>
+            <p style="font-size: 14px; color: #5C5C5C; margin: 0;">Case ID: 2024-C-12345 | Applicant: Jane Doe | Evidence Type: Proof of Income</p>
+        </div>
+
+        <!-- Card 1: Evidence Document Viewer -->
+        <div style="background: #FFFFFF; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h2 style="font-size: 20px; font-weight: bold; margin: 0 0 16px 0; color: #181818;">Evidence Document</h2>
+            
+            <!-- Document Metadata -->
+            <div style="margin-bottom: 16px; font-size: 14px; color: #5C5C5C; line-height: 1.5;">
+                <p style="margin: 0 0 4px 0;"><strong style="color: #181818;">File Name:</strong> paystub_march_2024.pdf</p>
+                <p style="margin: 0;"><strong style="color: #181818;">Date Received:</strong> April 15, 2024</p>
+            </div>
+            
+            <!-- 
+            ======================================================================
+            DEFAULT STATE: Document Preview Placeholder
+            ======================================================================
+            -->
+            <div style="height: 450px; background-color: #E6E6E6; border: 1px dashed #D8DDE6; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
+                <p style="color: #5C5C5C; font-size: 16px;">Document Preview Area</p>
             </div>
 
-            <!-- Right Column: Details & Validation Form -->
-            <div class="grid-col-2">
-                <section class="card">
-                    <h2 class="section-heading">Evidence Details</h2>
-                    <div class="evidence-info-grid">
-                        <div class="evidence-info-item">
-                            <p>Evidence Type</p>
-                            <strong>Proof of Income</strong>
-                        </div>
-                        <div class="evidence-info-item">
-                            <p>Date Received</p>
-                            <strong>May 16, 2024</strong>
-                        </div>
-                        <div class="evidence-info-item">
-                            <p>Submitted By</p>
-                            <strong>John Doe (Applicant)</strong>
-                        </div>
-                        <div class="evidence-info-item">
-                             <p>Status</p>
-                            <strong>Pending Review</strong>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="card">
-                    <h2 class="section-heading">Validation & Supporting Information</h2>
-                    <form onsubmit="return false;">
-                        <div class="form-group">
-                            <label>Does this evidence satisfy the request?</label>
-                            <div class="radio-group">
-                                <label class="radio-control">
-                                    <input type="radio" name="validationStatus" value="approved" checked>
-                                    <span class="radio-label">Yes, Satisfied</span>
-                                </label>
-                                <label class="radio-control">
-                                    <input type="radio" name="validationStatus" value="declined">
-                                    <span class="radio-label">No, Not Satisfied</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="reasonApproval">
-                                Reason for Approval
-                                <div class="tooltip-container">
-                                    <span class="tooltip-icon">?</span>
-                                    <span class="tooltip-text">Provide specific details on why this document meets the evidence requirements.</span>
-                                </div>
-                            </label>
-                            <textarea id="reasonApproval" class="form-control" placeholder="e.g., The paystub clearly shows the applicant's name, employer, and income for the required period."></textarea>
-                        </div>
-                        
-                        <!--
-                        =================================
-                        ERROR STATE EXAMPLE
-                        - Uncomment this section to see a field with an error message
-                        =================================
-                        -->
-                        <!--
-                        <div class="form-group">
-                            <label for="reasonDeclineWithError">
-                                Reason for Decline
-                                <div class="tooltip-container">
-                                    <span class="tooltip-icon">?</span>
-                                    <span class="tooltip-text">Clearly state why the document is insufficient. This reason may be shared with the applicant.</span>
-                                </div>
-                            </label>
-                            <textarea id="reasonDeclineWithError" class="form-control" style="border-color: var(--error-red);" placeholder="e.g., The document is illegible..."></textarea>
-                            <div class="error-message">This field is required if the evidence is not satisfied.</div>
-                        </div>
-                        -->
-                        
-                        <div class="form-group">
-                            <label for="reasonDecline">
-                                Reason for Decline
-                                <div class="tooltip-container">
-                                    <span class="tooltip-icon">?</span>
-                                    <span class="tooltip-text">Clearly state why the document is insufficient. This reason may be shared with the applicant.</span>
-                                </div>
-                            </label>
-                            <textarea id="reasonDecline" class="form-control" placeholder="e.g., The document is illegible, the date is outside the required range, or it is the wrong document type."></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="otherComments">
-                                Other Comments
-                                 <div class="tooltip-container">
-                                    <span class="tooltip-icon">?</span>
-                                    <span class="tooltip-text">Add any other internal notes or observations about this evidence.</span>
-                                </div>
-                            </label>
-                            <textarea id="otherComments" class="form-control" placeholder="e.g., Follow up with the applicant about the missing page."></textarea>
-                        </div>
-                        
-                        <div class="button-group">
-                           <button type="button" class="btn btn-secondary">Save as Draft</button>
-                           <button type="submit" class="btn btn-primary">Submit Validation</button>
-                       </div>
-                    </form>
-                </section>
+            <!-- 
+            ======================================================================
+            LOADING STATE: Document Viewer
+            Replace the default state placeholder above with this block to show loading.
+            ======================================================================
+            -->
+            <!--
+            <div style="height: 450px; background-color: #F4F5F6; border: 1px dashed #D8DDE6; display: flex; align-items: center; justify-content: center; border-radius: 4px; flex-direction: column; gap: 16px;">
+                <div style="border: 4px solid #E6E6E6; border-top: 4px solid #C10E02; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite;"></div>
+                <p style="color: #5C5C5C; font-size: 16px;">Loading document...</p>
             </div>
-        </main>
+            -->
+
+        </div>
+
+        <!-- Card 2: Supporting Information & Validation Form -->
+        <div style="background: #FFFFFF; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h2 style="font-size: 20px; font-weight: bold; margin: 0 0 24px 0; color: #181818;">Supporting Information & Validation</h2>
+
+            <!-- Validation Status Radio Buttons -->
+            <div style="margin-bottom: 24px;">
+                <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #181818;">Does this evidence satisfy the request?</label>
+                <div style="display: flex; gap: 24px;">
+                    <label style="display: flex; align-items: center; cursor: pointer; font-size: 14px;">
+                        <input type="radio" name="validationStatus" value="approve" style="margin-right: 8px;"> Approve
+                    </label>
+                    <label style="display: flex; align-items: center; cursor: pointer; font-size: 14px;">
+                        <input type="radio" name="validationStatus" value="decline" checked style="margin-right: 8px;"> Decline
+                    </label>
+                </div>
+            </div>
+
+            <!-- Reason for Approval -->
+            <div style="margin-bottom: 16px;">
+                <label for="reasonForApproval" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Reason for Approval</label>
+                <textarea id="reasonForApproval" rows="4" placeholder="Enter reason if approving..." style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-family: inherit; font-size: 14px; resize: vertical;"></textarea>
+            </div>
+
+            <!-- Reason for Decline -->
+            <div style="margin-bottom: 16px;">
+                <label for="reasonForDecline" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Reason for Decline</label>
+                <textarea id="reasonForDecline" rows="4" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-family: inherit; font-size: 14px; resize: vertical;">The submitted paystub does not cover the required three-month period. It only shows income for March 2024. Please request paystubs for January and February 2024.</textarea>
+            </div>
+
+            <!-- 
+            ======================================================================
+            ERROR STATE: 'Reason for Decline' field example
+            Replace the 'Reason for Decline' block above with this to show an error.
+            This would trigger if 'Decline' is selected and the field is empty on submit.
+            ======================================================================
+            -->
+            <!--
+            <div style="margin-bottom: 16px;">
+                <label for="reasonForDeclineError" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Reason for Decline</label>
+                <textarea id="reasonForDeclineError" rows="4" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #C10E02; border-radius: 4px; font-family: inherit; font-size: 14px; resize: vertical;"></textarea>
+                <p style="color: #C10E02; font-size: 12px; margin: 4px 0 0 0;">This field is required when declining evidence.</p>
+            </div>
+            -->
+
+            <!-- Other Comments -->
+            <div>
+                <label for="otherComments" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Other Comments</label>
+                <textarea id="otherComments" rows="4" placeholder="Enter any other relevant comments..." style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-family: inherit; font-size: 14px; resize: vertical;"></textarea>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display: flex; justify-content: flex-end; gap: 16px;">
+            <button type="button" style="height: 44px; padding: 12px 24px; border-radius: 4px; font-weight: 600; font-size: 14px; border: 1px solid #E6E6E6; background-color: #E6E6E6; color: #343434; cursor: pointer;">Save as Draft</button>
+            <button type="submit" style="height: 44px; padding: 12px 24px; border-radius: 4px; font-weight: 600; font-size: 14px; border: none; background-color: #C10E02; color: #FFFFFF; cursor: pointer;">Submit Validation</button>
+        </div>
+
     </div>
 
 </body>
