@@ -3,139 +3,520 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review Evidence Item - Legal Aid System</title>
+    <title>Review Received Evidence</title>
     <style>
-        /* A small helper style for modern browsers to color form controls */
-        /* This cannot be done inline, so it's placed here as a best practice */
-        /* All other styles are inline as requested. */
-        input[type="radio"]:checked, input[type="checkbox"]:checked {
-            accent-color: #C10E02;
+        /* --- GLOBAL STYLES & DESIGN SYSTEM --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        :root {
+            --primary-red: #C10E02;
+            --primary-text-on-red: #FFFFFF;
+            --secondary-bg-grey: #E6E6E6;
+            --secondary-text-grey: #343434;
+            --input-border: #D8DDE6;
+            --text-primary: #181818;
+            --text-secondary: #5C5C5C;
+            --page-background: #F4F5F6;
+            --white: #FFFFFF;
+            --success-green: #21A179;
+            --error-red: #D43939;
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        body {
+            background-color: var(--page-background);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- LAYOUT STRUCTURE --- */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 24px;
+            align-items: start;
+        }
+        
+        .grid-col-1 {
+            grid-column: 1 / 2;
+        }
+        
+        .grid-col-2 {
+            grid-column: 2 / 3;
+            position: sticky;
+            top: 40px;
+        }
+
+        .page-header {
+            margin-bottom: 24px;
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0 0 4px 0;
+            color: var(--text-primary);
+        }
+
+        .page-header p {
+            font-size: 14px;
+            font-weight: 400;
+            margin: 0;
+            color: var(--text-secondary);
+        }
+
+        .card {
+            background-color: var(--white);
+            padding: 24px;
+            border-radius: var(--border-radius-md);
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-heading {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        /* --- FORM ELEMENTS --- */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .form-control, textarea.form-control {
+            width: 100%;
+            height: 40px;
+            padding: 8px 12px;
+            border: 1px solid var(--input-border);
+            border-radius: var(--border-radius-sm);
+            font-size: 14px;
+            box-sizing: border-box;
+            background-color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        textarea.form-control {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .form-control:focus, textarea.form-control:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            box-shadow: 0 0 0 2px rgba(193, 14, 2, 0.2);
+        }
+
+        /* --- RADIO BUTTONS --- */
+        .radio-group {
+            display: flex;
+            gap: 24px;
+        }
+        .radio-control {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .radio-control input[type="radio"] {
+            display: none;
+        }
+        .radio-control .radio-label {
+            position: relative;
+            padding-left: 28px;
+            font-size: 14px;
+        }
+        .radio-control .radio-label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--input-border);
+            border-radius: 50%;
+            background-color: var(--white);
+        }
+        .radio-control .radio-label::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--primary-red);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .radio-control input[type="radio"]:checked + .radio-label::after {
+            opacity: 1;
+        }
+        .radio-control input[type="radio"]:checked + .radio-label::before {
+            border-color: var(--primary-red);
+        }
+
+        /* --- BUTTONS --- */
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #E6E6E6;
+        }
+
+        .btn {
+            height: 44px;
+            padding: 0 24px;
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-red);
+            color: var(--primary-text-on-red);
+        }
+        .btn-primary:hover {
+            background-color: #a50c02;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-bg-grey);
+            color: var(--secondary-text-grey);
+        }
+        .btn-secondary:hover {
+            background-color: #dcdcdc;
+        }
+
+        /* --- SPECIFIC COMPONENTS --- */
+        .document-viewer {
+            height: 100vh;
+            max-height: 1200px;
+            background-color: #ECEFF1;
+            border: 1px solid var(--input-border);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: var(--text-secondary);
+            font-size: 14px;
+            text-align: center;
+        }
+        .document-viewer .icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        .evidence-info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        .evidence-info-item p {
+            font-size: 12px;
+            margin: 0 0 4px 0;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+        .evidence-info-item strong {
+            display: block;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* --- TOOLTIP (JIRA FEEDBACK) --- */
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+            margin-left: 8px;
+        }
+
+        .tooltip-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            color: #5C5C5C;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: help;
+            font-family: monospace;
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            width: 220px;
+            background-color: var(--text-primary);
+            color: var(--white);
+            text-align: left;
+            border-radius: var(--border-radius-sm);
+            padding: 8px 12px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -110px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--text-primary) transparent transparent transparent;
+        }
+
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* --- STATES --- */
+        .loading-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-red);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .alert {
+            padding: 16px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: var(--border-radius-sm);
+        }
+        .alert-success {
+            color: #0f5132;
+            background-color: #d1e7dd;
+            border-color: #badbcc;
+        }
+        .alert-error {
+            color: #842029;
+            background-color: #f8d7da;
+            border-color: #f5c2c7;
+        }
+        .error-message {
+            color: var(--error-red);
+            font-size: 12px;
+            margin-top: 4px;
         }
     </style>
 </head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; background-color: #F4F5F6; color: #181818;">
+<body>
 
-    <!-- Main Centered Container -->
-    <div style="max-width: 800px; margin: 40px auto; padding: 20px;">
+    <!--
+    =================================
+    LOADING STATE EXAMPLE
+    - Uncomment this section to see the loading state overlay
+    =================================
+    -->
+    <!--
+    <div class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+    -->
 
-        <!-- Page Header -->
-        <header style="margin-bottom: 24px;">
-            <h1 style="font-size: 28px; font-weight: bold; color: #181818; margin: 0 0 8px 0;">
-                Review Evidence Item
-            </h1>
-            <p style="font-size: 14px; color: #5C5C5C; margin: 0;">
-                User Story #SCRUM-25: Review and validate received evidence to ensure it satisfies the request.
-            </p>
+    <div class="container">
+        <header class="page-header">
+            <h1>Review Received Evidence</h1>
+            <p>User Story #SCRUM-25: Review and validate evidence to support determination.</p>
         </header>
-
-        <!-- Card 1: Evidence Details -->
-        <section style="background: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <h2 style="font-size: 20px; font-weight: bold; color: #181818; margin: 0 0 16px 0; border-bottom: 1px solid #E6E6E6; padding-bottom: 16px;">
-                Evidence Details
-            </h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                <div>
-                    <label style="display: block; font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 8px;">Evidence Type</label>
-                    <p style="font-size: 14px; color: #5C5C5C; margin: 0;">Proof of Income</p>
-                </div>
-                <div>
-                    <label style="display: block; font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 8px;">Document Name</label>
-                    <p style="font-size: 14px; color: #5C5C5C; margin: 0;">payslip_march_2024.pdf</p>
-                </div>
-                <div>
-                    <label style="display: block; font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 8px;">Date Received</label>
-                    <p style="font-size: 14px; color: #5C5C5C; margin: 0;">April 5, 2024</p>
-                </div>
-                <div>
-                    <label style="display: block; font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 8px;">Submitted By</label>
-                    <p style="font-size: 14px; color: #5C5C5C; margin: 0;">John Doe (Applicant)</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Card 2: Document Viewer -->
-        <section style="background: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <h2 style="font-size: 20px; font-weight: bold; color: #181818; margin: 0 0 16px 0;">
-                Document Preview
-            </h2>
-            <div style="height: 400px; background-color: #E6E6E6; border: 1px dashed #D8DDE6; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
-                <p style="color: #5C5C5C; font-size: 14px;">[ Embedded Document Viewer for payslip_march_2024.pdf would appear here ]</p>
-            </div>
-        </section>
         
-        <!-- Card 3: Validation & Supporting Information -->
-        <section style="background: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <h2 style="font-size: 20px; font-weight: bold; color: #181818; margin: 0 0 16px 0;">
-                Supporting Information & Validation
-            </h2>
-
-            <!-- STATE: Success Message (uncomment to display) -->
-            <!--
-            <div style="background-color: #E6F4F0; border: 1px solid #21A179; color: #146148; padding: 12px; border-radius: 4px; margin-bottom: 16px; font-size: 14px;">
-                <strong>Success:</strong> Your validation has been saved as a draft.
-            </div>
-            -->
-
-            <!-- STATE: Error Message (uncomment to display) -->
-            <!--
-            <div style="background-color: #FDEDED; border: 1px solid #C10E02; color: #7B0901; padding: 12px; border-radius: 4px; margin-bottom: 16px; font-size: 14px;">
-                <strong>Error:</strong> Please provide a reason for declining the evidence.
-            </div>
-            -->
-
-            <div style="margin-bottom: 16px;">
-                <label style="display: block; font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 8px;">Does this evidence satisfy the request?</label>
-                <div style="display: flex; gap: 24px;">
-                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px;">
-                        <input type="radio" name="validation_status" value="satisfied" checked> Satisfied
-                    </label>
-                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px;">
-                        <input type="radio" name="validation_status" value="not_satisfied"> Not Satisfied
-                    </label>
-                </div>
-            </div>
-
-            <div style="margin-bottom: 16px;">
-                <label for="reason_approval" style="display: block; font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 8px;">Reason for Approval</label>
-                <textarea id="reason_approval" rows="4" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px; font-family: inherit; resize: vertical;" placeholder="e.g., Paystub clearly shows income within the eligible range."></textarea>
-            </div>
-
-            <div style="margin-bottom: 16px;">
-                <label for="reason_decline" style="display: block; font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 8px;">Reason for Decline</label>
-                <textarea id="reason_decline" rows="4" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px; font-family: inherit; resize: vertical;" placeholder="e.g., The name on the document does not match the applicant's name."></textarea>
-            </div>
-
-            <div>
-                <label for="other_comments" style="display: block; font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 8px;">Other Comments</label>
-                <textarea id="other_comments" rows="4" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px; font-family: inherit; resize: vertical;" placeholder="Add any other relevant notes or observations."></textarea>
-            </div>
-        </section>
-
-        <!-- Action Buttons -->
-        <!-- STATE: Default -->
-        <footer style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
-            <button style="height: 44px; padding: 0 24px; border-radius: 4px; font-weight: 600; font-size: 14px; border: 1px solid #D8DDE6; background-color: #E6E6E6; color: #343434; cursor: pointer;">
-                Save as Draft
-            </button>
-            <button style="height: 44px; padding: 0 24px; border-radius: 4px; font-weight: 600; font-size: 14px; border: none; background-color: #C10E02; color: white; cursor: pointer;">
-                Submit Validation
-            </button>
-        </footer>
-
-        <!-- STATE: Loading (uncomment to display) -->
         <!--
-        <footer style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
-            <button disabled style="height: 44px; padding: 0 24px; border-radius: 4px; font-weight: 600; font-size: 14px; border: 1px solid #D8DDE6; background-color: #E6E6E6; color: #343434; cursor: not-allowed; opacity: 0.7;">
-                Save as Draft
-            </button>
-            <button disabled style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 44px; padding: 0 24px; border-radius: 4px; font-weight: 600; font-size: 14px; border: none; background-color: #C10E02; color: white; cursor: wait; opacity: 0.7;">
-                <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="animation: spin 1s linear infinite;"><path d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25" fill="currentColor"/><path d="M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z" fill="currentColor"/></svg>
-                Submitting...
-            </button>
-            <style>@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }</style>
-        </footer>
+        =================================
+        SUCCESS/ERROR STATE EXAMPLES
+        - Uncomment one of these sections to see the alert state
+        =================================
+        -->
+        <!-- Success Alert -->
+        <!--
+        <div class="alert alert-success" role="alert">
+            <strong>Success!</strong> The evidence validation has been submitted successfully.
+        </div>
+        -->
+        <!-- Error Alert -->
+        <!--
+        <div class="alert alert-error" role="alert">
+            <strong>Error!</strong> Please correct the issues highlighted below and try again.
+        </div>
         -->
 
+        <main class="grid-container">
+            <!-- Left Column: Document Viewer -->
+            <div class="grid-col-1">
+                <section class="card">
+                    <h2 class="section-heading">Document: Paystub - 2024-05-15.pdf</h2>
+                    <div class="document-viewer">
+                        <span class="icon">📄</span>
+                        <p><strong>PDF Document Viewer</strong></p>
+                        <p>Live document content would be rendered here.</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Details & Validation Form -->
+            <div class="grid-col-2">
+                <section class="card">
+                    <h2 class="section-heading">Evidence Details</h2>
+                    <div class="evidence-info-grid">
+                        <div class="evidence-info-item">
+                            <p>Evidence Type</p>
+                            <strong>Proof of Income</strong>
+                        </div>
+                        <div class="evidence-info-item">
+                            <p>Date Received</p>
+                            <strong>May 16, 2024</strong>
+                        </div>
+                        <div class="evidence-info-item">
+                            <p>Submitted By</p>
+                            <strong>John Doe (Applicant)</strong>
+                        </div>
+                        <div class="evidence-info-item">
+                             <p>Status</p>
+                            <strong>Pending Review</strong>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h2 class="section-heading">Validation & Supporting Information</h2>
+                    <form onsubmit="return false;">
+                        <div class="form-group">
+                            <label>Does this evidence satisfy the request?</label>
+                            <div class="radio-group">
+                                <label class="radio-control">
+                                    <input type="radio" name="validationStatus" value="approved" checked>
+                                    <span class="radio-label">Yes, Satisfied</span>
+                                </label>
+                                <label class="radio-control">
+                                    <input type="radio" name="validationStatus" value="declined">
+                                    <span class="radio-label">No, Not Satisfied</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reasonApproval">
+                                Reason for Approval
+                                <div class="tooltip-container">
+                                    <span class="tooltip-icon">?</span>
+                                    <span class="tooltip-text">Provide specific details on why this document meets the evidence requirements.</span>
+                                </div>
+                            </label>
+                            <textarea id="reasonApproval" class="form-control" placeholder="e.g., The paystub clearly shows the applicant's name, employer, and income for the required period."></textarea>
+                        </div>
+                        
+                        <!--
+                        =================================
+                        ERROR STATE EXAMPLE
+                        - Uncomment this section to see a field with an error message
+                        =================================
+                        -->
+                        <!--
+                        <div class="form-group">
+                            <label for="reasonDeclineWithError">
+                                Reason for Decline
+                                <div class="tooltip-container">
+                                    <span class="tooltip-icon">?</span>
+                                    <span class="tooltip-text">Clearly state why the document is insufficient. This reason may be shared with the applicant.</span>
+                                </div>
+                            </label>
+                            <textarea id="reasonDeclineWithError" class="form-control" style="border-color: var(--error-red);" placeholder="e.g., The document is illegible..."></textarea>
+                            <div class="error-message">This field is required if the evidence is not satisfied.</div>
+                        </div>
+                        -->
+                        
+                        <div class="form-group">
+                            <label for="reasonDecline">
+                                Reason for Decline
+                                <div class="tooltip-container">
+                                    <span class="tooltip-icon">?</span>
+                                    <span class="tooltip-text">Clearly state why the document is insufficient. This reason may be shared with the applicant.</span>
+                                </div>
+                            </label>
+                            <textarea id="reasonDecline" class="form-control" placeholder="e.g., The document is illegible, the date is outside the required range, or it is the wrong document type."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="otherComments">
+                                Other Comments
+                                 <div class="tooltip-container">
+                                    <span class="tooltip-icon">?</span>
+                                    <span class="tooltip-text">Add any other internal notes or observations about this evidence.</span>
+                                </div>
+                            </label>
+                            <textarea id="otherComments" class="form-control" placeholder="e.g., Follow up with the applicant about the missing page."></textarea>
+                        </div>
+                        
+                        <div class="button-group">
+                           <button type="button" class="btn btn-secondary">Save as Draft</button>
+                           <button type="submit" class="btn btn-primary">Submit Validation</button>
+                       </div>
+                    </form>
+                </section>
+            </div>
+        </main>
     </div>
 
 </body>
