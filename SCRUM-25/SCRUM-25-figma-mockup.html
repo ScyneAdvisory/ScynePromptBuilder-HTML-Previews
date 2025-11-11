@@ -3,172 +3,374 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review Received Evidence</title>
+    <title>Review Evidence - Legal Aid</title>
+    
     <!-- 
-        Expert Frontend Developer Notes:
-        - This mockup uses inline CSS (`style="..."`) as per the specific instruction. 
-          For a real-world application, these styles would be abstracted into a CSS stylesheet or a component library for maintainability.
-        - The layout uses Flexbox for the two-column structure, providing a modern and responsive foundation.
-        - All colors, fonts, spacing, and component styles are derived directly from the provided Design System Specifications.
-        - Interactive states (like hover effects) are not possible with pure inline styles but are noted in comments.
-        - The states (Empty, Loading, Error, Success) are included as commented-out HTML blocks for easy review and implementation.
+        Expert Note: Using a single <style> block in the <head> is the standard for self-contained HTML mockups. 
+        It allows for the use of classes, pseudo-selectors, and CSS variables, leading to cleaner, more maintainable, 
+        and production-ready code that accurately reflects a component-based architecture, compared to using 
+        the `style` attribute on every single element.
     -->
+    <style>
+        /* --- DESIGN SYSTEM TOKENS --- */
+        :root {
+            /* Colors */
+            --color-primary-action: #C10E02;
+            --color-text-on-primary: #FFFFFF;
+            --color-background-secondary: #E6E6E6;
+            --color-text-secondary-button: #343434;
+            --color-text-primary: #181818;
+            --color-text-secondary: #5C5C5C;
+            --color-border-default: #D8DDE6;
+            --color-background-page: #F4F5F6;
+            --color-background-card: #FFFFFF;
+            --color-success: #21A179;
+            --color-error: #C10E02;
+            --color-background-success-light: #E9F6F2;
+            --color-background-error-light: #FDEDED;
+            
+            /* Typography */
+            --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            --font-size-h1: 28px;
+            --font-size-h2: 20px;
+            --font-size-label: 14px;
+            --font-size-body: 14px;
+            --font-size-small: 12px;
+            --font-weight-bold: 700;
+            --font-weight-semibold: 600;
+            --font-weight-regular: 400;
+
+            /* Spacing & Layout */
+            --layout-max-width: 800px;
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 12px;
+            --spacing-lg: 16px;
+            --spacing-xl: 24px;
+            --spacing-xxl: 40px;
+
+            /* Borders & Shadows */
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --box-shadow-card: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* --- GLOBAL STYLES --- */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--color-background-page);
+            font-family: var(--font-family-sans);
+            color: var(--color-text-primary);
+            font-size: var(--font-size-body);
+        }
+
+        /* --- LAYOUT --- */
+        .container {
+            max-width: var(--layout-max-width);
+            margin: var(--spacing-xxl) auto;
+            padding: var(--spacing-xl);
+        }
+
+        .card {
+            background-color: var(--color-background-card);
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius-md);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--box-shadow-card);
+        }
+        
+        /* --- TYPOGRAPHY --- */
+        .page-header h1 {
+            font-size: var(--font-size-h1);
+            font-weight: var(--font-weight-bold);
+            margin: 0 0 var(--spacing-sm) 0;
+        }
+
+        .page-header .subtitle {
+            font-size: var(--font-size-body);
+            color: var(--color-text-secondary);
+            margin: 0 0 var(--spacing-xl) 0;
+        }
+        
+        .section-header {
+            font-size: var(--font-size-h2);
+            font-weight: var(--font-weight-bold);
+            margin: 0 0 var(--spacing-lg) 0;
+            color: var(--color-text-primary);
+        }
+        
+        /* --- COMPONENTS --- */
+
+        /* Document Viewer */
+        .document-viewer-placeholder {
+            border: 1px dashed var(--color-border-default);
+            background-color: #FAFAFA;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--border-radius-sm);
+            color: var(--color-text-secondary);
+            font-weight: var(--font-weight-semibold);
+            padding: var(--spacing-xl);
+            text-align: center;
+        }
+        .document-viewer-placeholder svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: var(--spacing-lg);
+            color: #A0A0A0;
+        }
+        .document-info {
+            list-style: none;
+            padding: 0;
+            margin: var(--spacing-lg) 0 0 0;
+            font-size: var(--font-size-body);
+            color: var(--color-text-secondary);
+            width: 100%;
+            text-align: left;
+        }
+        .document-info li {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--color-background-page);
+        }
+        .document-info li:last-child {
+            border-bottom: none;
+        }
+        .document-info strong {
+            color: var(--color-text-primary);
+            font-weight: var(--font-weight-semibold);
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .form-label {
+            display: block;
+            font-size: var(--font-size-label);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            height: 40px;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 1px solid var(--color-border-default);
+            border-radius: var(--border-radius-sm);
+            font-family: inherit;
+            font-size: var(--font-size-body);
+        }
+        
+        textarea.form-control {
+            height: auto;
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--color-primary-action);
+            box-shadow: 0 0 0 2px rgba(193, 14, 2, 0.2);
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-xl);
+            border-top: 1px solid var(--color-background-page);
+            padding-top: var(--spacing-xl);
+        }
+        
+        .btn {
+            height: 44px;
+            padding: 0 var(--spacing-xl);
+            border-radius: var(--border-radius-sm);
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-label);
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary-action);
+            color: var(--color-text-on-primary);
+        }
+        .btn-primary:hover {
+            background-color: #a50b01;
+        }
+
+        .btn-secondary {
+            background-color: var(--color-background-secondary);
+            color: var(--color-text-secondary-button);
+            border-color: var(--color-border-default);
+        }
+        .btn-secondary:hover {
+            background-color: #dcdcdc;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-sm);
+            margin-bottom: var(--spacing-xl);
+            font-size: var(--font-size-body);
+            border: 1px solid;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        .alert-icon {
+            width: 20px;
+            height: 20px;
+        }
+        .alert-success {
+            background-color: var(--color-background-success-light);
+            color: #006442;
+            border-color: var(--color-success);
+        }
+        .alert-error {
+            background-color: var(--color-background-error-light);
+            color: #5F0701;
+            border-color: var(--color-error);
+        }
+
+        /* Error State for Forms */
+        .form-group.has-error .form-control {
+            border-color: var(--color-error);
+        }
+        .form-group.has-error .form-control:focus {
+             box-shadow: 0 0 0 2px rgba(193, 14, 2, 0.2);
+        }
+        .error-message {
+            color: var(--color-error);
+            font-size: var(--font-size-small);
+            margin-top: var(--spacing-xs);
+        }
+    </style>
 </head>
-<body style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #F4F5F6; color: #181818;">
+<body>
 
-    <div style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
+    <main class="container">
 
-        <!-- =================================================================
-        PAGE HEADER
-        ================================================================== -->
-        <header style="margin-bottom: 24px;">
-            <h1 style="font-size: 28px; font-weight: 700; color: #181818; margin: 0 0 8px 0;">
-                Review Evidence: Proof of Income
-            </h1>
-            <p style="font-size: 14px; color: #5C5C5C; margin: 0;">
-                2.4.1.1 As an EO and/or MCM, I want to review received evidence items and validate whether it satisfies the request So that I have appropriate evidence for determination.
-            </p>
+        <!-- ============================================ -->
+        <!-- == SUCCESS STATE (UNCOMMENT TO DISPLAY)   == -->
+        <!-- ============================================ -->
+        <!--
+        <div class="alert alert-success" role="alert">
+            <svg class="alert-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span>Evidence validation has been submitted successfully.</span>
+        </div>
+        -->
+        
+        <!-- ============================================ -->
+        <!-- == ERROR STATE (UNCOMMENT TO DISPLAY)     == -->
+        <!-- ============================================ -->
+        <!--
+        <div class="alert alert-error" role="alert">
+            <svg class="alert-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span>Could not submit validation. Please review the errors below.</span>
+        </div>
+        -->
+
+        <header class="page-header">
+            <h1>Review Evidence Item</h1>
+            <p class="subtitle">Screen: 2.4.1.1 | Review the received evidence and validate whether it satisfies the request.</p>
         </header>
 
-        <!-- =================================================================
-        DEFAULT STATE - Main Content
-        This is the primary view when an evidence item is selected and loaded.
-        ================================================================== -->
-        <main style="display: flex; gap: 24px; align-items: flex-start;">
+        <!-- CARD 1: EVIDENCE DOCUMENT VIEWER -->
+        <div class="card">
+            <h2 class="section-header">Received Evidence</h2>
+            
+            <ul class="document-info">
+                <li>
+                    <strong>Document Name:</strong> 
+                    <span>paystub_mar_2024.pdf</span>
+                </li>
+                <li>
+                    <strong>Document Type:</strong>
+                    <span>Proof of Income</span>
+                </li>
+                 <li>
+                    <strong>Received Date:</strong>
+                    <span>April 5, 2024</span>
+                </li>
+                 <li>
+                    <strong>Requested For:</strong>
+                    <span>Application #LA-2024-03451</span>
+                </li>
+            </ul>
 
-            <!-- Left Panel: Document Viewer -->
-            <div id="document-viewer-card" style="flex: 3; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden; position: relative;">
-                <div style="padding: 24px; border-bottom: 1px solid #D8DDE6;">
-                    <h2 style="font-size: 20px; font-weight: 700; margin: 0 0 16px 0;">Evidence Item Details</h2>
-                    <div style="display: flex; gap: 40px;">
-                        <div>
-                            <p style="font-size: 14px; color: #5C5C5C; margin: 0 0 4px 0;">Document Name</p>
-                            <p style="font-size: 14px; color: #181818; font-weight: 500; margin: 0;">Paystub_Mar_2024.pdf</p>
-                        </div>
-                        <div>
-                            <p style="font-size: 14px; color: #5C5C5C; margin: 0 0 4px 0;">Case ID</p>
-                            <p style="font-size: 14px; color: #181818; font-weight: 500; margin: 0;">LA-2024-04-12345</p>
-                        </div>
-                        <div>
-                            <p style="font-size: 14px; color: #5C5C5C; margin: 0 0 4px 0;">Date Received</p>
-                            <p style="font-size: 14px; color: #181818; font-weight: 500; margin: 0;">April 15, 2024</p>
-                        </div>
-                    </div>
-                </div>
-                <div id="document-placeholder" style="height: 600px; background-color: #E6E6E6; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#5C5C5C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                        <polyline points="14 2 14 8 20 8"></polyline>
-                        <line x1="16" y1="13" x2="8" y2="13"></line>
-                        <line x1="16" y1="17" x2="8" y2="17"></line>
-                        <polyline points="10 9 9 9 8 9"></polyline>
-                    </svg>
-                    <p style="color: #5C5C5C; font-size: 16px; font-weight: 500; margin-top: 16px;">Document Viewer Placeholder</p>
-                    <p style="color: #5C5C5C; font-size: 14px; margin-top: 4px;">Paystub_Mar_2024.pdf</p>
-                </div>
+            <div class="document-viewer-placeholder">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                </svg>
+                <span>Document Preview Area</span>
+                <small>(Live PDF or Image viewer would be rendered here)</small>
+            </div>
+            
+        </div>
+
+        <!-- ============================================ -->
+        <!-- == LOADING STATE (REPLACE FORM CARD)      == -->
+        <!-- ============================================ -->
+        <!--
+        <div class="card" style="text-align: center; padding: 60px;">
+            <p style="color: var(--color-text-secondary);">Loading validation options...</p>
+        </div>
+        -->
+        
+        <!-- CARD 2: SUPPORTING INFORMATION & VALIDATION -->
+        <form class="card" action="#" method="POST">
+            <h2 class="section-header">Validation & Supporting Information</h2>
+            
+            <p style="color: var(--color-text-secondary); margin-top: -8px; margin-bottom: 24px;">Add comments to support your decision. The reason is required if you are declining the evidence.</p>
+
+            <!-- REASON FOR APPROVAL -->
+            <div class="form-group">
+                <label for="reasonForApproval" class="form-label">Reason for Approval (Optional)</label>
+                <textarea id="reasonForApproval" name="reasonForApproval" class="form-control" placeholder="e.g., The provided paystub clearly shows the required monthly income and matches the applicant's details."></textarea>
+            </div>
+            
+            <!-- REASON FOR DECLINE -->
+            <!-- Add "has-error" class to .form-group for error state -->
+            <div class="form-group">
+                <label for="reasonForDecline" class="form-label">Reason for Decline</label>
+                <textarea id="reasonForDecline" name="reasonForDecline" class="form-control" placeholder="e.g., The name on the document does not match the applicant's name. Document appears to be expired."></textarea>
+                <!-- Error message example -->
+                <!-- <div class="error-message">A reason is required to decline evidence.</div> -->
             </div>
 
-            <!-- Right Panel: Validation Form -->
-            <div id="validation-form-card" style="flex: 2; background: white; border-radius: 8px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); min-width: 350px;">
-                <h2 style="font-size: 20px; font-weight: 700; margin: 0 0 16px 0;">Supporting Information</h2>
-                
-                <form onsubmit="event.preventDefault(); alert('Validation Submitted!');">
-                    
-                    <!-- SUCCESS STATE (Initially hidden) -->
-                    <!-- To show, remove `display: none;`. Add after a successful submission. -->
-                    <div id="success-message" style="display: none; background-color: #E4F4EC; color: #006400; padding: 12px 16px; border-radius: 4px; border: 1px solid #C8E6C9; margin-bottom: 16px; font-size: 14px;">
-                        Validation has been successfully saved.
-                    </div>
-
-                    <!-- ERROR STATE (Initially hidden) -->
-                    <!-- To show, remove `display: none;`. Add if submission fails. -->
-                    <div id="error-message" style="display: none; background-color: #FDECEA; color: #C10E02; padding: 12px 16px; border-radius: 4px; border: 1px solid #FADBD7; margin-bottom: 16px; font-size: 14px;">
-                        Error: Could not save validation. Please try again.
-                    </div>
-
-                    <!-- Radio Button Group for Comment Category -->
-                    <fieldset style="border: none; padding: 0; margin: 0 0 16px 0;">
-                        <legend style="font-size: 14px; font-weight: 600; color: #181818; padding: 0; margin-bottom: 8px;">Category</legend>
-                        <div style="display: flex; flex-direction: column; gap: 12px;">
-                            <label style="display: flex; align-items: center; font-size: 14px; cursor: pointer;">
-                                <input type="radio" name="validation-reason" value="approve" checked style="margin-right: 8px; accent-color: #C10E02;">
-                                Reason for Approval
-                            </label>
-                            <label style="display: flex; align-items: center; font-size: 14px; cursor: pointer;">
-                                <input type="radio" name="validation-reason" value="decline" style="margin-right: 8px; accent-color: #C10E02;">
-                                Reason for Decline
-                            </label>
-                            <label style="display: flex; align-items: center; font-size: 14px; cursor: pointer;">
-                                <input type="radio" name="validation-reason" value="other" style="margin-right: 8px; accent-color: #C10E02;">
-                                Other Comments
-                            </label>
-                        </div>
-                    </fieldset>
-
-                    <!-- Text Area for Comments -->
-                    <div style="margin-bottom: 24px;">
-                        <label for="comments" style="display: block; font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 8px;">Comments</label>
-                        <textarea id="comments" rows="8" placeholder="Enter reason for approval..." style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px; font-family: inherit; resize: vertical;"></textarea>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div style="display: flex; justify-content: flex-end; gap: 12px;">
-                        <button type="button" style="height: 44px; padding: 12px 24px; border-radius: 4px; font-weight: 600; font-size: 14px; cursor: pointer; background-color: #E6E6E6; color: #343434; border: 1px solid #D8DDE6;">
-                            Save as Draft
-                        </button>
-                        <button type="submit" style="height: 44px; padding: 12px 24px; border-radius: 4px; font-weight: 600; font-size: 14px; cursor: pointer; background-color: #C10E02; color: white; border: none;">
-                            Submit Validation
-                        </button>
-                    </div>
-                </form>
+            <!-- OTHER COMMENTS -->
+            <div class="form-group">
+                <label for="otherComments" class="form-label">Other Comments (Optional)</label>
+                <textarea id="otherComments" name="otherComments" class="form-control" placeholder="e.g., Recommend requesting an additional utility bill to verify address."></textarea>
             </div>
-        </main>
 
-    </div>
+            <!-- ACTION BUTTONS -->
+            <div class="button-group">
+                <button type="button" class="btn btn-secondary">Save as Draft</button>
+                <button type="submit" class="btn btn-primary">Submit Validation</button>
+            </div>
+        </form>
 
-    <!-- =================================================================
-    OTHER STATES (Commented Out for Reference)
-    ================================================================== -->
-
-    <!-- 
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // LOADING STATE:
-    // To implement, you would add this overlay inside the 
-    // `#document-viewer-card` and disable the form fields on the right.
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    -->
-    <!--
-    <div id="loading-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255, 255, 255, 0.8); display: flex; align-items: center; justify-content: center; z-index: 10;">
-        <div style="text-align: center;">
-            <svg width="40" height="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="animation: spin 1s linear infinite; color: #C10E02;"><path fill="currentColor" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25"/><path fill="currentColor" d="M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z"/></svg>
-            <p style="margin-top: 8px; color: #5C5C5C; font-size: 14px;">Loading Document...</p>
-        </div>
-        <style>@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }</style>
-    </div>
-    -->
-
-    <!-- 
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // EMPTY STATE:
-    // This would be shown if no evidence item has been selected yet.
-    // It would replace the entire `<main>` content area.
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    -->
-    <!--
-    <main style="display: flex; justify-content: center; align-items: center; height: 60vh;">
-        <div style="text-align: center; background: white; padding: 48px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#D8DDE6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="12" y1="8" x2="12" y2="16"></line>
-                <line x1="8" y1="12" x2="16" y2="12"></line>
-            </svg>
-            <h2 style="font-size: 20px; font-weight: 700; color: #181818; margin: 16px 0 8px 0;">No Evidence Selected</h2>
-            <p style="font-size: 14px; color: #5C5C5C; margin: 0; max-width: 300px;">
-                Please select an item from the 'Evidence Received' tab to begin your review.
-            </p>
-        </div>
     </main>
-    -->
 
 </body>
 </html>
