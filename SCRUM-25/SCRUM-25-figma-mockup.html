@@ -3,161 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2.4.1.1 Review Received Evidence</title>
-    <!-- 
-      NOTE: While the prompt requires 'inline CSS only', styling the inner dot of a radio button
-      and keyframe animations is not possible with style attributes. A <style> block is used here
-      to meet the specific visual requirements of the Design System for these components.
-      This is a standard practice for custom form controls and animations.
-    -->
-    <style>
-      /* Custom radio button styles to match Design System */
-      input[type="radio"] {
-        -webkit-appearance: none;
-        appearance: none;
-        background-color: #fff;
-        margin: 0;
-        font: inherit;
-        color: currentColor;
-        width: 1.15em;
-        height: 1.15em;
-        border: 1px solid #D8DDE6;
-        border-radius: 50%;
-        transform: translateY(-0.075em);
-        display: grid;
-        place-content: center;
-      }
-      input[type="radio"]::before {
-        content: "";
-        width: 0.65em;
-        height: 0.65em;
-        border-radius: 50%;
-        transform: scale(0);
-        transition: 120ms transform ease-in-out;
-        box-shadow: inset 1em 1em #C10E02;
-      }
-      input[type="radio"]:checked::before {
-        transform: scale(1);
-      }
-      /* Spinner animation for Loading State */
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-    </style>
+    <title>Review Evidence - Application #SCRUM-25</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
-<body style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; background-color: #F4F5F6; color: #181818;">
+<body style="margin: 0; padding: 0; background-color: #F4F5F6; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">
 
-    <!-- Main Container -->
-    <div style="max-width: 800px; margin: 40px auto; padding: 20px;">
-
-        <!-- 
-        ======================================================================
-        SUCCESS STATE (BANNER)
-        This banner would appear at the top of the page after a successful submission.
-        ======================================================================
-        -->
-        <!--
-        <div style="background-color: #21A179; color: #FFFFFF; padding: 16px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
-            <p style="margin: 0; font-weight: 600; font-size: 14px;">Validation submitted successfully!</p>
-        </div>
-        -->
-
-        <!-- Page Header -->
+    <div style="max-width: 1400px; margin: 40px auto; padding: 20px;">
+        
+        <!-- PAGE HEADER -->
         <div style="margin-bottom: 24px;">
-            <h1 style="font-size: 28px; font-weight: bold; margin: 0 0 8px 0; color: #181818;">Review Evidence</h1>
-            <p style="font-size: 14px; color: #5C5C5C; margin: 0;">Case ID: 2024-C-12345 | Applicant: Jane Doe | Evidence Type: Proof of Income</p>
+            <h1 style="font-size: 28px; font-weight: bold; color: #181818; margin: 0 0 4px 0;">Review Received Evidence</h1>
+            <p style="font-size: 14px; color: #5C5C5C; margin: 0;">For Application #45-12345 | Client: Jane Doe</p>
         </div>
 
-        <!-- Card 1: Evidence Document Viewer -->
-        <div style="background: #FFFFFF; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <h2 style="font-size: 20px; font-weight: bold; margin: 0 0 16px 0; color: #181818;">Evidence Document</h2>
-            
-            <!-- Document Metadata -->
-            <div style="margin-bottom: 16px; font-size: 14px; color: #5C5C5C; line-height: 1.5;">
-                <p style="margin: 0 0 4px 0;"><strong style="color: #181818;">File Name:</strong> paystub_march_2024.pdf</p>
-                <p style="margin: 0;"><strong style="color: #181818;">Date Received:</strong> April 15, 2024</p>
-            </div>
-            
-            <!-- 
-            ======================================================================
-            DEFAULT STATE: Document Preview Placeholder
-            ======================================================================
-            -->
-            <div style="height: 450px; background-color: #E6E6E6; border: 1px dashed #D8DDE6; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
-                <p style="color: #5C5C5C; font-size: 16px;">Document Preview Area</p>
-            </div>
+        <!-- MAIN CONTENT LAYOUT -->
+        <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start;">
 
-            <!-- 
-            ======================================================================
-            LOADING STATE: Document Viewer
-            Replace the default state placeholder above with this block to show loading.
-            ======================================================================
-            -->
-            <!--
-            <div style="height: 450px; background-color: #F4F5F6; border: 1px dashed #D8DDE6; display: flex; align-items: center; justify-content: center; border-radius: 4px; flex-direction: column; gap: 16px;">
-                <div style="border: 4px solid #E6E6E6; border-top: 4px solid #C10E02; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite;"></div>
-                <p style="color: #5C5C5C; font-size: 16px;">Loading document...</p>
-            </div>
-            -->
+            <!-- LEFT COLUMN: DOCUMENT VIEWER -->
+            <div style="flex: 3; min-width: 600px;">
+                <div style="background-color: white; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid #E6E6E6; padding-bottom: 16px;">
+                        <div>
+                            <h2 style="font-size: 20px; font-weight: bold; color: #181818; margin: 0;">paystub_mar2024.pdf</h2>
+                            <span style="font-size: 12px; color: #5C5C5C;">Evidence Type: Proof of Income | Uploaded: 15 Apr 2024</span>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <!-- Viewer control buttons could go here -->
+                        </div>
+                    </div>
+                    
+                    <!-- DEFAULT/SUCCESS STATE: Document is visible -->
+                    <div style="background-color: #E6E6E6; height: 700px; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
+                         <div style="text-align: center; color: #5C5C5C;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="color: #5C5C5C; margin-bottom: 16px;"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
+                            <p style="margin:0; font-weight: 500;">Document Preview Area</p>
+                            <p style="margin:4px 0 0 0; font-size: 12px;">(PDF/Image would be rendered here)</p>
+                        </div>
+                    </div>
+                    
+                    <!-- LOADING STATE (uncomment to view) -->
+                    <!--
+                    <div style="background-color: #F4F5F6; height: 700px; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
+                        <div style="text-align: center; color: #5C5C5C;">
+                            <svg width="38" height="38" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="#C10E02" style="margin-bottom: 16px;">
+                                <g fill="none" fill-rule="evenodd"><g transform="translate(1 1)" stroke-width="2"><circle stroke-opacity=".5" cx="18" cy="18" r="18"></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18" dur="1s" repeatCount="indefinite"></animateTransform></path></g></g>
+                            </svg>
+                            <p style="margin:0; font-weight: 500;">Loading Document...</p>
+                        </div>
+                    </div>
+                    -->
 
-        </div>
-
-        <!-- Card 2: Supporting Information & Validation Form -->
-        <div style="background: #FFFFFF; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <h2 style="font-size: 20px; font-weight: bold; margin: 0 0 24px 0; color: #181818;">Supporting Information & Validation</h2>
-
-            <!-- Validation Status Radio Buttons -->
-            <div style="margin-bottom: 24px;">
-                <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #181818;">Does this evidence satisfy the request?</label>
-                <div style="display: flex; gap: 24px;">
-                    <label style="display: flex; align-items: center; cursor: pointer; font-size: 14px;">
-                        <input type="radio" name="validationStatus" value="approve" style="margin-right: 8px;"> Approve
-                    </label>
-                    <label style="display: flex; align-items: center; cursor: pointer; font-size: 14px;">
-                        <input type="radio" name="validationStatus" value="decline" checked style="margin-right: 8px;"> Decline
-                    </label>
                 </div>
             </div>
 
-            <!-- Reason for Approval -->
-            <div style="margin-bottom: 16px;">
-                <label for="reasonForApproval" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Reason for Approval</label>
-                <textarea id="reasonForApproval" rows="4" placeholder="Enter reason if approving..." style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-family: inherit; font-size: 14px; resize: vertical;"></textarea>
-            </div>
+            <!-- RIGHT COLUMN: VALIDATION PANEL -->
+            <div style="flex: 1; min-width: 300px;">
+                
+                <!-- ERROR STATE (uncomment to view) -->
+                <!--
+                <div style="background-color: #FFF0F0; border: 1px solid #C10E02; color: #C10E02; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+                    <p style="margin: 0; font-weight: 600; font-size: 14px;">Submission Failed</p>
+                    <p style="margin: 4px 0 0 0; font-size: 12px;">There was an issue saving your validation. Please try again.</p>
+                </div>
+                -->
+                
+                <!-- SUCCESS STATE (uncomment to view) -->
+                <!--
+                <div style="background-color: #F0FFF4; border: 1px solid #21A179; color: #21A179; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+                    <p style="margin: 0; font-weight: 600; font-size: 14px;">Validation Submitted Successfully</p>
+                    <p style="margin: 4px 0 0 0; font-size: 12px;">The evidence status has been updated.</p>
+                </div>
+                -->
 
-            <!-- Reason for Decline -->
-            <div style="margin-bottom: 16px;">
-                <label for="reasonForDecline" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Reason for Decline</label>
-                <textarea id="reasonForDecline" rows="4" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-family: inherit; font-size: 14px; resize: vertical;">The submitted paystub does not cover the required three-month period. It only shows income for March 2024. Please request paystubs for January and February 2024.</textarea>
-            </div>
+                <!-- VALIDATION STATUS CARD -->
+                <div style="background-color: white; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 24px;">
+                    <h2 style="font-size: 20px; font-weight: bold; color: #181818; margin: 0 0 16px 0;">Validate Evidence</h2>
+                    <p style="font-size: 14px; color: #5C5C5C; margin: 0 0 16px 0;">Does this evidence satisfy the request?</p>
 
-            <!-- 
-            ======================================================================
-            ERROR STATE: 'Reason for Decline' field example
-            Replace the 'Reason for Decline' block above with this to show an error.
-            This would trigger if 'Decline' is selected and the field is empty on submit.
-            ======================================================================
-            -->
-            <!--
-            <div style="margin-bottom: 16px;">
-                <label for="reasonForDeclineError" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Reason for Decline</label>
-                <textarea id="reasonForDeclineError" rows="4" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #C10E02; border-radius: 4px; font-family: inherit; font-size: 14px; resize: vertical;"></textarea>
-                <p style="color: #C10E02; font-size: 12px; margin: 4px 0 0 0;">This field is required when declining evidence.</p>
-            </div>
-            -->
+                    <!-- Custom Radio Button Group -->
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        
+                        <!-- NOTE: The 'checked' state is visually mocked below by styling the inner dot. In a real app, this would be controlled by CSS (:checked pseudo-class) and JavaScript. -->
+                        
+                        <!-- Radio Option: Approve (Mocked as checked) -->
+                        <label style="display: flex; align-items: center; cursor: pointer; padding: 12px; border: 1px solid #D8DDE6; border-radius: 4px; background-color: #F4F5F6; border-color: #C10E02;">
+                            <input type="radio" name="validation_status" value="approve" style="display: none;" checked>
+                            <span style="width: 18px; height: 18px; border: 2px solid #C10E02; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 12px; background-color: white;">
+                                <span style="width: 10px; height: 10px; background-color: #C10E02; border-radius: 50%;"></span>
+                            </span>
+                            <span style="font-size: 14px; color: #181818; font-weight: 600;">Approve</span>
+                        </label>
+                        
+                        <!-- Radio Option: Decline -->
+                        <label style="display: flex; align-items: center; cursor: pointer; padding: 12px; border: 1px solid #D8DDE6; border-radius: 4px;">
+                            <input type="radio" name="validation_status" value="decline" style="display: none;">
+                            <span style="width: 18px; height: 18px; border: 2px solid #5C5C5C; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 12px; background-color: white;">
+                                <!-- Inner dot is absent for unchecked state -->
+                            </span>
+                            <span style="font-size: 14px; color: #181818; font-weight: 600;">Decline</span>
+                        </label>
 
-            <!-- Other Comments -->
-            <div>
-                <label for="otherComments" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Other Comments</label>
-                <textarea id="otherComments" rows="4" placeholder="Enter any other relevant comments..." style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-family: inherit; font-size: 14px; resize: vertical;"></textarea>
-            </div>
-        </div>
+                    </div>
+                </div>
 
-        <!-- Action Buttons -->
-        <div style="display: flex; justify-content: flex-end; gap: 16px;">
-            <button type="button" style="height: 44px; padding: 12px 24px; border-radius: 4px; font-weight: 600; font-size: 14px; border: 1px solid #E6E6E6; background-color: #E6E6E6; color: #343434; cursor: pointer;">Save as Draft</button>
-            <button type="submit" style="height: 44px; padding: 12px 24px; border-radius: 4px; font-weight: 600; font-size: 14px; border: none; background-color: #C10E02; color: #FFFFFF; cursor: pointer;">Submit Validation</button>
+                <!-- SUPPORTING INFORMATION CARD -->
+                <div style="background-color: white; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 24px;">
+                    <h2 style="font-size: 20px; font-weight: bold; color: #181818; margin: 0 0 16px 0;">Supporting Information</h2>
+                    
+                    <!-- NOTE: In a real app, visibility of 'Reason for Approval' and 'Reason for Decline' would be conditional based on the radio button selection above. Both are shown here for mockup purposes. -->
+
+                    <!-- Field: Reason for Approval -->
+                    <div style="margin-bottom: 16px;">
+                        <label for="reason_approval" style="display: block; font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 8px;">Reason for Approval</label>
+                        <textarea id="reason_approval" rows="4" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-family: inherit; font-size: 14px; min-height: 80px; resize: vertical;">The provided paystub from March 2024 confirms the client's stated monthly income and meets the program's eligibility requirements for financial evidence.</textarea>
+                    </div>
+
+                    <!-- Field: Reason for Decline -->
+                    <div style="margin-bottom: 16px;">
+                        <label for="reason_decline" style="display: block; font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 8px;">Reason for Decline</label>
+                        <textarea id="reason_decline" rows="4" placeholder="Enter reason..." style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-family: inherit; font-size: 14px; min-height: 80px; resize: vertical; background-color: #F4F5F6;" disabled></textarea>
+                         <p style="font-size: 12px; color: #5C5C5C; margin: 4px 0 0 0;">This field becomes active if 'Decline' is selected.</p>
+                    </div>
+
+                    <!-- Field: Other Comments -->
+                    <div>
+                        <label for="other_comments" style="display: block; font-size: 14px; font-weight: 600; color: #181818; margin-bottom: 8px;">Other Comments</label>
+                        <textarea id="other_comments" rows="4" placeholder="Enter any other relevant comments..." style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-family: inherit; font-size: 14px; min-height: 80px; resize: vertical;"></textarea>
+                    </div>
+                </div>
+                
+                <!-- ACTION BUTTONS -->
+                <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                    <button type="button" style="height: 44px; padding: 0 24px; border-radius: 4px; font-weight: 600; font-size: 14px; cursor: pointer; background-color: #E6E6E6; color: #343434; border: 1px solid #D8DDE6;">
+                        Cancel
+                    </button>
+                    <button type="submit" style="height: 44px; padding: 0 24px; border-radius: 4px; font-weight: 600; font-size: 14px; cursor: pointer; background-color: #C10E02; color: white; border: none;">
+                        Submit Validation
+                    </button>
+                </div>
+                
+                <!-- EMPTY STATE (commented out) - This would be shown if no document is selected -->
+                <!--
+                <div style="background-color: white; padding: 48px 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
+                    <h2 style="font-size: 20px; font-weight: bold; color: #181818; margin: 0 0 8px 0;">No Evidence Selected</h2>
+                    <p style="font-size: 14px; color: #5C5C5C; margin: 0;">Please select an item from the 'Evidence Received' list to begin the review process.</p>
+                </div>
+                -->
+
+            </div>
         </div>
 
     </div>
