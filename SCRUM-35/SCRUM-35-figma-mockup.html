@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evidence Review Screen</title>
+    <style>
+        /* Base styles as per instructions - though most will be inline */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #F4F5F6;
+            color: #181818;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        * {
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body style="background-color: #F4F5F6; padding: 24px;">
+
+    <!-- Main Container -->
+    <div style="max-width: 1440px; margin: 0 auto;">
+
+        <!-- 1. Breadcrumb Navigation -->
+        <nav aria-label="Breadcrumb" style="margin-bottom: 24px;">
+            <ol style="list-style: none; margin: 0; padding: 0; display: flex; align-items: center; font-size: 14px; color: #5C5C5C;">
+                <li style="margin-right: 8px;"><a href="#" style="color: #5C5C5C; text-decoration: none;">Home</a></li>
+                <li style="margin-right: 8px;">&gt;</li>
+                <li style="margin-right: 8px;"><a href="#" style="color: #5C5C5C; text-decoration: none;">Claims</a></li>
+                <li style="margin-right: 8px;">&gt;</li>
+                <li style="margin-right: 8px;"><a href="#" style="color: #C10E02; text-decoration: none; font-weight: 600;">CLM-123857</a></li>
+                <li style="margin-right: 8px;">&gt;</li>
+                <li style="font-weight: 600; color: #181818;">Case-CAS-7788</li>
+            </ol>
+        </nav>
+
+        <!-- 2. Two-Column Layout -->
+        <div style="display: flex; gap: 24px; align-items: flex-start;">
+
+            <!-- LEFT COLUMN: Main Content & Data Table -->
+            <div style="flex: 2; display: flex; flex-direction: column; gap: 24px;">
+                <div style="background: white; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    
+                    <!-- Page Header -->
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
+                        <div>
+                            <h1 style="font-size: 28px; font-weight: bold; color: #181818; margin: 0 0 8px 0;">Evidence</h1>
+                            <p style="font-size: 14px; color: #5C5C5C; margin: 0;">View and manage evidence requests for this case.</p>
+                        </div>
+                        <div style="text-align: right; font-size: 13px; color: #5C5C5C;">
+                            <p style="margin: 0 0 4px 0;"><strong>Claim:</strong> CLM-123857</p>
+                            <p style="margin: 0 0 4px 0;"><strong>Case:</strong> CAS-7788</p>
+                            <p style="margin: 0;"><strong>Role:</strong> Evidence Officer (EO)</p>
+                        </div>
+                    </div>
+
+                    <!-- Evidence Tabs -->
+                    <div style="border-bottom: 1px solid #D8DDE6; margin-bottom: 24px;">
+                        <button style="padding: 12px 16px; font-size: 14px; font-weight: 600; border: none; background: transparent; cursor: pointer; color: #C10E02; border-bottom: 2px solid #C10E02;">Evidence Received (4)</button>
+                        <button style="padding: 12px 16px; font-size: 14px; font-weight: 600; border: none; background: transparent; cursor: pointer; color: #5C5C5C;">Evidence Requested (2)</button>
+                    </div>
+
+                    <!-- Search and Filter Controls -->
+                    <div style="display: flex; gap: 16px; margin-bottom: 24px; align-items: flex-end;">
+                        <div style="flex-grow: 1;">
+                            <label for="search" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Search Evidence</label>
+                            <input type="text" id="search" placeholder="Search by description, claim, case..." style="width: 100%; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px;">
+                        </div>
+                        <div>
+                            <label for="statusFilter" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Status</label>
+                            <select id="statusFilter" style="width: 200px; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px; background-color: white;">
+                                <option>All Statuses</option>
+                                <option>Received</option>
+                                <option>Awaiting Review</option>
+                                <option>Incomplete</option>
+                            </select>
+                        </div>
+                         <button style="height: 40px; padding: 0 24px; border-radius: 4px; font-weight: 600; font-size: 14px; cursor: pointer; background-color: #E6E6E6; color: #343434; border: 1px solid #D8DDE6;">Apply Filters</button>
+                    </div>
+
+                    <!-- Evidence Received Table (Default/Success State) -->
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                            <thead style="text-align: left; background-color: #F4F5F6;">
+                                <tr>
+                                    <th style="padding: 12px 16px; font-weight: 600; color: #5C5C5C;">Evidence Description</th>
+                                    <th style="padding: 12px 16px; font-weight: 600; color: #5C5C5C;">Request Type</th>
+                                    <th style="padding: 12px 16px; font-weight: 600; color: #5C5C5C;">Case Number</th>
+                                    <th style="padding: 12px 16px; font-weight: 600; color: #5C5C5C;">Status</th>
+                                    <th style="padding: 12px 16px; font-weight: 600; color: #5C5C5C;">Received Date & Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Selected Row -->
+                                <tr style="background-color: #F4F5F6; border-bottom: 1px solid #D8DDE6; cursor: pointer;">
+                                    <td style="padding: 16px; color: #C10E02; font-weight: 600;">GP Report - Suitable Duties</td>
+                                    <td style="padding: 16px;">Medical Report</td>
+                                    <td style="padding: 16px;">CAS-7788</td>
+                                    <td style="padding: 16px;"><span style="background-color: #E3F2FD; color: #0D47A1; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600;">Received</span></td>
+                                    <td style="padding: 16px;">28 Oct 2025, 11:34 AM</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #D8DDE6; cursor: pointer;">
+                                    <td style="padding: 16px; font-weight: 600;">Payslips - July 2025</td>
+                                    <td style="padding: 16px;">Financial</td>
+                                    <td style="padding: 16px;">CAS-7788</td>
+                                    <td style="padding: 16px;"><span style="background-color: #E3F2FD; color: #0D47A1; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600;">Received</span></td>
+                                    <td style="padding: 16px;">27 Oct 2025, 02:15 PM</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #D8DDE6; cursor: pointer;">
+                                    <td style="padding: 16px; font-weight: 600;">Witness Statement - J. Doe</td>
+                                    <td style="padding: 16px;">Statement</td>
+                                    <td style="padding: 16px;">CAS-7789</td>
+                                    <td style="padding: 16px;"><span style="background-color: #FFF3E0; color: #E65100; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600;">Awaiting Review</span></td>
+                                    <td style="padding: 16px;">26 Oct 2025, 09:00 AM</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #D8DDE6; cursor: pointer;">
+                                    <td style="padding: 16px; font-weight: 600;">Initial Consultation Notes</td>
+                                    <td style="padding: 16px;">Medical Report</td>
+                                    <td style="padding: 16px;">CAS-7788</td>
+                                    <td style="padding: 16px;"><span style="background-color: #FFEBEE; color: #B71C1C; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600;">Incomplete</span></td>
+                                    <td style="padding: 16px;">25 Oct 2025, 05:45 PM</td>
+                                </tr>
+                                <!-- Empty State (commented out)
+                                <tr>
+                                    <td colspan="5" style="text-align: center; padding: 48px; color: #5C5C5C;">
+                                        <p style="font-size: 16px; font-weight: 600; margin: 0 0 8px 0;">No Evidence Found</p>
+                                        <p style="margin: 0;">There is no received evidence that matches your criteria.</p>
+                                    </td>
+                                </tr>
+                                -->
+                                <!-- Loading State (would replace tbody content)
+                                <tr>
+                                    <td colspan="5" style="text-align: center; padding: 48px; color: #5C5C5C;">Loading evidence...</td>
+                                </tr>
+                                -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Details Panel -->
+            <div style="flex: 1; min-width: 350px;">
+                <div style="background: white; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    
+                    <!-- Evidence Item Details -->
+                    <div style="border-bottom: 1px solid #D8DDE6; padding-bottom: 16px; margin-bottom: 16px;">
+                        <h2 style="font-size: 20px; font-weight: bold; margin: 0 0 16px 0;">GP Report - Suitable Duties</h2>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 14px;">
+                            <div>
+                                <p style="margin: 0 0 4px 0; color: #5C5C5C;">Request Type</p>
+                                <p style="margin: 0; font-weight: 600;">Medical Report</p>
+                            </div>
+                             <div>
+                                <p style="margin: 0 0 4px 0; color: #5C5C5C;">Status</p>
+                                <p style="margin: 0; font-weight: 600;">Received</p>
+                            </div>
+                            <div>
+                                <p style="margin: 0 0 4px 0; color: #5C5C5C;">Claim Number</p>
+                                <p style="margin: 0; font-weight: 600;">CLM-123857</p>
+                            </div>
+                            <div>
+                                <p style="margin: 0 0 4px 0; color: #5C5C5C;">Case Number</p>
+                                <p style="margin: 0; font-weight: 600;">CAS-7788</p>
+                            </div>
+                            <div style="grid-column: 1 / -1;">
+                                <p style="margin: 0 0 4px 0; color: #5C5C5C;">Received Date & Time</p>
+                                <p style="margin: 0; font-weight: 600;">28 October 2025, 11:34 AM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Documents List -->
+                    <div style="border-bottom: 1px solid #D8DDE6; padding-bottom: 16px; margin-bottom: 16px;">
+                        <h3 style="font-size: 16px; font-weight: bold; margin: 0 0 16px 0;">Documents (3)</h3>
+                        <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px;">
+                            <li style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background-color: #F4F5F6; border-radius: 4px;">
+                                <span style="font-weight: 600; font-size: 14px;">dr_jones_report.pdf</span>
+                                <a href="#" style="color: #C10E02; font-weight: 600; font-size: 14px; text-decoration: none;">View</a>
+                            </li>
+                            <li style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background-color: #F4F5F6; border-radius: 4px;">
+                                <span style="font-weight: 600; font-size: 14px;">xray_scan_left_arm.jpeg</span>
+                                <a href="#" style="color: #C10E02; font-weight: 600; font-size: 14px; text-decoration: none;">View</a>
+                            </li>
+                            <li style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background-color: #F4F5F6; border-radius: 4px;">
+                                <span style="font-weight: 600; font-size: 14px;">specialist_referral.pdf</span>
+                                <a href="#" style="color: #C10E02; font-weight: 600; font-size: 14px; text-decoration: none;">View</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Validation History -->
+                    <div>
+                        <h3 style="font-size: 16px; font-weight: bold; margin: 0 0 16px 0;">Validation History</h3>
+                         <div style="font-size: 13px; color: #5C5C5C;">
+                            <p style="margin: 0 0 8px 0;"><strong>28 Oct 2025, 11:35 AM:</strong> Automatically validated by system.</p>
+                            <p style="margin: 0;"><strong>28 Oct 2025, 11:34 AM:</strong> Documents received from client portal.</p>
+                         </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
