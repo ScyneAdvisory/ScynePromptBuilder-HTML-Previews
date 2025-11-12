@@ -3,365 +3,324 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review Evidence Item</title>
+    <title>Evidence Review and Validation</title>
     <style>
-        /* --- START: Design System Implementation (as per requirements) --- */
-        :root {
-            /* Colors */
-            --color-primary-red: #C10E02;
-            --color-text-on-primary: #FFFFFF;
-            --color-background-secondary-button: #E6E6E6;
-            --color-text-secondary-button: #343434;
-            --color-border-input: #D8DDE6;
-            --color-text-primary: #181818;
-            --color-text-secondary: #5C5C5C;
-            --color-page-background: #F4F5F6;
-            --color-card-background: #FFFFFF;
-            --color-error: #D32F2F;
-
-            /* Typography */
-            --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            --font-size-h1: 28px;
-            --font-weight-h1: 700;
-            --font-size-h2: 20px;
-            --font-weight-h2: 700;
-            --font-size-subtitle: 14px;
-            --font-size-label: 14px;
-            --font-weight-label: 600;
-            --font-size-body: 14px;
-            --font-weight-button: 600;
-
-            /* Spacing & Sizing */
-            --spacing-xs: 4px;
-            --spacing-s: 8px;
-            --spacing-m: 16px;
-            --spacing-l: 24px;
-            --spacing-xl: 40px;
-            --input-height: 40px;
-            --button-height: 44px;
-
-            /* Borders & Shadows */
-            --border-radius-small: 4px;
-            --border-radius-medium: 8px;
-            --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* --- Base & Reset --- */
-        *, *::before, *::after {
-            box-sizing: border-box;
+        /* --- Base and Typography (from Design System) --- */
+        body {
             margin: 0;
             padding: 0;
+            background-color: #F4F5F6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            color: #181818;
         }
 
-        body {
-            font-family: var(--font-family-base);
-            background-color: var(--color-page-background);
-            color: var(--color-text-primary);
-            font-size: var(--font-size-body);
-            line-height: 1.5;
-        }
-        
-        /* --- Layout --- */
-        .page-container {
-            display: flex;
-            gap: var(--spacing-l);
-            max-width: 1440px;
-            margin: var(--spacing-xl) auto;
-            padding: 0 var(--spacing-l);
+        /* --- Layout Structure (from Design System) --- */
+        .container {
+            max-width: 1200px; /* Adjusted for side-by-side view, a common pattern for document review */
+            margin: 40px auto;
+            padding: 20px;
         }
 
-        .document-viewer-pane {
-            flex: 2;
-            min-width: 0; /* Prevents flexbox overflow */
-        }
-
-        .validation-form-pane {
-            flex: 1;
-            min-width: 400px;
-        }
-
-        /* --- Components from Design System --- */
-
-        /* Card Component */
-        .card {
-            background-color: var(--color-card-background);
-            padding: var(--spacing-l);
-            border-radius: var(--border-radius-medium);
-            box-shadow: var(--card-shadow);
-            margin-bottom: var(--spacing-l);
-        }
-
-        /* Header Component */
         .page-header {
-            margin-bottom: var(--spacing-l);
+            margin-bottom: 24px;
         }
 
-        .page-header__title {
-            font-size: var(--font-size-h1);
-            font-weight: var(--font-weight-h1);
-            color: var(--color-text-primary);
-            margin-bottom: var(--spacing-xs);
-        }
-        
-        .page-header__subtitle {
-            font-size: var(--font-size-subtitle);
-            color: var(--color-text-secondary);
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #181818;
+            margin: 0 0 4px 0;
         }
 
-        /* Section Component */
-        .section-header {
-            font-size: var(--font-size-h2);
-            font-weight: var(--font-weight-h2);
-            color: var(--color-text-primary);
-            margin-bottom: var(--spacing-m);
-            padding-bottom: var(--spacing-s);
-            border-bottom: 1px solid var(--color-border-input);
+        .page-header .subtitle {
+            font-size: 14px;
+            font-weight: 400;
+            color: #5C5C5C;
+            margin: 0;
         }
         
-        /* Form Components */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        /* --- Card Component (from Design System) --- */
+        .card {
+            background: #FFFFFF;
+            padding: 24px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .card-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0 0 16px 0;
+            color: #181818;
+        }
+
+        /* --- Form Elements (from Design System) --- */
         .form-group {
-            margin-bottom: var(--spacing-m);
+            margin-bottom: 16px;
         }
 
-        .form-label {
+        label {
             display: block;
-            font-size: var(--font-size-label);
-            font-weight: var(--font-weight-label);
-            color: var(--color-text-primary);
-            margin-bottom: var(--spacing-s);
-        }
-        
-        .form-control {
-            width: 100%;
-            height: var(--input-height);
-            padding: var(--spacing-s) 12px;
-            border: 1px solid var(--color-border-input);
-            border-radius: var(--border-radius-small);
-            font-size: var(--font-size-body);
-            font-family: var(--font-family-base);
+            font-size: 14px;
+            font-weight: 600; /* Semibold */
+            color: #181818;
+            margin-bottom: 8px;
         }
 
-        .form-control:focus {
-            outline: 2px solid var(--color-primary-red);
-            outline-offset: 1px;
-            border-color: var(--color-primary-red);
-        }
-        
-        textarea.form-control {
-            height: auto;
-            min-height: 100px;
+        textarea {
+            width: 100%;
+            height: 80px;
+            padding: 8px 12px;
+            border: 1px solid #D8DDE6;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            box-sizing: border-box;
             resize: vertical;
         }
 
-        /* Button Components */
+        textarea:focus {
+            outline: none;
+            border-color: #004A80;
+            box-shadow: 0 0 0 2px rgba(0, 74, 128, 0.2);
+        }
+
+        .radio-group .radio-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+        
+        .radio-group input[type="radio"] {
+            margin-right: 10px;
+            accent-color: #C10E02; /* Uses browser default styling but colors it red */
+        }
+        
+        .radio-group .radio-option label {
+             margin-bottom: 0;
+             font-weight: 400; /* Regular weight for radio option text */
+        }
+
+        /* --- Button Components (from Design System) --- */
         .button-group {
             display: flex;
             justify-content: flex-end;
-            gap: var(--spacing-s);
-            margin-top: var(--spacing-l);
+            gap: 12px;
+            margin-top: 24px;
         }
 
         .btn {
-            height: var(--button-height);
+            height: 44px;
             padding: 12px 24px;
-            border-radius: var(--border-radius-small);
-            font-weight: var(--font-weight-button);
-            font-size: var(--font-size-body);
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 14px;
             border: none;
             cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
+            transition: background-color 0.2s ease;
         }
 
         .btn-primary {
-            background-color: var(--color-primary-red);
-            color: var(--color-text-on-primary);
+            background-color: #C10E02;
+            color: #FFFFFF;
         }
 
         .btn-primary:hover {
-            opacity: 0.9;
+            background-color: #a10b02;
         }
 
         .btn-secondary {
-            background-color: var(--color-background-secondary-button);
-            color: var(--color-text-secondary-button);
+            background-color: #E6E6E6;
+            color: #343434;
             border: 1px solid #D8DDE6;
         }
         
         .btn-secondary:hover {
             background-color: #dcdcdc;
         }
-        
-        /* Data List Component */
-        .data-list {
-            list-style: none;
-            margin-bottom: var(--spacing-m);
-        }
 
-        .data-list__item {
+        /* --- Utility and State Classes --- */
+        .hidden {
+            display: none;
+        }
+        
+        .document-placeholder {
             display: flex;
-            justify-content: space-between;
-            padding: var(--spacing-s) 0;
-            border-bottom: 1px solid #f0f0f0;
+            align-items: center;
+            justify-content: center;
+            background-color: #F4F5F6;
+            border: 1px dashed #D8DDE6;
+            border-radius: 4px;
+            min-height: 500px;
+            color: #5C5C5C;
+            text-align: center;
         }
         
-        .data-list__item:last-child {
-            border-bottom: none;
+        /* Error State Example */
+        .form-group.has-error textarea {
+            border-color: #C10E02;
         }
-        
-        .data-list__label {
-            color: var(--color-text-secondary);
-        }
-        
-        .data-list__value {
-            font-weight: 600;
-        }
-        
-        /* States */
-        .form-group--error .form-control {
-            border-color: var(--color-error);
-        }
-        
-        .form-group--error .form-label {
-            color: var(--color-error);
-        }
-
-        .error-message {
-            color: var(--color-error);
+        .form-group.has-error .error-message {
+            color: #C10E02;
             font-size: 12px;
-            margin-top: var(--spacing-xs);
+            margin-top: 4px;
         }
         
-        /* Utility */
-        .status-badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
+        /* Success State Example */
+        .success-banner {
+            background-color: #E9F6F1; /* Light green */
+            color: #21A179; /* Dark green from system */
+            padding: 16px;
+            border-radius: 4px;
+            border: 1px solid #21A179;
+            margin-bottom: 24px;
         }
-
-        .status-badge--pending {
-            background-color: #FFFBE6;
-            color: #FAAD14;
-        }
-        /* --- END: Design System Implementation --- */
     </style>
 </head>
 <body>
 
-    <main class="page-container">
+    <div class="container">
+        <header class="page-header">
+            <!-- Screen Title from story is for dev context; UI title is user-friendly -->
+            <h1>Review Evidence</h1>
+            <p class="subtitle">Case: LA-2024-12345 | Applicant: Jane Doe | Evidence Request: Proof of Income</p>
+        </header>
+
+        <!-- 
+            SUCCESS STATE EXAMPLE
+            This banner would be conditionally rendered after a successful form submission.
         
-        <!-- =================================================================== -->
-        <!-- LEFT PANE: DOCUMENT VIEWER                                          -->
-        <!-- =================================================================== -->
-        <section class="document-viewer-pane">
-            <div class="card" style="height: 100%;">
-                <h2 class="section-header">Document Viewer: Bank Statement - Jan 2024.pdf</h2>
-                <!-- 
-                  STATE: Default
-                  This area is a placeholder for an embedded document viewer (e.g., PDF.js, iframe).
-                  The height is set to 100% to fill the available space in the pane.
-                -->
-                <div style="display: flex; align-items: center; justify-content: center; height: calc(100% - 60px); background: #fafafa; border: 1px dashed var(--color-border-input); border-radius: var(--border-radius-medium);">
-                    <p style="color: var(--color-text-secondary);">Document preview loads here.</p>
-                </div>
-                 <!-- 
-                  STATE: Loading
-                  While the document is loading, a spinner/overlay could be shown here.
-                  Example: <div class="loading-overlay">...</div>
-                -->
+            <div class="success-banner">
+                <strong>Success!</strong> The evidence validation has been submitted.
             </div>
-        </section>
+        -->
 
-        <!-- =================================================================== -->
-        <!-- RIGHT PANE: VALIDATION FORM                                         -->
-        <!-- =================================================================== -->
-        <section class="validation-form-pane">
-            <header class="page-header">
-                <h1 class="page-header__title">Review Evidence Item</h1>
-                <p class="page-header__subtitle">
-                    Fulfills: 2.4.1.1 As an EO and/or MCM, I want to review received evidence items...
-                </p>
-            </header>
-
-            <div class="card">
-                <h2 class="section-header">Evidence Details</h2>
-                <ul class="data-list">
-                    <li class="data-list__item">
-                        <span class="data-list__label">Case ID</span>
-                        <span class="data-list__value">LA-2024-12345</span>
-                    </li>
-                    <li class="data-list__item">
-                        <span class="data-list__label">Applicant</span>
-                        <span class="data-list__value">Jane Doe</span>
-                    </li>
-                    <li class="data-list__item">
-                        <span class="data-list__label">Evidence Type</span>
-                        <span class="data-list__value">Proof of Income</span>
-                    </li>
-                    <li class="data-list__item">
-                        <span class="data-list__label">Date Received</span>
-                        <span class="data-list__value">2024-03-15</span>
-                    </li>
-                    <li class="data-list__item">
-                        <span class="data-list__label">Status</span>
-                        <span class="data-list__value">
-                            <span class="status-badge status-badge--pending">Pending Review</span>
-                        </span>
-                    </li>
-                </ul>
-            </div>
+        <div class="main-layout">
             
-            <form class="card" onsubmit="event.preventDefault(); alert('Validation Submitted!');">
-                <h2 class="section-header">Supporting Information & Validation</h2>
+            <!-- Left Panel: Evidence Viewer -->
+            <div class="document-viewer">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Document: Payslip_March_2024.pdf</h2>
+                    </div>
+                    <div class="document-placeholder">
+                        <p>Document Preview Area</p>
+                    </div>
+                </div>
+            </div>
 
-                <!-- 
-                  COMPONENT: Textarea
-                  AC: The system must allow the EO to add comments under Supporting Information.
-                  This section contains the three required comment fields.
-                -->
-                
-                <!-- STATE: Default -->
-                <div class="form-group">
-                    <label for="reasonForApproval" class="form-label">Reason for Approval</label>
-                    <textarea id="reasonForApproval" class="form-control" placeholder="If this evidence satisfies the request, provide your reasoning here..."></textarea>
-                </div>
+            <!-- Right Panel: Validation Form -->
+            <div class="validation-form">
+                <div class="card">
+                    <form id="validationForm">
+                        <div class="card-header">
+                            <h2>Validate Evidence</h2>
+                        </div>
 
-                <!-- STATE: Default + Error Example -->
-                <div class="form-group form-group--error">
-                    <label for="reasonForDecline" class="form-label">Reason for Decline</label>
-                    <textarea id="reasonForDecline" class="form-control" placeholder="If this evidence does NOT satisfy the request, provide your reasoning here...">The provided bank statement is for the wrong month and does not show the required transactions.</textarea>
-                    <p class="error-message">This field is required if the evidence is declined.</p>
-                </div>
-                
-                <!-- STATE: Empty -->
-                <div class="form-group">
-                    <label for="otherComments" class="form-label">Other Comments (Optional)</label>
-                    <textarea id="otherComments" class="form-control" placeholder="Enter any other relevant comments..."></textarea>
-                </div>
-                
-                <!-- 
-                  COMPONENT: Button Group
-                  AC: The user must be able to record supporting information...
-                  These buttons allow the user to save their recorded information.
-                -->
-                <div class="button-group">
-                    <button type="button" class="btn btn-secondary">Save as Draft</button>
-                    <button type="submit" class="btn btn-primary">Submit Validation</button>
-                </div>
-                
-                <!-- 
-                  STATE: Success
-                  Upon successful submission, a success toast/message would appear, 
-                  and the user might be redirected or the form state would reset/disable.
-                -->
+                        <!-- Acceptance Criteria: The system must allow an EO to select evidence items -->
+                        <div class="form-group radio-group">
+                            <label>Does this evidence satisfy the request?</label>
+                            <div class="radio-option">
+                                <input type="radio" id="approve" name="validation_status" value="approve" required>
+                                <label for="approve">Yes, this evidence is approved</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="decline" name="validation_status" value="decline" required>
+                                <label for="decline">No, this evidence is declined</label>
+                            </div>
+                        </div>
 
-            </form>
-        </section>
-        
-    </main>
+                        <div class="card-header">
+                             <h2>Supporting Information</h2>
+                        </div>
+                        
+                        <!-- Acceptance Criteria: Add comments for Approval -->
+                        <div id="approval_reason_group" class="form-group hidden">
+                            <label for="reason_approval">Reason for Approval</label>
+                            <textarea id="reason_approval" name="reason_approval" rows="4" placeholder="e.g., The payslip clearly shows the applicant's income for the required period."></textarea>
+                        </div>
+                        
+                        <!-- 
+                            ERROR STATE EXAMPLE
+                            The 'has-error' class would be added via JS on validation failure.
+                        
+                            <div id="decline_reason_group" class="form-group has-error">
+                                <label for="reason_decline">Reason for Decline</label>
+                                <textarea id="reason_decline" name="reason_decline" rows="4" placeholder="e.g., This document is for the wrong period. Requesting a more recent payslip."></textarea>
+                                <div class="error-message">A reason for decline is required.</div>
+                            </div>
+                        -->
+                        
+                        <!-- Acceptance Criteria: Add comments for Decline -->
+                        <div id="decline_reason_group" class="form-group hidden">
+                            <label for="reason_decline">Reason for Decline</label>
+                            <textarea id="reason_decline" name="reason_decline" rows="4" placeholder="e.g., This document is for the wrong period. Requesting a more recent payslip."></textarea>
+                        </div>
+
+                        <!-- Acceptance Criteria: Add "Other Comments" -->
+                        <div class="form-group">
+                            <label for="other_comments">Other Comments</label>
+                            <textarea id="other_comments" name="other_comments" rows="4" placeholder="Add any other relevant notes here..."></textarea>
+                        </div>
+
+                        <div class="button-group">
+                             <!-- 
+                                LOADING STATE: Both buttons would be disabled during form submission.
+                                e.g., <button class="btn btn-primary" type="submit" disabled>Submitting...</button>
+                            -->
+                            <button class="btn btn-secondary" type="button">Save as Draft</button>
+                            <!-- JIRA Feedback Applied: Changed button label from "Submit Validation" to "Submit" -->
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // This script provides interactivity to the mockup, fulfilling the dynamic nature of the acceptance criteria.
+        document.addEventListener('DOMContentLoaded', function () {
+            const statusRadios = document.querySelectorAll('input[name="validation_status"]');
+            const approvalReasonGroup = document.getElementById('approval_reason_group');
+            const declineReasonGroup = document.getElementById('decline_reason_group');
+            const approvalTextarea = document.getElementById('reason_approval');
+            const declineTextarea = document.getElementById('reason_decline');
+
+            statusRadios.forEach(radio => {
+                radio.addEventListener('change', function () {
+                    if (this.value === 'approve') {
+                        approvalReasonGroup.classList.remove('hidden');
+                        approvalTextarea.required = true;
+                        
+                        declineReasonGroup.classList.add('hidden');
+                        declineTextarea.required = false;
+                    } else if (this.value === 'decline') {
+                        declineReasonGroup.classList.remove('hidden');
+                        declineTextarea.required = true;
+                        
+                        approvalReasonGroup.classList.add('hidden');
+                        approvalTextarea.required = false;
+                    }
+                });
+            });
+
+            // Prevent actual form submission for this mockup
+            document.getElementById('validationForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Form submission captured. In a real application, this would send data to the server.');
+            });
+        });
+    </script>
 
 </body>
 </html>
