@@ -3,213 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evidence Review Screen</title>
+    <title>Evidence Review</title>
     <style>
-        /* A simple reset and base font for demonstration purposes */
-        body, html {
+        /* 
+        NOTE: While global styles are used here for brevity and font loading,
+        all component-specific styling is applied INLINE as per the request.
+        This is not a standard practice for production but fulfills the prompt's constraint.
+        */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
             margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-family: 'Inter', sans-serif;
+            background-color: #F4F5F6;
+            color: #181818;
         }
     </style>
 </head>
-<body style="background-color: #F4F5F6; color: #181818;">
+<body style="background-color: #F4F5F6; margin: 0; font-family: 'Inter', sans-serif;">
 
-    <div style="max-width: 1200px; margin: 40px auto; padding: 20px;">
+    <div style="max-width: 1440px; margin: 0 auto; padding: 24px 32px;">
 
-        <!-- 1. PAGE HEADER -->
-        <header style="margin-bottom: 24px;">
-            <h1 style="font-size: 28px; font-weight: bold; margin: 0 0 4px 0; color: #181818;">Case C-2024-03-112</h1>
-            <p style="font-size: 14px; color: #5C5C5C; margin: 0;">Review and manage evidence associated with this case.</p>
-        </header>
-
-        <!-- 2. TABS COMPONENT -->
-        <div style="margin-bottom: 24px; border-bottom: 1px solid #D8DDE6; display: flex;">
-            <div style="padding: 12px 16px; font-size: 14px; font-weight: 600; color: #5C5C5C; cursor: pointer;">
-                Evidence Requests
-            </div>
-            <div style="padding: 12px 16px; font-size: 14px; font-weight: 600; color: #C10E02; cursor: pointer; border-bottom: 2px solid #C10E02; margin-bottom: -1px;">
-                Evidence Received
-            </div>
-             <div style="padding: 12px 16px; font-size: 14px; font-weight: 600; color: #5C5C5C; cursor: pointer;">
-                All Evidence
-            </div>
+        <!-- BREADCRUMBS & HEADER -->
+        <div style="margin-bottom: 24px;">
+            <p style="margin: 0 0 8px 0; font-size: 14px; color: #5C5C5C;">
+                Claims / CLM-123857 / Case-CAS-7788
+            </p>
+            <h1 style="margin: 0; font-size: 28px; font-weight: 700; color: #181818;">
+                Evidence Review
+            </h1>
         </div>
+        
+        <!-- MAIN CONTENT AREA - TWO COLUMN LAYOUT -->
+        <div style="display: flex; gap: 24px; align-items: flex-start;">
 
-        <!-- 3. MAIN CONTENT CARD (DEFAULT/SUCCESS STATE) -->
-        <!-- This is the default view when data is successfully loaded and available. -->
-        <div id="default-state">
-            <div style="background-color: white; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 24px;">
-                <h2 style="font-size: 20px; font-weight: bold; margin: 0 0 16px 0; color: #181818;">Evidence Received (5)</h2>
-                
-                <!-- Search and Filter Controls -->
-                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; align-items: flex-end;">
-                    <!-- Search by Evidence Description -->
-                    <div style="flex-grow: 1; min-width: 200px;">
-                        <label for="search-desc" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Search Evidence Description</label>
-                        <input type="text" id="search-desc" placeholder="e.g., Medical Report" style="width: 100%; box-sizing: border-box; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px;">
+            <!-- LEFT COLUMN: EVIDENCE LIST -->
+            <div style="flex: 65%; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden;">
+                <div style="padding: 24px; border-bottom: 1px solid #E6E6E6;">
+                    <h2 style="margin: 0 0 16px 0; font-size: 20px; font-weight: 700;">Evidence Received</h2>
+                    
+                    <!-- SEARCH AND FILTER CONTROLS -->
+                    <div style="display: flex; gap: 16px; align-items: center;">
+                        <div style="flex-grow: 1; position: relative;">
+                            <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #5C5C5C;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            </span>
+                            <input type="text" placeholder="Search by description, type, claim, case..." style="width: 100%; height: 40px; padding: 8px 12px 8px 36px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px; box-sizing: border-box;">
+                        </div>
+                        <div style="position: relative;">
+                             <select style="height: 40px; padding: 8px 32px 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px; background-color: white; appearance: none; -webkit-appearance: none; -moz-appearance: none;">
+                                <option>Status: All</option>
+                                <option>Status: Received</option>
+                                <option>Status: Processing</option>
+                                <option>Status: Awaiting</option>
+                            </select>
+                            <span style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #5C5C5C;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </span>
+                        </div>
                     </div>
-                    <!-- Filter by Status -->
-                    <div style="min-width: 150px;">
-                         <label for="filter-status" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Status</label>
-                         <select id="filter-status" style="width: 100%; box-sizing: border-box; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; background-color: white; font-size: 14px; appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%208l5%205%205-5z%22%20fill%3D%22%235C5C5C%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 8px center; background-size: 16px;">
-                            <option>All Statuses</option>
-                            <option>Received</option>
-                            <option>Under Review</option>
-                            <option>Accepted</option>
-                            <option>Rejected</option>
-                         </select>
-                    </div>
-                    <!-- Other search fields could be behind an "Advanced Search" button -->
                 </div>
 
-                <!-- Evidence Table -->
+                <!-- DEFAULT STATE: TABLE WITH EVIDENCE -->
                 <div style="overflow-x: auto;">
                     <table style="width: 100%; border-collapse: collapse; text-align: left;">
                         <thead>
-                            <tr style="border-bottom: 1px solid #D8DDE6;">
-                                <th style="padding: 12px 16px; font-size: 12px; font-weight: 600; color: #5C5C5C; text-transform: uppercase;">Evidence Description</th>
-                                <th style="padding: 12px 16px; font-size: 12px; font-weight: 600; color: #5C5C5C; text-transform: uppercase;">Request Type</th>
-                                <th style="padding: 12px 16px; font-size: 12px; font-weight: 600; color: #5C5C5C; text-transform: uppercase;">Claim Number</th>
-                                <th style="padding: 12px 16px; font-size: 12px; font-weight: 600; color: #5C5C5C; text-transform: uppercase;">Case Number</th>
-                                <th style="padding: 12px 16px; font-size: 12px; font-weight: 600; color: #5C5C5C; text-transform: uppercase;">Status</th>
-                                <th style="padding: 12px 16px; font-size: 12px; font-weight: 600; color: #5C5C5C; text-transform: uppercase;">Received Date & Time</th>
+                            <tr style="border-bottom: 1px solid #E6E6E6;">
+                                <th style="padding: 12px 16px; font-size: 12px; color: #5C5C5C; text-transform: uppercase; font-weight: 600;">Evidence Description</th>
+                                <th style="padding: 12px 16px; font-size: 12px; color: #5C5C5C; text-transform: uppercase; font-weight: 600;">Request Type</th>
+                                <th style="padding: 12px 16px; font-size: 12px; color: #5C5C5C; text-transform: uppercase; font-weight: 600;">Claim/Case</th>
+                                <th style="padding: 12px 16px; font-size: 12px; color: #5C5C5C; text-transform: uppercase; font-weight: 600;">Status</th>
+                                <th style="padding: 12px 16px; font-size: 12px; color: #5C5C5C; text-transform: uppercase; font-weight: 600;">Received Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Item 1 - Selected for Detail View -->
-                            <tr style="border-bottom: 1px solid #D8DDE6; cursor: pointer; background-color: #F4F5F6;" onmouseover="this.style.backgroundColor='#E6E6E6';" onmouseout="this.style.backgroundColor='#F4F5F6';">
-                                <td style="padding: 16px; font-size: 14px; font-weight: 600; color: #C10E02;">Medical Report - Dr. Smith</td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;">Medical Evidence</td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;">CL-2024-03-089</td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;">C-2024-03-112</td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;"><span style="background-color: #E6F7FF; color: #006599; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600;">Under Review</span></td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;">30/10/2025, 09:15 AM</td>
+                            <!-- Selected Row -->
+                            <tr style="background-color: #F4F5F6; border-bottom: 1px solid #E6E6E6; cursor: pointer;">
+                                <td style="padding: 16px; font-size: 14px; font-weight: 600; color: #C10E02;">GP Report - Suitable Duties</td>
+                                <td style="padding: 16px; font-size: 14px; color: #181818;">Medical Report</td>
+                                <td style="padding: 16px; font-size: 14px; color: #181818;">CLM-123857<br><span style="color: #5C5C5C;">CAS-7788</span></td>
+                                <td style="padding: 16px; font-size: 14px; color: #181818;"><span style="background-color: #E0F5E9; color: #00864A; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600;">Received</span></td>
+                                <td style="padding: 16px; font-size: 14px; color: #181818;">31 Oct 2025<br><span style="color: #5C5C5C;">09:15 AM</span></td>
                             </tr>
-                            <!-- Item 2 -->
-                            <tr style="border-bottom: 1px solid #D8DDE6; cursor: pointer;" onmouseover="this.style.backgroundColor='#F4F5F6';" onmouseout="this.style.backgroundColor='white';">
-                                <td style="padding: 16px; font-size: 14px; font-weight: 600; color: #181818;">Bank Statements (Last 3 Months)</td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;">Financial Means</td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;">CL-2024-03-089</td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;">C-2024-03-112</td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;"><span style="background-color: #E3F5E3; color: #006400; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600;">Accepted</span></td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;">29/10/2025, 04:30 PM</td>
+                            <!-- Other Rows -->
+                            <tr style="border-bottom: 1px solid #E6E6E6; cursor: pointer;">
+                                <td style="padding: 16px; font-size: 14px; font-weight: 600; color: #181818;">Bank Statement - July 2025</td>
+                                <td style="padding: 16px; font-size: 14px; color: #181818;">Financial</td>
+                                <td style="padding: 16px; font-size: 14px; color: #181818;">CLM-123857<br><span style="color: #5C5C5C;">CAS-7788</span></td>
+                                <td style="padding: 16px; font-size: 14px; color: #181818;"><span style="background-color: #FEF3C7; color: #92400E; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600;">Processing</span></td>
+                                <td style="padding: 16px; font-size: 14px; color: #181818;">30 Oct 2025<br><span style="color: #5C5C5C;">02:40 PM</span></td>
                             </tr>
-                            <!-- Item 3 -->
-                            <tr style="border-bottom: 1px solid #D8DDE6; cursor: pointer;" onmouseover="this.style.backgroundColor='#F4F5F6';" onmouseout="this.style.backgroundColor='white';">
-                                <td style="padding: 16px; font-size: 14px; font-weight: 600; color: #181818;">Witness Statement - Jane Doe</td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;">Corroborating Evidence</td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;">CL-2024-03-089</td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;">C-2024-03-112</td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;"><span style="background-color: #FEEEEE; color: #9B1C1C; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600;">Rejected</span></td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;">28/10/2025, 11:00 AM</td>
-                            </tr>
-                            <!-- Item 4 -->
-                             <tr style="border-bottom: 1px solid #D8DDE6; cursor: pointer;" onmouseover="this.style.backgroundColor='#F4F5F6';" onmouseout="this.style.backgroundColor='white';">
-                                <td style="padding: 16px; font-size: 14px; font-weight: 600; color: #181818;">Rental Agreement</td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;">Proof of Address</td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;">CL-2024-03-089</td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;">C-2024-03-112</td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;"><span style="background-color: #E6E6E6; color: #343434; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600;">Received</span></td>
-                                <td style="padding: 16px; font-size: 14px; color: #181818;">27/10/2025, 02:22 PM</td>
+                             <tr style="border-bottom: 1px solid #E6E6E6; cursor: pointer;">
+                                <td style="padding: 16px; font-size: 14px; font-weight: 600; color: #181818;">Witness Statement - J. Doe</td>
+                                <td style="padding: 16px; font-size: 14px; color: #181818;">Third Party</td>
+                                <td style="padding: 16px; font-size: 14px; color: #181818;">CLM-123857<br><span style="color: #5C5C5C;">CAS-7786</span></td>
+                                <td style="padding: 16px; font-size: 14px; color: #181818;"><span style="background-color: #E0F5E9; color: #00864A; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600;">Received</span></td>
+                                <td style="padding: 16px; font-size: 14px; color: #181818;">29 Oct 2025<br><span style="color: #5C5C5C;">11:02 AM</span></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
             </div>
 
-            <!-- Evidence Item Detail View (for selected item) -->
-            <div style="background-color: white; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 24px;">
-                <h2 style="font-size: 20px; font-weight: bold; margin: 0 0 24px 0; color: #181818;">Evidence Item Details</h2>
+            <!-- RIGHT COLUMN: EVIDENCE DETAILS -->
+            <div style="flex: 35%; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 24px;">
                 
-                <!-- Details Grid -->
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-bottom: 24px;">
-                    <div><strong style="display: block; font-size: 14px; font-weight: 600; color: #5C5C5C; margin-bottom: 4px;">Evidence Name</strong><span style="font-size: 14px; color: #181818;">Medical Report - Dr. Smith</span></div>
-                    <div><strong style="display: block; font-size: 14px; font-weight: 600; color: #5C5C5C; margin-bottom: 4px;">Request Type</strong><span style="font-size: 14px; color: #181818;">Medical Evidence</span></div>
-                    <div><strong style="display: block; font-size: 14px; font-weight: 600; color: #5C5C5C; margin-bottom: 4px;">Claim Number</strong><span style="font-size: 14px; color: #181818;">CL-2024-03-089</span></div>
-                    <div><strong style="display: block; font-size: 14px; font-weight: 600; color: #5C5C5C; margin-bottom: 4px;">Case Number</strong><span style="font-size: 14px; color: #181818;">C-2024-03-112</span></div>
-                    <div><strong style="display: block; font-size: 14px; font-weight: 600; color: #5C5C5C; margin-bottom: 4px;">Status</strong><span style="font-size: 14px; color: #181818;">Under Review</span></div>
-                    <div><strong style="display: block; font-size: 14px; font-weight: 600; color: #5C5C5C; margin-bottom: 4px;">Received Date & Time</strong><span style="font-size: 14px; color: #181818;">30/10/2025, 09:15 AM</span></div>
-                    <div><strong style="display: block; font-size: 14px; font-weight: 600; color: #5C5C5C; margin-bottom: 4px;">No. of Documents</strong><span style="font-size: 14px; color: #181818;">3</span></div>
-                </div>
+                <!-- DEFAULT STATE: DETAILS VIEW -->
+                <div>
+                    <h2 style="margin: 0 0 24px 0; font-size: 20px; font-weight: 700;">GP Report - Suitable Duties</h2>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; font-size: 14px;">
+                        <div>
+                            <p style="margin: 0 0 4px 0; color: #5C5C5C;">Request Type</p>
+                            <p style="margin: 0; font-weight: 600;">Medical Report</p>
+                        </div>
+                        <div>
+                            <p style="margin: 0 0 4px 0; color: #5C5C5C;">Status</p>
+                            <p style="margin: 0; font-weight: 600;">Received</p>
+                        </div>
+                        <div>
+                            <p style="margin: 0 0 4px 0; color: #5C5C5C;">Claim Number</p>
+                            <p style="margin: 0; font-weight: 600;">CLM-123857</p>
+                        </div>
+                        <div>
+                            <p style="margin: 0 0 4px 0; color: #5C5C5C;">Case Number</p>
+                            <p style="margin: 0; font-weight: 600;">CAS-7788</p>
+                        </div>
+                         <div>
+                            <p style="margin: 0 0 4px 0; color: #5C5C5C;">Received Date & Time</p>
+                            <p style="margin: 0; font-weight: 600;">31 Oct 2025, 09:15 AM</p>
+                        </div>
+                        <div>
+                            <p style="margin: 0 0 4px 0; color: #5C5C5C;">No. of Documents</p>
+                            <p style="margin: 0; font-weight: 600;">2</p>
+                        </div>
+                    </div>
 
-                <!-- Associated Documents List -->
-                <h3 style="font-size: 16px; font-weight: 600; margin: 0 0 16px 0; color: #181818; border-top: 1px solid #D8DDE6; padding-top: 24px;">Associated Documents</h3>
-                <ul style="list-style-type: none; padding: 0; margin: 0;">
-                    <li style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #E6E6E6;">
-                        <div style="display: flex; align-items: center; gap: 12px;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5C5C5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                            <span style="font-size: 14px; color: #181818;">Patient_Consultation_Notes.pdf</span>
-                        </div>
-                        <button style="background: none; border: none; color: #C10E02; font-weight: 600; font-size: 14px; cursor: pointer;">View</button>
-                    </li>
-                    <li style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #E6E6E6;">
-                        <div style="display: flex; align-items: center; gap: 12px;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5C5C5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                            <span style="font-size: 14px; color: #181818;">X-Ray_Scan_Results.jpeg</span>
-                        </div>
-                        <button style="background: none; border: none; color: #C10E02; font-weight: 600; font-size: 14px; cursor: pointer;">View</button>
-                    </li>
-                     <li style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0;">
-                        <div style="display: flex; align-items: center; gap: 12px;">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5C5C5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                            <span style="font-size: 14px; color: #181818;">Specialist_Referral_Letter.pdf</span>
-                        </div>
-                        <button style="background: none; border: none; color: #C10E02; font-weight: 600; font-size: 14px; cursor: pointer;">View</button>
-                    </li>
-                </ul>
+                    <h3 style="margin: 0 0 16px 0; font-size: 16px; font-weight: 700; border-top: 1px solid #E6E6E6; padding-top: 24px;">Documents</h3>
+                    
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                        <li style="display: flex; align-items: center; justify-content: space-between; padding: 12px; border: 1px solid #D8DDE6; border-radius: 4px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span style="color: #C10E02;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                </span>
+                                <span style="font-size: 14px; font-weight: 600;">dr_smith_report_oct25.pdf</span>
+                            </div>
+                            <button style="background: transparent; border: none; cursor: pointer; color: #5C5C5C;">
+                               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            </button>
+                        </li>
+                        <li style="display: flex; align-items: center; justify-content: space-between; padding: 12px; border: 1px solid #D8DDE6; border-radius: 4px;">
+                             <div style="display: flex; align-items: center; gap: 12px;">
+                                <span style="color: #C10E02;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                </span>
+                                <span style="font-size: 14px; font-weight: 600;">gp_cover_letter.pdf</span>
+                            </div>
+                            <button style="background: transparent; border: none; cursor: pointer; color: #5C5C5C;">
+                               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            </button>
+                        </li>
+                    </ul>
 
-                <!-- Action Buttons -->
-                <div style="display: flex; justify-content: flex-end; gap: 16px; margin-top: 24px; border-top: 1px solid #D8DDE6; padding-top: 24px;">
-                     <button style="height: 44px; padding: 12px 24px; background-color: #E6E6E6; color: #343434; border: none; border-radius: 4px; font-weight: 600; font-size: 14px; cursor: pointer;">Reject Evidence</button>
-                     <button style="height: 44px; padding: 12px 24px; background-color: #C10E02; color: white; border: none; border-radius: 4px; font-weight: 600; font-size: 14px; cursor: pointer;">Accept Evidence</button>
+                    <div style="margin-top: 32px; display: flex; justify-content: flex-end; gap: 12px;">
+                        <button style="height: 44px; padding: 12px 24px; border-radius: 4px; font-weight: 600; font-size: 14px; cursor: pointer; background-color: #E6E6E6; color: #343434; border: 1px solid #D8DDE6;">Request Clarification</button>
+                        <button style="height: 44px; padding: 12px 24px; border-radius: 4px; font-weight: 600; font-size: 14px; cursor: pointer; background-color: #C10E02; color: white; border: none;">Mark as Reviewed</button>
+                    </div>
                 </div>
+                
+                <!-- SUCCESS STATE (e.g., toast message after an action) -->
+                <!-- 
+                <div style="position: fixed; bottom: 24px; right: 24px; background-color: #00864A; color: white; padding: 16px 24px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 12px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    <span>Evidence marked as reviewed.</span>
+                </div>
+                -->
+
             </div>
         </div>
 
-        <!-- 4. OTHER STATES -->
-        <!-- To view a state, uncomment the corresponding div and comment out the #default-state div above. -->
+
+        <!-- ====================================================== -->
+        <!--                   ADDITIONAL STATES                    -->
+        <!-- ====================================================== -->
+        
+        <!--
+        ============================================================
+        LOADING STATE: Replace the entire 'LEFT COLUMN' div content with this.
+        The right column could show a similar skeleton loader.
+        ============================================================
+
+        <div style="padding: 24px;">
+            <div style="height: 36px; width: 40%; background-color: #E6E6E6; border-radius: 4px; margin-bottom: 16px; animation: pulse 1.5s infinite ease-in-out;"></div>
+            <div style="display: flex; gap: 16px; margin-bottom: 24px;">
+                <div style="flex-grow: 1; height: 40px; background-color: #E6E6E6; border-radius: 4px; animation: pulse 1.5s infinite ease-in-out;"></div>
+                <div style="width: 120px; height: 40px; background-color: #E6E6E6; border-radius: 4px; animation: pulse 1.5s infinite ease-in-out;"></div>
+            </div>
+            <div style="height: 40px; background-color: #F4F5F6; border-radius: 4px; margin-bottom: 8px; animation: pulse 1.5s infinite ease-in-out;"></div>
+            <div style="height: 60px; background-color: #F4F5F6; border-radius: 4px; margin-bottom: 8px; animation: pulse 1.5s infinite ease-in-out;"></div>
+            <div style="height: 60px; background-color: #F4F5F6; border-radius: 4px; margin-bottom: 8px; animation: pulse 1.5s infinite ease-in-out;"></div>
+            <div style="height: 60px; background-color: #F4F5F6; border-radius: 4px; animation: pulse 1.5s infinite ease-in-out;"></div>
+        </div>
+        <style>@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }</style>
+        -->
+
 
         <!--
-        // LOADING STATE
-        // Use this view while fetching data from the server.
-        <div id="loading-state" style="display: none;">
-             <div style="background-color: white; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; min-height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                 <div style="border: 4px solid #f3f3f3; border-top: 4px solid #C10E02; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite;"></div>
-                 <p style="font-size: 16px; color: #5C5C5C; margin-top: 16px;">Loading Evidence...</p>
-                 <style>
-                    @keyframes spin {
-                      0% { transform: rotate(0deg); }
-                      100% { transform: rotate(360deg); }
-                    }
-                 </style>
-            </div>
+        ============================================================
+        EMPTY STATE: Replace the 'table' div in the 'LEFT COLUMN' with this.
+        The right column would show a message like "Select evidence to view details."
+        ============================================================
+
+        <div style="text-align: center; padding: 64px 24px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="color: #D8DDE6; margin-bottom: 16px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+            <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600; color: #181818;">No Evidence Received</h3>
+            <p style="margin: 0; font-size: 14px; color: #5C5C5C;">There is no evidence that matches your search or filter criteria.</p>
         </div>
         -->
 
-        <!--
-        // EMPTY STATE
-        // Use this view when there is no data to display.
-        <div id="empty-state" style="display: none;">
-            <div style="background-color: white; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; min-height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#D8DDE6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
-                <h2 style="font-size: 20px; font-weight: bold; margin: 16px 0 8px 0; color: #181818;">No Evidence Received Yet</h2>
-                <p style="font-size: 14px; color: #5C5C5C; max-width: 400px;">When evidence is submitted for this case, it will appear here. You can request evidence from the 'Evidence Requests' tab.</p>
-            </div>
-        </div>
-        -->
 
         <!--
-        // ERROR STATE
-        // Use this view when an error occurs during data fetching.
-        <div id="error-state" style="display: none;">
-            <div style="background-color: white; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; min-height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#C10E02" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                <h2 style="font-size: 20px; font-weight: bold; margin: 16px 0 8px 0; color: #181818;">Could Not Load Evidence</h2>
-                <p style="font-size: 14px; color: #5C5C5C; max-width: 400px; margin-bottom: 24px;">An unexpected error occurred. Please check your connection and try again.</p>
-                <button style="height: 44px; padding: 12px 24px; background-color: #C10E02; color: white; border: none; border-radius: 4px; font-weight: 600; font-size: 14px; cursor: pointer;">Try Again</button>
-            </div>
+        ============================================================
+        ERROR STATE: Replace the entire 'LEFT COLUMN' div content with this.
+        ============================================================
+
+        <div style="text-align: center; padding: 64px 24px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="color: #C10E02; margin-bottom: 16px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600; color: #181818;">Could Not Load Evidence</h3>
+            <p style="margin: 0 0 16px 0; font-size: 14px; color: #5C5C5C;">An error occurred while trying to fetch the evidence list. Please try again.</p>
+            <button style="height: 44px; padding: 12px 24px; border-radius: 4px; font-weight: 600; font-size: 14px; cursor: pointer; background-color: #C10E02; color: white; border: none;">Retry</button>
         </div>
         -->
 
