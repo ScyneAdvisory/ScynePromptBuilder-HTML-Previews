@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evidence Review Screen Mockup</title>
+    <!-- 
+        Note: The animation for the loading spinner is defined here in the <head> 
+        as @keyframes cannot be applied inline. This is the cleanest way to 
+        achieve the effect while adhering to the 'inline CSS' spirit of the request.
+    -->
+    <style>
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #F4F5F6; color: #181818;">
+
+    <!-- Centered Container -->
+    <div style="max-width: 1200px; margin: 40px auto; padding: 20px;">
+
+        <!-- Page Header -->
+        <h1 style="font-size: 28px; font-weight: bold; margin: 0 0 8px 0; color: #181818;">Claim CLM-2024-12345</h1>
+        <p style="font-size: 14px; font-weight: normal; margin: 0 0 32px 0; color: #5C5C5C;">This screen shows all evidence requests raised on this claim and its subsequent cases.</p>
+
+        <!-- =================================================================================== -->
+        <!-- 1. DEFAULT STATE: Table with data -->
+        <!-- =================================================================================== -->
+        <div style="background-color: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            
+            <!-- Tabs Navigation -->
+            <div style="border-bottom: 1px solid #D8DDE6; margin-bottom: 24px;">
+                <button style="border: none; background: none; padding: 0 4px 12px 4px; font-size: 14px; font-weight: 600; color: #C10E02; border-bottom: 2px solid #C10E02; margin-right: 24px; cursor: pointer;">Evidence Received</button>
+                <button style="border: none; background: none; padding: 0 4px 12px 4px; font-size: 14px; font-weight: 500; color: #5C5C5C; margin-right: 24px; cursor: pointer; opacity: 0.7;">Evidence Requested</button>
+                <button style="border: none; background: none; padding: 0 4px 12px 4px; font-size: 14px; font-weight: 500; color: #5C5C5C; cursor: pointer; opacity: 0.7;">All Evidence</button>
+            </div>
+
+            <!-- Search and Filter Section -->
+            <div>
+                <h2 style="font-size: 20px; font-weight: bold; margin: 0 0 16px 0; color: #181818;">Search & Filter Evidence</h2>
+                <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+                    <!-- Search: Evidence Description -->
+                    <div style="flex: 2 1 200px;">
+                        <label for="search-desc" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Evidence Description</label>
+                        <input type="text" id="search-desc" placeholder="Search description..." style="width: 100%; box-sizing: border-box; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px;">
+                    </div>
+                    <!-- Search: Request Type -->
+                    <div style="flex: 1 1 150px;">
+                        <label for="search-type" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Request Type</label>
+                        <input type="text" id="search-type" placeholder="e.g., Medical" style="width: 100%; box-sizing: border-box; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px;">
+                    </div>
+                     <!-- Search: Claim Number -->
+                    <div style="flex: 1 1 150px;">
+                        <label for="search-claim" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Claim Number</label>
+                        <input type="text" id="search-claim" placeholder="e.g., CLM-..." style="width: 100%; box-sizing: border-box; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px;">
+                    </div>
+                    <!-- Search: Case Number -->
+                    <div style="flex: 1 1 150px;">
+                        <label for="search-case" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Case Number</label>
+                        <input type="text" id="search-case" placeholder="e.g., CAS-..." style="width: 100%; box-sizing: border-box; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px;">
+                    </div>
+                    <!-- Filter: Status -->
+                    <div style="flex: 1 1 150px;">
+                        <label for="filter-status" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Status</label>
+                        <select id="filter-status" style="width: 100%; box-sizing: border-box; height: 40px; padding: 0 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px; background-color: white; appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%235C5C5C%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 12px center; background-size: 8px 8px;">
+                            <option value="">All Statuses</option>
+                            <option value="received">Received</option>
+                            <option value="under-review">Under Review</option>
+                            <option value="action-required">Action Required</option>
+                        </select>
+                    </div>
+                    <!-- Search: Received Date -->
+                    <div style="flex: 1 1 150px;">
+                        <label for="search-date" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Received Date & Time</label>
+                        <input type="text" id="search-date" placeholder="e.g., 2025-10-30" style="width: 100%; box-sizing: border-box; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evidence Table -->
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 14px; min-width: 1000px;">
+                    <thead style="text-align: left;">
+                        <tr>
+                            <th style="padding: 12px 16px; font-weight: 600; color: #5C5C5C; background-color: #F4F5F6; border-bottom: 1px solid #D8DDE6;">Evidence Name</th>
+                            <th style="padding: 12px 16px; font-weight: 600; color: #5C5C5C; background-color: #F4F5F6; border-bottom: 1px solid #D8DDE6;">Request Type</th>
+                            <th style="padding: 12px 16px; font-weight: 600; color: #5C5C5C; background-color: #F4F5F6; border-bottom: 1px solid #D8DDE6;">Claim Number</th>
+                            <th style="padding: 12px 16px; font-weight: 600; color: #5C5C5C; background-color: #F4F5F6; border-bottom: 1px solid #D8DDE6;">Case Number</th>
+                            <th style="padding: 12px 16px; font-weight: 600; color: #5C5C5C; background-color: #F4F5F6; border-bottom: 1px solid #D8DDE6;">Status</th>
+                            <th style="padding: 12px 16px; font-weight: 600; color: #5C5C5C; background-color: #F4F5F6; border-bottom: 1px solid #D8DDE6;">Received Date & Time</th>
+                            <th style="padding: 12px 16px; font-weight: 600; color: #5C5C5C; background-color: #F4F5F6; border-bottom: 1px solid #D8DDE6; text-align: center;">No. of Documents</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Sample Row 1 -->
+                        <tr style="border-bottom: 1px solid #E6E6E6;">
+                            <td style="padding: 16px;"><a href="#" style="color: #C10E02; text-decoration: none; font-weight: 600;">Proof of Income - Payslips (Jan-Mar)</a></td>
+                            <td style="padding: 16px; color: #5C5C5C;">Financial Assessment</td>
+                            <td style="padding: 16px; color: #5C5C5C;">CLM-2024-12345</td>
+                            <td style="padding: 16px; color: #5C5C5C;">CAS-2024-67890</td>
+                            <td style="padding: 16px;"><span style="background-color: #E0F5EA; color: #00864B; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600;">Received</span></td>
+                            <td style="padding: 16px; color: #5C5C5C;">2025-10-30 09:15 AM</td>
+                            <td style="padding: 16px; text-align: center; color: #181818;">3</td>
+                        </tr>
+                        <!-- Sample Row 2 -->
+                        <tr style="border-bottom: 1px solid #E6E6E6;">
+                            <td style="padding: 16px;"><a href="#" style="color: #C10E02; text-decoration: none; font-weight: 600;">Medical Report - Dr. Smith</a></td>
+                            <td style="padding: 16px; color: #5C5C5C;">Medical Evidence</td>
+                            <td style="padding: 16px; color: #5C5C5C;">CLM-2024-12345</td>
+                            <td style="padding: 16px; color: #5C5C5C;">CAS-2024-67891</td>
+                            <td style="padding: 16px;"><span style="background-color: #FEF3C7; color: #92400E; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600;">Under Review</span></td>
+                            <td style="padding: 16px; color: #5C5C5C;">2025-10-29 04:30 PM</td>
+                            <td style="padding: 16px; text-align: center; color: #181818;">1</td>
+                        </tr>
+                        <!-- Sample Row 3 -->
+                        <tr style="border-bottom: 1px solid #E6E6E6;">
+                            <td style="padding: 16px;"><a href="#" style="color: #C10E02; text-decoration: none; font-weight: 600;">Bank Statements (Last 3 Months)</a></td>
+                            <td style="padding: 16px; color: #5C5C5C;">Financial Assessment</td>
+                            <td style="padding: 16px; color: #5C5C5C;">CLM-2024-12345</td>
+                            <td style="padding: 16px; color: #5C5C5C;">CAS-2024-67890</td>
+                            <td style="padding: 16px;"><span style="background-color: #FEE2E2; color: #B91C1C; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600;">Action Required</span></td>
+                            <td style="padding: 16px; color: #5C5C5C;">2025-10-29 11:00 AM</td>
+                            <td style="padding: 16px; text-align: center; color: #181818;">5</td>
+                        </tr>
+                        <!-- Sample Row 4 -->
+                        <tr style="border-bottom: 1px solid #E6E6E6;">
+                            <td style="padding: 16px;"><a href="#" style="color: #C10E02; text-decoration: none; font-weight: 600;">Lease Agreement</a></td>
+                            <td style="padding: 16px; color: #5C5C5C;">Proof of Residence</td>
+                            <td style="padding: 16px; color: #5C5C5C;">CLM-2024-12345</td>
+                            <td style="padding: 16px; color: #5C5C5C;">CAS-2024-67892</td>
+                            <td style="padding: 16px;"><span style="background-color: #E0F5EA; color: #00864B; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600;">Received</span></td>
+                            <td style="padding: 16px; color: #5C5C5C;">2025-10-28 02:22 PM</td>
+                            <td style="padding: 16px; text-align: center; color: #181818;">2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+             <!-- NOTE: Success State is implicitly represented by the successful loading of data above. 
+                 No separate component is needed unless a transient notification (e.g., a toast) is part of the design system. 
+                 For a static mockup, this default view serves as the success state. -->
+        </div>
+
+        
+        <!-- =================================================================================== -->
+        <!-- 2. LOADING STATE -->
+        <!-- =================================================================================== -->
+        <h2 style="font-size: 16px; color: #5C5C5C; font-weight: 600; border-bottom: 1px solid #D8DDE6; padding-bottom: 8px; margin-bottom: 24px;">Component States</h2>
+        <div style="background-color: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h3 style="font-size: 20px; font-weight: bold; margin: 0 0 16px 0; color: #181818;">State: Loading</h3>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px; text-align: center; color: #5C5C5C;">
+                <div style="border: 4px solid #E6E6E6; border-top: 4px solid #C10E02; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin-bottom: 16px;"></div>
+                <p style="font-size: 16px; margin: 0;">Loading evidence...</p>
+            </div>
+        </div>
+
+        <!-- =================================================================================== -->
+        <!-- 3. EMPTY STATE -->
+        <!-- =================================================================================== -->
+        <div style="background-color: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h3 style="font-size: 20px; font-weight: bold; margin: 0 0 16px 0; color: #181818;">State: Empty / No Results</h3>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px; text-align: center; color: #5C5C5C;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#D8DDE6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 16px;">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <circle cx="11.5" cy="14.5" r="2.5"></circle>
+                    <line x1="13.2" y1="16.2" x2="15" y2="18"></line>
+                </svg>
+                <h4 style="font-size: 18px; font-weight: 600; color: #181818; margin: 0 0 8px 0;">No Evidence Found</h4>
+                <p style="font-size: 14px; margin: 0;">Try adjusting your search or filter criteria.</p>
+            </div>
+        </div>
+
+        <!-- =================================================================================== -->
+        <!-- 4. ERROR STATE -->
+        <!-- =================================================================================== -->
+        <div style="background-color: white; padding: 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h3 style="font-size: 20px; font-weight: bold; margin: 0 0 16px 0; color: #181818;">State: Error</h3>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px; text-align: center; color: #5C5C5C;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#C10E02" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 16px;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <h4 style="font-size: 18px; font-weight: 600; color: #181818; margin: 0 0 8px 0;">Could not load evidence</h4>
+                <p style="font-size: 14px; margin: 0 0 24px 0;">An unexpected error occurred. Please try again.</p>
+                <button style="height: 44px; padding: 0 24px; border-radius: 4px; font-weight: 600; background-color: #C10E02; color: white; border: none; cursor: pointer; font-size: 14px;">Try Again</button>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
