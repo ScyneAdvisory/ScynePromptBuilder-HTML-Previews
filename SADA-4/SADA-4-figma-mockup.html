@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evidence Review</title>
+    <style>
+        /* 
+          A simple reset and base font for demonstration. 
+          In a real application, this would be part of a global stylesheet.
+        */
+        body, h1, h2, h3, p, table, th, td, input, select, button {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body style="background-color: #F4F5F6; color: #181818;">
+
+    <!-- 
+        Note: The prompt specified a max-width of 800px, which is suitable for simple forms. 
+        For a data-heavy table view like this, a wider container is more practical to avoid cramping and horizontal scrolling.
+        This layout uses a max-width of 1200px to better reflect a realistic enterprise application screen.
+    -->
+    <div style="max-width: 1200px; margin: 40px auto; padding: 20px;">
+
+        <!-- ====================================================== -->
+        <!-- Page Header                                            -->
+        <!-- ====================================================== -->
+        <header style="margin-bottom: 24px;">
+            <h1 style="font-size: 28px; font-weight: bold; margin-bottom: 4px; color: #181818;">Evidence Review</h1>
+            <p style="font-size: 14px; color: #5C5C5C;">Viewing evidence for Claim #CL-123456</p>
+        </header>
+
+        <!-- ====================================================== -->
+        <!-- Tabs Navigation                                        -->
+        <!-- ====================================================== -->
+        <div style="margin-bottom: -1px; border-bottom: 1px solid #D8DDE6;">
+            <button style="padding: 12px 20px; font-size: 14px; font-weight: 600; border: 1px solid #D8DDE6; border-bottom: 2px solid #C10E02; background-color: white; color: #C10E02; border-top-left-radius: 4px; border-top-right-radius: 4px; cursor: pointer; position: relative; top: 1px;">
+                Evidence Received
+            </button>
+            <button style="padding: 12px 20px; font-size: 14px; font-weight: 500; border: 1px solid transparent; background-color: transparent; color: #5C5C5C; cursor: pointer;">
+                Evidence Requested
+            </button>
+            <button style="padding: 12px 20px; font-size: 14px; font-weight: 500; border: 1px solid transparent; background-color: transparent; color: #5C5C5C; cursor: pointer;">
+                All Evidence
+            </button>
+        </div>
+
+
+        <!-- ====================================================== -->
+        <!-- Main Content Card                                      -->
+        <!-- ====================================================== -->
+        <div style="background: white; padding: 24px; border-radius: 8px; border-top-left-radius: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            
+            <!-- Filter & Search Section -->
+            <div style="margin-bottom: 24px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; align-items: flex-end;">
+                    
+                    <div>
+                        <label for="search-description" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Evidence Description</label>
+                        <input type="text" id="search-description" placeholder="Search description..." style="width: 100%; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px;">
+                    </div>
+                    
+                    <div>
+                        <label for="search-request-type" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Request Type</label>
+                        <input type="text" id="search-request-type" placeholder="Search request type..." style="width: 100%; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px;">
+                    </div>
+
+                    <div>
+                        <label for="search-claim" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Claim Number</label>
+                        <input type="text" id="search-claim" placeholder="Search claim..." style="width: 100%; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px;">
+                    </div>
+
+                    <div>
+                        <label for="search-case" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Case Number</label>
+                        <input type="text" id="search-case" placeholder="Search case..." style="width: 100%; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px;">
+                    </div>
+
+                    <div>
+                        <label for="filter-status" style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #181818;">Status</label>
+                        <select id="filter-status" style="width: 100%; height: 40px; padding: 8px 12px; border: 1px solid #D8DDE6; border-radius: 4px; font-size: 14px; background-color: white;">
+                            <option value="">All Statuses</option>
+                            <option value="received">Received</option>
+                            <option value="pending-review">Pending Review</option>
+                            <option value="actioned">Actioned</option>
+                            <option value="archived">Archived</option>
+                        </select>
+                    </div>
+
+                    <div style="display: flex; gap: 8px;">
+                        <button style="height: 44px; padding: 12px 24px; border-radius: 4px; font-weight: 600; font-size: 14px; background-color: #C10E02; color: white; border: none; cursor: pointer; flex-grow: 1;">Search</button>
+                        <button style="height: 44px; padding: 12px 24px; border-radius: 4px; font-weight: 600; font-size: 14px; background-color: #E6E6E6; color: #343434; border: none; cursor: pointer;">Clear</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evidence Table -->
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                    <thead style="background-color: #F4F5F6; text-align: left;">
+                        <tr>
+                            <th style="padding: 12px 16px; font-weight: 600; color: #181818;">Evidence Description</th>
+                            <th style="padding: 12px 16px; font-weight: 600; color: #181818;">Request Type</th>
+                            <th style="padding: 12px 16px; font-weight: 600; color: #181818;">Claim Number</th>
+                            <th style="padding: 12px 16px; font-weight: 600; color: #181818;">Case Number</th>
+                            <th style="padding: 12px 16px; font-weight: 600; color: #181818;">Status</th>
+                            <th style="padding: 12px 16px; font-weight: 600; color: #181818;">Received Date & Time</th>
+                            <th style="padding: 12px 16px; font-weight: 600; color: #181818; text-align: center;">Docs</th>
+                            <th style="padding: 12px 16px; font-weight: 600; color: #181818;">Actions</th>
+                        </tr>
+                    </thead>
+                    
+                    <!-- ====================================================== -->
+                    <!-- DEFAULT STATE: Table with data                       -->
+                    <!-- ====================================================== -->
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #D8DDE6;">
+                            <td style="padding: 16px;">
+                                <a href="#" style="font-weight: 600; color: #C10E02; text-decoration: none;">Medical Report - Dr. Anya Sharma</a>
+                            </td>
+                            <td style="padding: 16px; color: #5C5C5C;">Medical</td>
+                            <td style="padding: 16px; color: #5C5C5C;">CL-123456</td>
+                            <td style="padding: 16px; color: #5C5C5C;">CA-987654</td>
+                            <td style="padding: 16px;">
+                                <span style="background-color: #E0F5E9; color: #006430; font-weight: 600; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Received</span>
+                            </td>
+                            <td style="padding: 16px; color: #5C5C5C;">15 Jul 2024, 10:30 AM</td>
+                            <td style="padding: 16px; color: #5C5C5C; text-align: center;">3</td>
+                            <td style="padding: 16px;">
+                                <button style="background: none; border: none; color: #C10E02; font-weight: 600; cursor: pointer; padding: 4px;">View</button>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #D8DDE6;">
+                            <td style="padding: 16px;">
+                                <a href="#" style="font-weight: 600; color: #C10E02; text-decoration: none;">Police Accident Report</a>
+                            </td>
+                            <td style="padding: 16px; color: #5C5C5C;">Official Document</td>
+                            <td style="padding: 16px; color: #5C5C5C;">CL-123456</td>
+                            <td style="padding: 16px; color: #5C5C5C;">CA-987654</td>
+                            <td style="padding: 16px;">
+                                <span style="background-color: #FFF2D8; color: #936000; font-weight: 600; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Pending Review</span>
+                            </td>
+                            <td style="padding: 16px; color: #5C5C5C;">14 Jul 2024, 02:15 PM</td>
+                            <td style="padding: 16px; color: #5C5C5C; text-align: center;">1</td>
+                            <td style="padding: 16px;">
+                                <button style="background: none; border: none; color: #C10E02; font-weight: 600; cursor: pointer; padding: 4px;">View</button>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #D8DDE6;">
+                            <td style="padding: 16px;">
+                                <a href="#" style="font-weight: 600; color: #C10E02; text-decoration: none;">Wage Loss Statement - Acme Corp</a>
+                            </td>
+                            <td style="padding: 16px; color: #5C5C5C;">Financial</td>
+                            <td style="padding: 16px; color: #5C5C5C;">CL-123456</td>
+                            <td style="padding: 16px; color: #5C5C5C;">CA-987655</td>
+                            <td style="padding: 16px;">
+                                <span style="background-color: #E6E6E6; color: #343434; font-weight: 600; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Actioned</span>
+                            </td>
+                            <td style="padding: 16px; color: #5C5C5C;">12 Jul 2024, 09:00 AM</td>
+                            <td style="padding: 16px; color: #5C5C5C; text-align: center;">5</td>
+                            <td style="padding: 16px;">
+                                <button style="background: none; border: none; color: #C10E02; font-weight: 600; cursor: pointer; padding: 4px;">View</button>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #D8DDE6;">
+                            <td style="padding: 16px;">
+                                <a href="#" style="font-weight: 600; color: #C10E02; text-decoration: none;">Witness Statement - John Doe</a>
+                            </td>
+                            <td style="padding: 16px; color: #5C5C5C;">Testimonial</td>
+                            <td style="padding: 16px; color: #5C5C5C;">CL-123457</td>
+                            <td style="padding: 16px; color: #5C5C5C;">CA-987656</td>
+                            <td style="padding: 16px;">
+                                <span style="background-color: #E0F5E9; color: #006430; font-weight: 600; padding: 4px 8px; border-radius: 12px; font-size: 12px;">Received</span>
+                            </td>
+                            <td style="padding: 16px; color: #5C5C5C;">11 Jul 2024, 11:45 AM</td>
+                            <td style="padding: 16px; color: #5C5C5C; text-align: center;">2</td>
+                            <td style="padding: 16px;">
+                                <button style="background: none; border: none; color: #C10E02; font-weight: 600; cursor: pointer; padding: 4px;">View</button>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <!-- ====================================================== -->
+                    <!-- EMPTY STATE: No data found                           -->
+                    <!-- ====================================================== -->
+                    <!--
+                    <tbody style="display: none;">
+                        <tr>
+                            <td colspan="8" style="text-align: center; padding: 48px 24px;">
+                                <h3 style="font-size: 18px; color: #181818; margin-bottom: 8px;">No Evidence Found</h3>
+                                <p style="font-size: 14px; color: #5C5C5C;">There is no received evidence matching your search criteria.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                    -->
+
+                    <!-- ====================================================== -->
+                    <!-- LOADING STATE: Skeleton rows                         -->
+                    <!-- ====================================================== -->
+                    <!--
+                    <tbody style="display: none;">
+                        <tr style="border-bottom: 1px solid #D8DDE6;">
+                            <td style="padding: 16px;"><div style="height: 20px; background-color: #E6E6E6; border-radius: 4px; width: 80%;"></div></td>
+                            <td style="padding: 16px;"><div style="height: 20px; background-color: #E6E6E6; border-radius: 4px; width: 60%;"></div></td>
+                            <td style="padding: 16px;"><div style="height: 20px; background-color: #E6E6E6; border-radius: 4px; width: 70%;"></div></td>
+                            <td style="padding: 16px;"><div style="height: 20px; background-color: #E6E6E6; border-radius: 4px; width: 70%;"></div></td>
+                            <td style="padding: 16px;"><div style="height: 20px; background-color: #E6E6E6; border-radius: 4px; width: 90%;"></div></td>
+                            <td style="padding: 16px;"><div style="height: 20px; background-color: #E6E6E6; border-radius: 4px; width: 100%;"></div></td>
+                            <td style="padding: 16px;"><div style="height: 20px; background-color: #E6E6E6; border-radius: 4px; width: 30px; margin: 0 auto;"></div></td>
+                            <td style="padding: 16px;"><div style="height: 20px; background-color: #E6E6E6; border-radius: 4px; width: 40px;"></div></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #D8DDE6;">
+                            <td style="padding: 16px;"><div style="height: 20px; background-color: #E6E6E6; border-radius: 4px; width: 75%;"></div></td>
+                            <td style="padding: 16px;"><div style="height: 20px; background-color: #E6E6E6; border-radius: 4px; width: 50%;"></div></td>
+                            <td style="padding: 16px;"><div style="height: 20px; background-color: #E6E6E6; border-radius: 4px; width: 70%;"></div></td>
+                            <td style="padding: 16px;"><div style="height: 20px; background-color: #E6E6E6; border-radius: 4px; width: 70%;"></div></td>
+                            <td style="padding: 16px;"><div style="height: 20px; background-color: #E6E6E6; border-radius: 4px; width: 85%;"></div></td>
+                            <td style="padding: 16px;"><div style="height: 20px; background-color: #E6E6E6; border-radius: 4px; width: 100%;"></div></td>
+                            <td style="padding: 16px;"><div style="height: 20px; background-color: #E6E6E6; border-radius: 4px; width: 30px; margin: 0 auto;"></div></td>
+                            <td style="padding: 16px;"><div style="height: 20px; background-color: #E6E6E6; border-radius: 4px; width: 40px;"></div></td>
+                        </tr>
+                    </tbody>
+                    -->
+                    
+                </table>
+
+                <!-- ====================================================== -->
+                <!-- ERROR STATE: Error message overlay/replacement         -->
+                <!-- ====================================================== -->
+                <!--
+                <div style="display: none; text-align: center; padding: 48px 24px; border: 1px dashed #D8DDE6; border-radius: 4px; background-color: #FFF9F9;">
+                    <h3 style="font-size: 18px; color: #C10E02; margin-bottom: 8px;">Could Not Load Evidence</h3>
+                    <p style="font-size: 14px; color: #5C5C5C; margin-bottom: 16px;">An error occurred while trying to fetch the evidence list. Please try again.</p>
+                    <button style="height: 44px; padding: 12px 24px; border-radius: 4px; font-weight: 600; font-size: 14px; background-color: #C10E02; color: white; border: none; cursor: pointer;">Retry</button>
+                </div>
+                -->
+            </div>
+
+            <!-- Pagination -->
+            <div style="padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: #5C5C5C;">
+                <div>
+                    <span>Showing <strong>1-4</strong> of <strong>28</strong> results</span>
+                </div>
+                <div style="display: flex; gap: 4px; align-items: center;">
+                    <button style="height: 36px; width: 36px; border: 1px solid #D8DDE6; border-radius: 4px; background-color: #E6E6E6; color: #5C5C5C; cursor: not-allowed;" disabled>&lt;</button>
+                    <button style="height: 36px; width: 36px; border: 1px solid #C10E02; border-radius: 4px; background-color: #C10E02; color: white; font-weight: 600;">1</button>
+                    <button style="height: 36px; width: 36px; border: 1px solid #D8DDE6; border-radius: 4px; background-color: white; color: #181818; cursor: pointer;">2</button>
+                    <button style="height: 36px; width: 36px; border: 1px solid #D8DDE6; border-radius: 4px; background-color: white; color: #181818; cursor: pointer;">3</button>
+                    <span style="padding: 0 8px;">...</span>
+                    <button style="height: 36px; width: 36px; border: 1px solid #D8DDE6; border-radius: 4px; background-color: white; color: #181818; cursor: pointer;">7</button>
+                    <button style="height: 36px; width: 36px; border: 1px solid #D8DDE6; border-radius: 4px; background-color: white; color: #181818; cursor: pointer;">&gt;</button>
+                </div>
+            </div>
+
+        </div> <!-- End of Main Card -->
+
+    </div> <!-- End of Main Container -->
+
+    <!-- ====================================================== -->
+    <!-- SUCCESS STATE: Example Toast/Notification            -->
+    <!-- (Would typically be positioned fixed at the top/bottom of the viewport) -->
+    <!-- ====================================================== -->
+    <!--
+    <div style="display: none; position: fixed; top: 20px; right: 20px; background-color: #E0F5E9; color: #006430; padding: 16px 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #006430;">
+        <p style="font-weight: 600; font-size: 14px;">Success! Evidence status has been updated.</p>
+    </div>
+    -->
+
+</body>
+</html>
